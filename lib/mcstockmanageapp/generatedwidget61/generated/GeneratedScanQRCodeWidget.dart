@@ -11,16 +11,17 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 class GeneratedScanQRCodeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: ElevatedButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const QRViewExample(),
-            ));
-          },
-          child: const Text('SCAN QR CODE'),
-        ),
+    return Container(
+      width: 200,
+      height: 100,
+      color: Colors.white,
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const QRViewExample(),
+          ));
+        },
+        child: const Text('SCAN QR CODE')
       ),
     );
   }

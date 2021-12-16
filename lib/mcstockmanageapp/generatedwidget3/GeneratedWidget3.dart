@@ -112,7 +112,7 @@ class GeneratedWidget3 extends StatelessWidget {
               ),
               Positioned(
                 left: 44.0,
-                top: 81.0,
+                top: 80.0,
                 right: null,
                 bottom: null,
                 width: 324.0,

@@ -6,23 +6,21 @@ import 'package:flutter/material.dart';
 class GeneratedWidget5 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      textDirection: TextDirection.rtl,
-      verticalDirection: VerticalDirection.down,
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: <Widget>[
-        const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 6, vertical: 20),
-          child: TextField(
+    return Container(
+      width: 200,
+      height: 100,
+      color: Colors.white,
+      child: TextField(
+        onChanged: (Search) {
+          print('$Search');
+        },
             decoration: InputDecoration(
+              suffixIcon: Icon(Icons.search),
               border: OutlineInputBorder(),
               hintText: 'ค้นหา',
             ),
-          ),
-        ),
-      ],
+        )
     );
+    
   }
 }
