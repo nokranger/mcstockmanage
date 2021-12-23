@@ -74,39 +74,36 @@ class Album {
   final int isActive;
   final int isDelete;
 
-  Album({
-    this.productId,
-    this.sku,
-    this.productName,
-    this.description,
-    this.groupId,
-    this.groupName,
-    this.shelf,
-    this.godown,
-    this.price,
-    this.qty,
-    this.isActive,
-    this.isDelete
-  });
+  Album(
+      {this.productId,
+      this.sku,
+      this.productName,
+      this.description,
+      this.groupId,
+      this.groupName,
+      this.shelf,
+      this.godown,
+      this.price,
+      this.qty,
+      this.isActive,
+      this.isDelete});
 
   factory Album.fromJson(Map<String, dynamic> parsedJson) {
     return Album(
-      productId: parsedJson['productId'] as String,
-      sku: parsedJson['sku'] as String,
-      productName: parsedJson['productName'] as String,
-      description: parsedJson['description'] as String,
-      groupId: parsedJson['groupId'] as String,
-      groupName: parsedJson['groupName'] as String,
-      shelf: parsedJson['shef'] as String,
-      godown: parsedJson['godown'] as String,
-      price: parsedJson['price'],
-      qty: parsedJson['qty'],
-      isActive: parsedJson['isActive'],
-      isDelete: parsedJson['isDelete']
-    );
+        productId: parsedJson['productId'] as String,
+        sku: parsedJson['sku'] as String,
+        productName: parsedJson['productName'] as String,
+        description: parsedJson['description'] as String,
+        groupId: parsedJson['groupId'] as String,
+        groupName: parsedJson['groupName'] as String,
+        shelf: parsedJson['shef'] as String,
+        godown: parsedJson['godown'] as String,
+        price: parsedJson['price'],
+        qty: parsedJson['qty'],
+        isActive: parsedJson['isActive'],
+        isDelete: parsedJson['isDelete']);
   }
 }
-
 
 class GeneratedProduct1Widget extends StatefulWidget {
   const GeneratedProduct1Widget({Key key}) : super(key: key);
@@ -157,11 +154,26 @@ class _GeneratedProduct1WidgetState extends State<GeneratedProduct1Widget> {
                                       onPressed: () {
                                         Navigator.push(
                                           context,
-                                          MaterialPageRoute(builder: (context) => const SecondRoute(productName: "tessfasfasgasg")),
+                                          MaterialPageRoute(
+                                              builder: (context) => SecondRoute(
+                                                  productName: (snapshot
+                                                          .data[index] as Album)
+                                                      .productName
+                                                      .toString(),
+                                                  sku: (snapshot.data[index]
+                                                          as Album)
+                                                      .sku
+                                                      .toString(),
+                                                  qty: (snapshot.data[index] as Album).qty.toString(),
+                                                  price: (snapshot.data[index] as Album).price.toString(),
+                                                  shelf: (snapshot.data[index] as Album).shelf.toString(),
+                                                  groupName: (snapshot.data[index] as Album).groupName.toString(),
+                                                  godown: (snapshot.data[index] as Album).godown.toString())),
                                         );
                                       },
                                       shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15.0)),
+                                          borderRadius:
+                                              BorderRadius.circular(15.0)),
                                       color: Colors.white,
                                       child: Column(
                                         children: <Widget>[
@@ -174,7 +186,8 @@ class _GeneratedProduct1WidgetState extends State<GeneratedProduct1Widget> {
                                                 color: Colors.blueAccent,
                                               ),
                                               title: Text(
-                                                (snapshot.data[index] as Album).sku,
+                                                (snapshot.data[index] as Album)
+                                                    .sku,
                                                 style: TextStyle(
                                                     letterSpacing: 3.0,
                                                     color: Colors.blue),
@@ -235,31 +248,224 @@ class SecondRoute extends StatefulWidget {
   final Color passedColor;
   final String passedColorName;
   final String productName;
-  const SecondRoute({Key key, this.passedColor, this.passedColorName, this.productName}) : super(key: key);
+  final String sku;
+  final String qty;
+  final String price;
+  final String shelf;
+  final String groupName;
+  final String godown; 
+  const SecondRoute(
+      {Key key,
+      this.passedColor,
+      this.passedColorName,
+      this.productName,
+      this.sku,
+      this.qty,
+      this.price,
+      this.shelf,
+      this.groupName,
+      this.godown})
+      : super(key: key);
 
-  
-    @override
-  _SecondRouteState createState() =>
-      _SecondRouteState(
-        passedColor: this.passedColor, passedColorName: this.passedColorName, productName: this.productName
-      );
+  @override
+  _SecondRouteState createState() => _SecondRouteState(
+      passedColor: this.passedColor,
+      passedColorName: this.passedColorName,
+      productName: this.productName,
+      sku: this.sku,
+      qty: this.qty,
+      price: this.price,
+      shelf: this.shelf,
+      groupName: this.groupName,
+      godown: this.godown);
 }
 
 class _SecondRouteState extends State<SecondRoute> {
   Color passedColor;
   String passedColorName;
   String productName;
-  _SecondRouteState({this.passedColor, this.passedColorName, this.productName});
+  String sku;
+  String qty;
+  String price;
+  String shelf;
+  String groupName;
+  String godown;
+  TextEditingController cproductName, csku, cqty, cprice, cshelf, cgroupName, cgodown; 
+
+  _SecondRouteState({this.passedColor, this.passedColorName, this.productName, this.sku, this.qty, this.price, this.shelf, this.groupName, this.godown});
   @override
+  void initState() {
+    super.initState();
+    cproductName = TextEditingController(text: productName);
+    csku = TextEditingController(text: sku);
+    cqty = TextEditingController(text: qty);
+    cprice = TextEditingController(text: price);
+    cshelf = TextEditingController(text: shelf);
+    cgroupName = TextEditingController(text: groupName);
+    cgodown = TextEditingController(text: godown);
+    
+}
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('second page'),
+        title: const Text('รายละเอียดสินค้า'),
       ),
       body: Center(
-        
-        child: Text(productName, style: TextStyle(color: Colors.pink),)
+        child: Container(
+      width: 200,
+      height: 700,
+      color: Colors.white,
+      child: Column(
+        children: [
+          Flexible(
+            child: Column(
+            children: [
+              ListTile(
+                title: Text('ชื่อสินค้า'),
+                  ),
+              TextField(
+                enabled: false,
+                controller: cproductName,
+                onChanged: (Search) {
+                  print('$Search');
+                },
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      // hintText: 'ชื่อสินค้า: ' + productName,
+                    ),
+                )
+            ],
+          )
+        ),
+        Flexible(
+          child: Column(
+          children: [
+          ListTile(
+            title: Text('รหัสสินค้า'),
+              ),
+          TextField(
+            enabled: false,
+            controller: csku,
+            onChanged: (Search) {
+              print('$Search');
+            },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  // hintText: 'ชื่อสินค้า: ' + productName,
+                ),
+            )
+          ],
+        )
       ),
+        Flexible(
+          child: Column(
+          children: [
+                      ListTile(
+            title: Text('จำนวน'),
+              ),
+          TextField(
+            enabled: false,
+            controller: cqty,
+            onChanged: (Search) {
+              print('$Search');
+            },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  // hintText: 'ชื่อสินค้า: ' + productName,
+                ),
+            )
+          ],
+        )
+      ),
+        Flexible(
+          child: Column(
+          children: [
+                      ListTile(
+            title: Text('ราคา(บาท)'),
+              ),
+          TextField(
+            enabled: false,
+            controller: cprice,
+            onChanged: (Search) {
+              print('$Search');
+            },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  // hintText: 'ชื่อสินค้า: ' + productName,
+                ),
+            )
+          ],
+        )
+      ),
+        Flexible(
+          child: Column(
+          children: [
+                      ListTile(
+            title: Text('ชั้นสินค้า'),
+              ),
+          TextField(
+            enabled: false,
+            controller: cshelf,
+            onChanged: (Search) {
+              print('$Search');
+            },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  // hintText: 'ชื่อสินค้า: ' + productName,
+                ),
+            )
+          ],
+        )
+      ),
+        Flexible(
+          child: Column(
+          children: [
+                      ListTile(
+            title: Text('กลุ่มสินค้า'),
+              ),
+          TextField(
+            enabled: false,
+            controller: cgroupName,
+            onChanged: (Search) {
+              print('$Search');
+            },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  // hintText: 'ชื่อสินค้า: ' + productName,
+                ),
+            )
+          ],
+        )
+      ),
+        Flexible(
+          child: Column(
+          children: [
+                      ListTile(
+            title: Text('โกดัง'),
+              ),
+          TextField(
+            enabled: false,
+            controller: cgodown,
+            onChanged: (Search) {
+              print('$Search');
+            },
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  // hintText: 'ชื่อสินค้า: ' + productName,
+                ),
+            )
+          ],
+        )
+      )
+    ],
+  ),
+),
+      )
+      // Center(
+      //     child: Text(
+      //   'ชื่อสินค้า: ' + productName + 'รหัสสินค้า: ' +  sku + 'จำนวน: ' + qty + 'ราคา: ' + price + 'ชั้นสินค้า: ' + shelf + 'กลุ่มสินค้า: ' + groupName + 'โกดัง: ' + godown,
+      //   style: TextStyle(color: Colors.pink),
+      // )),
     );
   }
 
