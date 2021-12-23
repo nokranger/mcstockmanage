@@ -96,7 +96,7 @@ class Album {
         description: parsedJson['description'] as String,
         groupId: parsedJson['groupId'] as String,
         groupName: parsedJson['groupName'] as String,
-        shelf: parsedJson['shef'] as String,
+        shelf: parsedJson['shelf'] as String,
         godown: parsedJson['godown'] as String,
         price: parsedJson['price'],
         qty: parsedJson['qty'],
@@ -156,19 +156,31 @@ class _GeneratedProduct1WidgetState extends State<GeneratedProduct1Widget> {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) => SecondRoute(
-                                                  productName: (snapshot
-                                                          .data[index] as Album)
-                                                      .productName
-                                                      .toString(),
-                                                  sku: (snapshot.data[index]
-                                                          as Album)
+                                                  productName:
+                                                      (snapshot.data[index] as Album)
+                                                          .productName
+                                                          .toString(),
+                                                  sku: (snapshot.data[index] as Album)
                                                       .sku
                                                       .toString(),
-                                                  qty: (snapshot.data[index] as Album).qty.toString(),
-                                                  price: (snapshot.data[index] as Album).price.toString(),
-                                                  shelf: (snapshot.data[index] as Album).shelf.toString(),
-                                                  groupName: (snapshot.data[index] as Album).groupName.toString(),
-                                                  godown: (snapshot.data[index] as Album).godown.toString())),
+                                                  qty: (snapshot.data[index] as Album)
+                                                      .qty
+                                                      .toString(),
+                                                  price: (snapshot.data[index] as Album)
+                                                      .price
+                                                      .toString(),
+                                                  shelf: (snapshot.data[index]
+                                                          as Album)
+                                                      .shelf
+                                                      .toString(),
+                                                  groupName: (snapshot.data[index]
+                                                          as Album)
+                                                      .groupName
+                                                      .toString(),
+                                                  godown: (snapshot.data[index]
+                                                          as Album)
+                                                      .godown
+                                                      .toString())),
                                         );
                                       },
                                       shape: RoundedRectangleBorder(
@@ -253,7 +265,7 @@ class SecondRoute extends StatefulWidget {
   final String price;
   final String shelf;
   final String groupName;
-  final String godown; 
+  final String godown;
   const SecondRoute(
       {Key key,
       this.passedColor,
@@ -290,9 +302,24 @@ class _SecondRouteState extends State<SecondRoute> {
   String shelf;
   String groupName;
   String godown;
-  TextEditingController cproductName, csku, cqty, cprice, cshelf, cgroupName, cgodown; 
+  TextEditingController cproductName,
+      csku,
+      cqty,
+      cprice,
+      cshelf,
+      cgroupName,
+      cgodown;
 
-  _SecondRouteState({this.passedColor, this.passedColorName, this.productName, this.sku, this.qty, this.price, this.shelf, this.groupName, this.godown});
+  _SecondRouteState(
+      {this.passedColor,
+      this.passedColorName,
+      this.productName,
+      this.sku,
+      this.qty,
+      this.price,
+      this.shelf,
+      this.groupName,
+      this.godown});
   @override
   void initState() {
     super.initState();
@@ -303,170 +330,171 @@ class _SecondRouteState extends State<SecondRoute> {
     cshelf = TextEditingController(text: shelf);
     cgroupName = TextEditingController(text: groupName);
     cgodown = TextEditingController(text: godown);
-    
-}
+  }
+
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('รายละเอียดสินค้า'),
-      ),
-      body: Center(
-        child: Container(
-      width: 200,
-      height: 700,
-      color: Colors.white,
-      child: Column(
-        children: [
-          Flexible(
-            child: Column(
-            children: [
-              ListTile(
-                title: Text('ชื่อสินค้า'),
-                  ),
-              TextField(
-                enabled: false,
-                controller: cproductName,
-                onChanged: (Search) {
-                  print('$Search');
-                },
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      // hintText: 'ชื่อสินค้า: ' + productName,
-                    ),
-                )
-            ],
-          )
+        appBar: AppBar(
+          title: const Text('รายละเอียดสินค้า'),
         ),
-        Flexible(
-          child: Column(
-          children: [
-          ListTile(
-            title: Text('รหัสสินค้า'),
-              ),
-          TextField(
-            enabled: false,
-            controller: csku,
-            onChanged: (Search) {
-              print('$Search');
-            },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  // hintText: 'ชื่อสินค้า: ' + productName,
-                ),
-            )
-          ],
+        body: Center(
+          child: Container(
+            width: 200,
+            height: 700,
+            color: Colors.white,
+            child: Column(
+              children: [
+                Flexible(
+                    child: Column(
+                  children: [
+                    ListTile(
+                      title: Text('ชื่อสินค้า'),
+                    ),
+                    TextField(
+                      enabled: false,
+                      controller: cproductName,
+                      onChanged: (Search) {
+                        print('$Search');
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        // hintText: 'ชื่อสินค้า: ' + productName,
+                      ),
+                    )
+                  ],
+                )),
+                Flexible(
+                    child: Column(
+                  children: [
+                    ListTile(
+                      title: Text('รหัสสินค้า'),
+                    ),
+                    TextField(
+                      enabled: false,
+                      controller: csku,
+                      onChanged: (Search) {
+                        print('$Search');
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        // hintText: 'ชื่อสินค้า: ' + productName,
+                      ),
+                    )
+                  ],
+                )),
+                Flexible(
+                    child: Column(
+                  children: [
+                    ListTile(
+                      title: Text('จำนวน'),
+                    ),
+                    TextField(
+                      enabled: false,
+                      controller: cqty,
+                      onChanged: (Search) {
+                        print('$Search');
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        // hintText: 'ชื่อสินค้า: ' + productName,
+                      ),
+                    )
+                  ],
+                )),
+                Flexible(
+                    child: Column(
+                  children: [
+                    ListTile(
+                      title: Text('ราคา(บาท)'),
+                    ),
+                    TextField(
+                      enabled: false,
+                      controller: cprice,
+                      onChanged: (Search) {
+                        print('$Search');
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        // hintText: 'ชื่อสินค้า: ' + productName,
+                      ),
+                    )
+                  ],
+                )),
+                Flexible(
+                    child: Column(
+                  children: [
+                    ListTile(
+                      title: Text('ชั้นสินค้า'),
+                    ),
+                    TextField(
+                      enabled: false,
+                      controller: cshelf,
+                      onChanged: (Search) {
+                        print('$Search');
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        // hintText: 'ชื่อสินค้า: ' + productName,
+                      ),
+                    )
+                  ],
+                )),
+                Flexible(
+                    child: Column(
+                  children: [
+                    ListTile(
+                      title: Text('กลุ่มสินค้า'),
+                    ),
+                    TextField(
+                      enabled: false,
+                      controller: cgroupName,
+                      onChanged: (Search) {
+                        print('$Search');
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        // hintText: 'ชื่อสินค้า: ' + productName,
+                      ),
+                    )
+                  ],
+                )),
+                Flexible(
+                    child: Column(
+                  children: [
+                    ListTile(
+                      title: Text('โกดัง'),
+                    ),
+                    TextField(
+                      enabled: false,
+                      controller: cgodown,
+                      onChanged: (Search) {
+                        print('$Search');
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        // hintText: 'ชื่อสินค้า: ' + productName,
+                      ),
+                    )
+                  ],
+                )),
+                Flexible(
+                    child: Column(
+                  children: [
+                    ElevatedButton(
+                      child: Text('กลับ'),
+                    )
+                  ],
+                )),
+              ],
+            ),
+          ),
         )
-      ),
-        Flexible(
-          child: Column(
-          children: [
-                      ListTile(
-            title: Text('จำนวน'),
-              ),
-          TextField(
-            enabled: false,
-            controller: cqty,
-            onChanged: (Search) {
-              print('$Search');
-            },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  // hintText: 'ชื่อสินค้า: ' + productName,
-                ),
-            )
-          ],
-        )
-      ),
-        Flexible(
-          child: Column(
-          children: [
-                      ListTile(
-            title: Text('ราคา(บาท)'),
-              ),
-          TextField(
-            enabled: false,
-            controller: cprice,
-            onChanged: (Search) {
-              print('$Search');
-            },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  // hintText: 'ชื่อสินค้า: ' + productName,
-                ),
-            )
-          ],
-        )
-      ),
-        Flexible(
-          child: Column(
-          children: [
-                      ListTile(
-            title: Text('ชั้นสินค้า'),
-              ),
-          TextField(
-            enabled: false,
-            controller: cshelf,
-            onChanged: (Search) {
-              print('$Search');
-            },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  // hintText: 'ชื่อสินค้า: ' + productName,
-                ),
-            )
-          ],
-        )
-      ),
-        Flexible(
-          child: Column(
-          children: [
-                      ListTile(
-            title: Text('กลุ่มสินค้า'),
-              ),
-          TextField(
-            enabled: false,
-            controller: cgroupName,
-            onChanged: (Search) {
-              print('$Search');
-            },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  // hintText: 'ชื่อสินค้า: ' + productName,
-                ),
-            )
-          ],
-        )
-      ),
-        Flexible(
-          child: Column(
-          children: [
-                      ListTile(
-            title: Text('โกดัง'),
-              ),
-          TextField(
-            enabled: false,
-            controller: cgodown,
-            onChanged: (Search) {
-              print('$Search');
-            },
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  // hintText: 'ชื่อสินค้า: ' + productName,
-                ),
-            )
-          ],
-        )
-      )
-    ],
-  ),
-),
-      )
-      // Center(
-      //     child: Text(
-      //   'ชื่อสินค้า: ' + productName + 'รหัสสินค้า: ' +  sku + 'จำนวน: ' + qty + 'ราคา: ' + price + 'ชั้นสินค้า: ' + shelf + 'กลุ่มสินค้า: ' + groupName + 'โกดัง: ' + godown,
-      //   style: TextStyle(color: Colors.pink),
-      // )),
-    );
+        // Center(
+        //     child: Text(
+        //   'ชื่อสินค้า: ' + productName + 'รหัสสินค้า: ' +  sku + 'จำนวน: ' + qty + 'ราคา: ' + price + 'ชั้นสินค้า: ' + shelf + 'กลุ่มสินค้า: ' + groupName + 'โกดัง: ' + godown,
+        //   style: TextStyle(color: Colors.pink),
+        // )),
+        );
   }
 
   @override
