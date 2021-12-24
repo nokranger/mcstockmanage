@@ -72,7 +72,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                       onPressed: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) =>
-                                ScanQR(productName: result.code)));
+                                ScanQR(code: result.code)));
                       },
                     )
                   else
@@ -135,16 +135,16 @@ class _QRViewExampleState extends State<QRViewExample> {
 }
 
 class ScanQR extends StatefulWidget {
-  final String productName;
-  const ScanQR({Key key, this.productName}) : super(key: key);
+  final String code;
+  const ScanQR({Key key, this.code}) : super(key: key);
 
   @override
-  _ScanQRState createState() => _ScanQRState(productName: this.productName);
+  _ScanQRState createState() => _ScanQRState(code: this.code);
 }
 
 class _ScanQRState extends State<ScanQR> {
-  _ScanQRState({this.productName});
-  String productName;
+  _ScanQRState({this.code});
+  String code;
   Future<dynamic> futureAlbum;
   TextEditingController cproductName,
       csku,
@@ -152,7 +152,8 @@ class _ScanQRState extends State<ScanQR> {
       cprice,
       cshelf,
       cgroupName,
-      cgodown;
+      cgodown,
+      cproductId;
 
   @override
   void initState() {
@@ -165,6 +166,7 @@ class _ScanQRState extends State<ScanQR> {
     cshelf = TextEditingController();
     cgroupName = TextEditingController();
     cgodown = TextEditingController();
+    cproductId = TextEditingController();
   }
 
   Future<dynamic> fetchAlbum() async {
@@ -175,7 +177,7 @@ class _ScanQRState extends State<ScanQR> {
         },
         body: convert.jsonEncode(<String, String>{
           'operation': 'get_product_detail',
-          'productId': productName
+          'productId': code
         }));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
@@ -186,12 +188,14 @@ class _ScanQRState extends State<ScanQR> {
       // return Album.fromJson(Map<String, dynamic>.from(jsonDecode(response.body)['data']));
       final albums = Album.fromJson(
           Map<String, dynamic>.from(jsonDecode(response.body)['data']));
-      cproductName.text = albums.productName;
+      cproductName.text = albums.name;
       csku.text = albums.sku;
       cqty.text = albums.qty.toString();
       cshelf.text = albums.shelf;
       cgroupName.text = albums.groupName;
       cgodown.text = albums.godown;
+      cproductId.text = albums.id.toString();
+      
 
       return Album.fromJson(
           Map<String, dynamic>.from(jsonDecode(response.body)['data']));
@@ -225,8 +229,9 @@ class _ScanQRState extends State<ScanQR> {
             future: futureAlbum,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                print((snapshot.data as Album).id);
+                print((snapshot.data as Album).name);
                 print((snapshot.data as Album).sku);
-                print((snapshot.data as Album).shelf);
                 return Column(
                   children: [
                     Flexible(
@@ -237,7 +242,7 @@ class _ScanQRState extends State<ScanQR> {
                         ),
                         TextField(
                           enabled: false,
-                          controller: csku,
+                          controller: cproductName,
                           onChanged: (Search) {
                             print('$Search');
                           },
@@ -329,6 +334,41 @@ class _ScanQRState extends State<ScanQR> {
                       children: [
                         ElevatedButton(
                           child: Text('ตัดสต็อก'),
+                          onPressed: () async {
+                          final response = await http.post(
+                              Uri.parse('http://119.63.90.135:9090/product'),
+                              headers: <String, String>{
+                                'Content-Type': 'application/json; charset=UTF-8',
+                              },
+                              body: convert.jsonEncode(<String, String>{'operation': 'update_product_detail', 'productId': (snapshot.data as Album).id, 'productName': (snapshot.data as Album).name,     "sku" : null,"descrition" : null,"groupId": "APP","godown" : null,"shelf": null,"price" : 500.toString(),"qty" : null}));
+                          if (response.statusCode == 200) {
+                            // If the server did return a 200 OK response,
+                            // then parse the JSON.
+                            print((snapshot.data as Album).id);
+                            print((snapshot.data as Album).name);
+                            print(jsonDecode(response.body));
+                            // print(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
+                            // return Album.fromJson(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
+                            // return Album.fromJson(Map<String, dynamic>.from(jsonDecode(response.body)['data']));
+                            print('update done');
+                            // return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
+                            //   Album review = new Album.fromJson(Map<String, dynamic>.from(e));
+                            //   return review;
+                            // }).toList();
+                            // List<Album> albums = [];
+                            // List<dynamic> albumsJson = convert.jsonDecode(response.body);
+                            //     albumsJson.forEach(
+                            //   (oneAlbum) {
+                            //     Album album = Album.fromJson(oneAlbum);
+                            //     albums.add(album);
+                            //   },
+                            // );
+                          } else {
+                            // If the server did not return a 200 OK response,
+                            // then throw an exception.
+                            throw Exception('Failed to load album');
+                          }
+                        }
                         )
                       ],
                     )),
@@ -348,9 +388,9 @@ class _ScanQRState extends State<ScanQR> {
 }
 
 class Album {
-  final String productId;
+  final String id;
   final String sku;
-  final String productName;
+  final String name;
   final String description;
   final String groupId;
   final String groupName;
@@ -362,9 +402,9 @@ class Album {
   final int isDelete;
 
   Album(
-      {this.productId,
+      {this.id,
       this.sku,
-      this.productName,
+      this.name,
       this.description,
       this.groupId,
       this.groupName,
@@ -377,9 +417,9 @@ class Album {
 
   factory Album.fromJson(Map<String, dynamic> parsedJson) {
     return Album(
-        productId: parsedJson['productId'] as String,
+        id: parsedJson['id'] as String,
         sku: parsedJson['sku'] as String,
-        productName: parsedJson['productName'] as String,
+        name: parsedJson['name'] as String,
         description: parsedJson['description'] as String,
         groupId: parsedJson['groupId'] as String,
         groupName: parsedJson['groupName'] as String,
