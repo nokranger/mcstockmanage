@@ -70,7 +70,7 @@ class GeneratedWidget extends StatelessWidget {
                 child: GeneratedRectangle2Widget(),
               ),
               Positioned(
-                left: 122.0,
+                left: 110.0,
                 top: 28.0,
                 right: null,
                 bottom: null,
@@ -106,7 +106,7 @@ class GeneratedWidget extends StatelessWidget {
                 child: GeneratedWidget2(),
               ),
               Positioned(
-                left: 77.81600189208984,
+                left: 70,
                 top: 134.80209350585938,
                 right: null,
                 bottom: null,

@@ -65,7 +65,7 @@ class GeneratedWidget3 extends StatelessWidget {
                 child: GeneratedRectangle1Widget1(),
               ),
               Positioned(
-                left: 111.0,
+                left: 85.0,
                 top: 15.0,
                 right: null,
                 bottom: null,
@@ -111,7 +111,7 @@ class GeneratedWidget3 extends StatelessWidget {
                 child: GeneratedLine1Widget(),
               ),
               Positioned(
-                left: 44.0,
+                left: 20.0,
                 top: 80.0,
                 right: null,
                 bottom: null,
@@ -120,11 +120,11 @@ class GeneratedWidget3 extends StatelessWidget {
                 child: GeneratedSearchWidget(),
               ),
               Positioned(
-                left: 18.0,
+                left: 5.0,
                 top: 152.0,
                 right: null,
                 bottom: null,
-                width: 378.0,
+                width: 350.0,
                 height: 550.0,
                 child: GeneratedProduct1Widget(),
               ),
