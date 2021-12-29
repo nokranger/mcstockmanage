@@ -152,7 +152,8 @@ class _ScanQRState extends State<ScanQR> {
       cshelf,
       cgroupName,
       cgodown,
-      cproductId;
+      cproductId,
+      cnodata;
 
   @override
   void initState() {
@@ -166,6 +167,7 @@ class _ScanQRState extends State<ScanQR> {
     cgroupName = TextEditingController();
     cgodown = TextEditingController();
     cproductId = TextEditingController();
+    cnodata = TextEditingController(text: 'ไม่มีข้อมูล');
   }
 
   Future<dynamic> fetchAlbum() async {
@@ -208,7 +210,7 @@ class _ScanQRState extends State<ScanQR> {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      throw Exception('Failed to load album');
+      Navigator.pushNamed(context, '/noproduct');
     }
   }
 
@@ -258,12 +260,13 @@ class _ScanQRState extends State<ScanQR> {
                                   ),
                                   TextField(
                                     enabled: false,
-                                    controller: cproductName,
+                                    controller: cproductName.text == 'null' ? cnodata : cproductName,
                                     onChanged: (Search) {
                                       print('$Search');
                                     },
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
+                                      fillColor: Colors.grey[350], filled: true
                                       // hintText: 'ชื่อสินค้า: ' + productName,
                                     ),
                                   )
@@ -280,12 +283,13 @@ class _ScanQRState extends State<ScanQR> {
                                   ),
                                   TextField(
                                     enabled: false,
-                                    controller: csku,
+                                    controller: csku.text == 'null' ? cnodata : csku,
                                     onChanged: (Search) {
                                       print('$Search');
                                     },
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
+                                      fillColor: Colors.grey[350], filled: true
                                       // hintText: 'ชื่อสินค้า: ' + productName,
                                     ),
                                   )
@@ -302,12 +306,13 @@ class _ScanQRState extends State<ScanQR> {
                                   ),
                                   TextField(
                                     enabled: false,
-                                    controller: cqty,
+                                    controller: cqty.text == 'null' ? cnodata : cqty,
                                     onChanged: (Search) {
                                       print('$Search');
                                     },
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
+                                      fillColor: Colors.grey[350], filled: true
                                       // hintText: 'ชื่อสินค้า: ' + productName,
                                     ),
                                   )
@@ -324,12 +329,13 @@ class _ScanQRState extends State<ScanQR> {
                                   ),
                                   TextField(
                                     enabled: false,
-                                    controller: cshelf,
+                                    controller: cshelf.text == 'null' ? cnodata : cshelf,
                                     onChanged: (Search) {
                                       print('$Search');
                                     },
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
+                                      fillColor: Colors.grey[350], filled: true
                                       // hintText: 'ชื่อสินค้า: ' + productName,
                                     ),
                                   )
@@ -346,12 +352,13 @@ class _ScanQRState extends State<ScanQR> {
                                   ),
                                   TextField(
                                     enabled: false,
-                                    controller: cgroupName,
+                                    controller: cgroupName.text == 'null' ? cnodata : cgroupName,
                                     onChanged: (Search) {
                                       print('$Search');
                                     },
                                     decoration: InputDecoration(
                                       border: OutlineInputBorder(),
+                                      fillColor: Colors.grey[350], filled: true
                                       // hintText: 'ชื่อสินค้า: ' + productName,
                                     ),
                                   )
@@ -367,12 +374,15 @@ class _ScanQRState extends State<ScanQR> {
                               width: 375,
                               height: 60,
                               child: ElevatedButton(
-                                child: Text('ตัดสต็อก'),
+                                style: ElevatedButton.styleFrom(
+                                  primary: Colors.green
+                                ),
+                                child: Text('นับสต็อก'),
                                 onPressed: () => showDialog<String>(
                                   context: context,
                                   builder: (BuildContext context) =>
                                       AlertDialog(
-                                    title: const Text('ยืนยันการตัดสต็อก'),
+                                    title: const Text('ยืนยันการนับสต็อก'),
                                     actions: <Widget>[
                                       TextButton(
                                         onPressed: () =>

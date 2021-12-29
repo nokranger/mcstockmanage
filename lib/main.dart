@@ -7,6 +7,7 @@ import 'package:flutterapp/mcstockmanageapp/generatedalert1widget/GeneratedAlert
 import 'package:flutterapp/mcstockmanageapp/generatedalert2widget/GeneratedAlert2Widget.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedalert3widget/GeneratedAlert3Widget.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget61/GeneratedWidget61.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/product.dart';
 
 void main() {
   runApp(MCStockManageApp());
@@ -30,6 +31,7 @@ class MCStockManageApp extends StatelessWidget {
         '/GeneratedAlert2Widget': (context) => GeneratedAlert2Widget(),
         '/GeneratedAlert3Widget': (context) => GeneratedAlert3Widget(),
         '/GeneratedWidget61': (context) => GeneratedWidget61(),
+        '/noproduct': (context) => Products(),
       },
     );
   }
