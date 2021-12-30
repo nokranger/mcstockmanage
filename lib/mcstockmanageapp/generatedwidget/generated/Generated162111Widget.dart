@@ -11,7 +11,9 @@ class Generated162111Widget extends StatelessWidget {
       height: 731.0,
       child: ClipRRect(
         borderRadius: BorderRadius.zero,
-        child: Image.asset(
+        child: Opacity(
+          opacity: 0.5,
+          child:         Image.asset(
           "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png",
           color: null,
           fit: BoxFit.cover,
@@ -19,6 +21,8 @@ class Generated162111Widget extends StatelessWidget {
           height: 731.0,
           colorBlendMode: BlendMode.dstATop,
         ),
+        )
+
       ),
     );
   }

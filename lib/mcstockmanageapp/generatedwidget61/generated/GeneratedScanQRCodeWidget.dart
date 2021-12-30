@@ -228,6 +228,7 @@ class _ScanQRState extends State<ScanQR> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
+            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
             image: AssetImage(
                 "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png"),
             fit: BoxFit.cover,

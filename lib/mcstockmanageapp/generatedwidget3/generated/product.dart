@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/GeneratedWidget3.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/GeneratedSearchWidget.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget61/generated/GeneratedScanQRCodeWidget.dart';
 import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
@@ -114,6 +115,8 @@ class _ProductsState extends State<Products> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.5), BlendMode.dstATop),
             image: AssetImage(
                 "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png"),
             fit: BoxFit.cover,
@@ -121,8 +124,54 @@ class _ProductsState extends State<Products> {
         ),
         child: Center(
           child: Container(
-            child: Text('ไม่พบสินค้า'),
-          ),
+              width: 375,
+              height: 200,
+              margin: const EdgeInsets.only(
+                  left: 20, right: 20, top: 20, bottom: 20),
+              color: Colors.white,
+              child: ListView(
+                children: [
+                  Center(
+                    child: Container(
+                      child: ListTile(
+                          title: Center(
+                            child: const Text(
+                              'ไม่พบสินค้า',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 30),
+                            ),
+                          ),
+                          subtitle: Center(
+                            child: Text(
+                              '(Product id)',
+                              style:
+                                  TextStyle(color: Colors.black, fontSize: 30),
+                            ),
+                          )),
+                    ),
+                  ),
+                  Center(
+                      child: Column(
+                    children: [
+                      Container(
+                        margin: const EdgeInsets.only(
+                            left: 20, right: 20, top: 20, bottom: 20),
+                        child: SizedBox(
+                            width: 375,
+                            height: 60,
+                            child: ElevatedButton(
+                              child: Text('กลับ'),
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => QRViewExample(),
+                                ));
+                              },
+                            )),
+                      ),
+                    ],
+                  ))
+                ],
+              )),
         ),
       ),
     );

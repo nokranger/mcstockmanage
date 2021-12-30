@@ -158,32 +158,34 @@ class _GeneratedProduct1WidgetState extends State<GeneratedProduct1Widget> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => SecondRoute(
-                                                  productName:
-                                                      (snapshot.data[index] as Album)
-                                                          .productName
-                                                          .toString(),
-                                                  sku: (snapshot.data[index] as Album)
-                                                      .sku
-                                                      .toString(),
-                                                  qty: (snapshot.data[index] as Album)
-                                                      .qty
-                                                      .toString(),
-                                                  price: (snapshot.data[index] as Album)
-                                                      .price
-                                                      .toString(),
-                                                  shelf: (snapshot.data[index]
-                                                          as Album)
-                                                      .shelf
-                                                      .toString(),
-                                                  groupName: (snapshot.data[index]
-                                                          as Album)
-                                                      .groupName
-                                                      .toString(),
-                                                  godown: (snapshot.data[index]
-                                                          as Album)
-                                                      .godown
-                                                      .toString())),
+                                              builder: (context) => Products(
+                                                  // productName:
+                                                  //     (snapshot.data[index] as Album)
+                                                  //         .productName
+                                                  //         .toString(),
+                                                  // sku: (snapshot.data[index] as Album)
+                                                  //     .sku
+                                                  //     .toString(),
+                                                  // qty: (snapshot.data[index] as Album)
+                                                  //     .qty
+                                                  //     .toString(),
+                                                  // price: (snapshot.data[index] as Album)
+                                                  //     .price
+                                                  //     .toString(),
+                                                  // shelf: (snapshot.data[index]
+                                                  //         as Album)
+                                                  //     .shelf
+                                                  //     .toString(),
+                                                  // groupName: (snapshot.data[index]
+                                                  //         as Album)
+                                                  //     .groupName
+                                                  //     .toString(),
+                                                  // godown: (snapshot.data[index]
+                                                  //         as Album)
+                                                  //     .godown
+                                                  //     .toString()
+                                                      )
+                                                      ),
                                         );
                                       },
                                       shape: RoundedRectangleBorder(
@@ -359,6 +361,7 @@ class _SecondRouteState extends State<SecondRoute> {
           // color: Colors.black,
           decoration: BoxDecoration(
             image: DecorationImage(
+              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
               image: AssetImage(
                   "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png"),
               fit: BoxFit.cover,
@@ -562,7 +565,8 @@ class _SecondRouteState extends State<SecondRoute> {
                             )),
                       ),
                     ],
-                  )),
+                  )
+                  ),
                 ],
               ),
             ),
