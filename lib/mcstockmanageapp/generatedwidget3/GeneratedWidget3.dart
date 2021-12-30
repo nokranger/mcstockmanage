@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/helpers/transform/transform.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget/GeneratedWidget.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/GeneratedKeyboard_arrow_leftWidget.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/GeneratedHomepageWidget1.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/Generated162111Widget1.dart';
@@ -20,116 +21,122 @@ import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/Generated
 class GeneratedWidget3 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Material(
-        child: ClipRRect(
-      borderRadius: BorderRadius.zero,
-      child: Container(
-        width: 411.0,
-        height: 731.0,
-        child: Stack(
-            fit: StackFit.expand,
-            alignment: Alignment.center,
-            overflow: Overflow.visible,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.zero,
-                child: Container(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                ),
-              ),
-              Positioned(
-                left: 0.0,
-                top: 0.0,
-                right: null,
-                bottom: null,
-                width: 411.0,
-                height: 731.0,
-                child: GeneratedHomepageWidget1(),
-              ),
-              Positioned(
-                left: 0.0,
-                top: 0.0,
-                right: null,
-                bottom: null,
-                width: 411.0,
-                height: 731.0,
-                child: Generated162111Widget1(),
-              ),
-              Positioned(
-                left: 0.0,
-                top: 0.0,
-                right: null,
-                bottom: null,
-                width: 411.0,
-                height: 141.0,
-                child: GeneratedRectangle1Widget1(),
-              ),
-              Positioned(
-                left: 85.0,
-                top: 15.0,
-                right: null,
-                bottom: null,
-                width: 220.0,
-                height: 35.0,
-                child: GeneratedWidget4(),
-              ),
-              Positioned(
-                left: 0.0,
-                top: 0.0,
-                right: 0.0,
-                bottom: 0.0,
-                width: null,
-                height: null,
-                child: LayoutBuilder(builder:
-                    (BuildContext context, BoxConstraints constraints) {
-                  final double width =
-                      constraints.maxWidth * 0.10218978102189781;
+    return WillPopScope(
+        child: Material(
+            child: ClipRRect(
+          borderRadius: BorderRadius.zero,
+          child: Container(
+            width: 411.0,
+            height: 731.0,
+            child: Stack(
+                fit: StackFit.expand,
+                alignment: Alignment.center,
+                overflow: Overflow.visible,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.zero,
+                    child: Container(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
+                  Positioned(
+                    left: 0.0,
+                    top: 0.0,
+                    right: null,
+                    bottom: null,
+                    width: 411.0,
+                    height: 731.0,
+                    child: GeneratedHomepageWidget1(),
+                  ),
+                  Positioned(
+                    left: 0.0,
+                    top: 0.0,
+                    right: null,
+                    bottom: null,
+                    width: 411.0,
+                    height: 731.0,
+                    child: Generated162111Widget1(),
+                  ),
+                  Positioned(
+                    left: 0.0,
+                    top: 0.0,
+                    right: null,
+                    bottom: null,
+                    width: 411.0,
+                    height: 141.0,
+                    child: GeneratedRectangle1Widget1(),
+                  ),
+                  Positioned(
+                    left: 85.0,
+                    top: 25.0,
+                    right: null,
+                    bottom: null,
+                    width: 220.0,
+                    height: 35.0,
+                    child: GeneratedWidget4(),
+                  ),
+                  Positioned(
+                    left: 0.0,
+                    top: 10.0,
+                    right: 0.0,
+                    bottom: 0.0,
+                    width: null,
+                    height: null,
+                    child: LayoutBuilder(builder:
+                        (BuildContext context, BoxConstraints constraints) {
+                      final double width =
+                          constraints.maxWidth * 0.10218978102189781;
 
-                  final double height =
-                      constraints.maxHeight * 0.057455540355677154;
+                      final double height =
+                          constraints.maxHeight * 0.057455540355677154;
 
-                  return Stack(children: [
-                    TransformHelper.translate(
-                        x: constraints.maxWidth * 0.04866180048661801,
-                        y: constraints.maxHeight * 0.01094391244870041,
-                        z: 0,
-                        child: Container(
-                          width: width,
-                          height: height,
-                          child: GeneratedKeyboard_arrow_leftWidget(),
-                        ))
-                  ]);
-                }),
-              ),
-              Positioned(
-                left: 0.0,
-                top: 62.0,
-                right: null,
-                bottom: null,
-                width: 411.0048522949219,
-                height: 3.0,
-                child: GeneratedLine1Widget(),
-              ),
-              Positioned(
-                left: 20.0,
-                top: 80.0,
-                right: null,
-                bottom: null,
-                width: 324.0,
-                height: 42.0,
-                child: GeneratedSearchWidget(),
-              ),
-              Positioned(
-                left: 5.0,
-                top: 152.0,
-                right: null,
-                bottom: null,
-                width: 350.0,
-                height: 550.0,
-                child: GeneratedProduct1Widget(),
-              ),
-            ]),
-      ),
-    ));
+                      return Stack(children: [
+                        TransformHelper.translate(
+                            x: constraints.maxWidth * 0.04866180048661801,
+                            y: constraints.maxHeight * 0.01094391244870041,
+                            z: 0,
+                            child: Container(
+                              width: width,
+                              height: height,
+                              child: GeneratedKeyboard_arrow_leftWidget(),
+                            ))
+                      ]);
+                    }),
+                  ),
+                  Positioned(
+                    left: 0.0,
+                    top: 62.0,
+                    right: null,
+                    bottom: null,
+                    width: 411.0048522949219,
+                    height: 3.0,
+                    child: GeneratedLine1Widget(),
+                  ),
+                  Positioned(
+                    left: 20.0,
+                    top: 80.0,
+                    right: null,
+                    bottom: null,
+                    width: 324.0,
+                    height: 42.0,
+                    child: GeneratedSearchWidget(),
+                  ),
+                  Positioned(
+                    left: 5.0,
+                    top: 152.0,
+                    right: null,
+                    bottom: null,
+                    width: 350.0,
+                    height: 550.0,
+                    child: GeneratedProduct1Widget(),
+                  ),
+                ]),
+          ),
+        )),
+        onWillPop: () async {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => GeneratedWidget(),
+          ));
+        });
   }
 }

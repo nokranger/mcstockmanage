@@ -103,77 +103,84 @@ class _ProductsState extends State<Products> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'รายละเอียดสินค้า',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: const Color(0xffC2B280),
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            colorFilter: ColorFilter.mode(
-                Colors.black.withOpacity(0.5), BlendMode.dstATop),
-            image: AssetImage(
-                "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png"),
-            fit: BoxFit.cover,
+    return WillPopScope(
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              'รายละเอียดสินค้า',
+              style: TextStyle(color: Colors.black),
+            ),
+            backgroundColor: const Color(0xffC2B280),
+            iconTheme: IconThemeData(color: Colors.black),
+          ),
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                image: AssetImage(
+                    "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: Container(
+                  width: 375,
+                  height: 200,
+                  margin: const EdgeInsets.only(
+                      left: 20, right: 20, top: 20, bottom: 20),
+                  color: Colors.white,
+                  child: ListView(
+                    children: [
+                      Center(
+                        child: Container(
+                          child: ListTile(
+                              title: Center(
+                                child: const Text(
+                                  'ไม่พบสินค้า',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 30),
+                                ),
+                              ),
+                              subtitle: Center(
+                                child: Text(
+                                  '(Product id)',
+                                  style: TextStyle(
+                                      color: Colors.black, fontSize: 30),
+                                ),
+                              )),
+                        ),
+                      ),
+                      Center(
+                          child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(
+                                left: 20, right: 20, top: 20, bottom: 20),
+                            child: SizedBox(
+                                width: 375,
+                                height: 60,
+                                child: ElevatedButton(
+                                  child: Text('กลับ'),
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => QRViewExample(),
+                                    ));
+                                  },
+                                )),
+                          ),
+                        ],
+                      ))
+                    ],
+                  )),
+            ),
           ),
         ),
-        child: Center(
-          child: Container(
-              width: 375,
-              height: 200,
-              margin: const EdgeInsets.only(
-                  left: 20, right: 20, top: 20, bottom: 20),
-              color: Colors.white,
-              child: ListView(
-                children: [
-                  Center(
-                    child: Container(
-                      child: ListTile(
-                          title: Center(
-                            child: const Text(
-                              'ไม่พบสินค้า',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 30),
-                            ),
-                          ),
-                          subtitle: Center(
-                            child: Text(
-                              '(Product id)',
-                              style:
-                                  TextStyle(color: Colors.black, fontSize: 30),
-                            ),
-                          )),
-                    ),
-                  ),
-                  Center(
-                      child: Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 20, right: 20, top: 20, bottom: 20),
-                        child: SizedBox(
-                            width: 375,
-                            height: 60,
-                            child: ElevatedButton(
-                              child: Text('กลับ'),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => QRViewExample(),
-                                ));
-                              },
-                            )),
-                      ),
-                    ],
-                  ))
-                ],
-              )),
-        ),
-      ),
-    );
+        onWillPop: () async {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => QRViewExample(),
+          ));
+        });
   }
 }

@@ -4,6 +4,9 @@ import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget/GeneratedWidget.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget/generated/GeneratedWidget1.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget3/GeneratedWidget3.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -55,34 +58,41 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
-          Expanded(
-            flex: 1,
-            child: FittedBox(
-              fit: BoxFit.contain,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  if (result != null)
-                    ElevatedButton(
-                      child: Text('Scan QR'),
-                      onPressed: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ScanQR(code: result.code)));
-                      },
-                    )
-                  else
-                    const Text('Scan a code'),
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    );
+    return WillPopScope(
+        child: Scaffold(
+          body: Column(
+            children: <Widget>[
+              Expanded(flex: 4, child: _buildQrView(context)),
+              Expanded(
+                flex: 1,
+                child: FittedBox(
+                  fit: BoxFit.contain,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      if (result != null)
+                        ElevatedButton(
+                          child: Text('Scan QR'),
+                          onPressed: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    ScanQR(code: result.code)));
+                          },
+                        )
+                      else
+                        const Text('Scan a code'),
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+        onWillPop: () async {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => GeneratedWidget(),
+          ));
+        });
   }
 
   Widget _buildQrView(BuildContext context) {
@@ -183,22 +193,34 @@ class _ScanQRState extends State<ScanQR> {
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      print(jsonDecode(response.body)["data"]);
+      print(jsonDecode(response.body)['data']);
+      print('scan QRCODE');
+      // var ss = jsonDecode(response.body)['data'];
+      // print('ss' +  ss);
       // print(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
       // return Album.fromJson(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
       // return Album.fromJson(Map<String, dynamic>.from(jsonDecode(response.body)['data']));
-      final albums = Album.fromJson(
-          Map<String, dynamic>.from(jsonDecode(response.body)['data']));
-      cproductName.text = albums.name.toString();
-      csku.text = albums.sku.toString();
-      cqty.text = albums.qty.toString();
-      cshelf.text = albums.shelf.toString();
-      cgroupName.text = albums.groupName.toString();
-      cgodown.text = albums.godown.toString();
-      cproductId.text = albums.id.toString();
+      if (jsonDecode(response.body)['data'] == '' ||
+          jsonDecode(response.body)['data'] == null ||
+          jsonDecode(response.body)['data'] == 'null') {
+        print('sssss');
+        Navigator.pushNamed(context, '/noproduct');
+      } else {
+        print('scan done');
+        final albums = Album.fromJson(
+            Map<String, dynamic>.from(jsonDecode(response.body)['data']));
+        cproductName.text = albums.name.toString();
+        csku.text = albums.sku.toString();
+        cqty.text = albums.qty.toString();
+        cshelf.text = albums.shelf.toString();
+        cgroupName.text = albums.groupName.toString();
+        cgodown.text = albums.godown.toString();
+        cproductId.text = albums.id.toString();
 
-      return Album.fromJson(
-          Map<String, dynamic>.from(jsonDecode(response.body)['data']));
+        return Album.fromJson(
+            Map<String, dynamic>.from(jsonDecode(response.body)['data']));
+      }
+
       // List<Album> albums = [];
       // List<dynamic> albumsJson = convert.jsonDecode(response.body);
       //     albumsJson.forEach(
@@ -216,284 +238,306 @@ class _ScanQRState extends State<ScanQR> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'รายละเอียดสินค้า',
-          style: TextStyle(color: Colors.black),
-        ),
-        backgroundColor: const Color(0xffC2B280),
-        iconTheme: IconThemeData(color: Colors.black),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
-            image: AssetImage(
-                "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png"),
-            fit: BoxFit.cover,
+    return WillPopScope(
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              'รายละเอียดสินค้า',
+              style: TextStyle(color: Colors.black),
+            ),
+            backgroundColor: const Color(0xffC2B280),
+            iconTheme: IconThemeData(color: Colors.black),
           ),
-        ),
-        child: Center(
-          child: Container(
-            width: 375,
-            color: Colors.white,
-            margin:
-                const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
-            // child: Text(productName),
-            child: FutureBuilder<dynamic>(
-              future: futureAlbum,
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  print((snapshot.data as Album).id);
-                  print((snapshot.data as Album).name);
-                  print((snapshot.data as Album).sku);
-                  return ListView(
-                    children: [
-                      Flexible(
-                          child: Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20, right: 20, bottom: 20),
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    title: Text('ชื่อสินค้า'),
-                                  ),
-                                  TextField(
-                                    enabled: false,
-                                    controller: cproductName.text == 'null' ? cnodata : cproductName,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      fillColor: Colors.grey[350], filled: true
-                                      // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                                  )
-                                ],
-                              ))),
-                      Flexible(
-                          child: Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20, right: 20, bottom: 20),
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    title: Text('รหัสสินค้า'),
-                                  ),
-                                  TextField(
-                                    enabled: false,
-                                    controller: csku.text == 'null' ? cnodata : csku,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      fillColor: Colors.grey[350], filled: true
-                                      // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                                  )
-                                ],
-                              ))),
-                      Flexible(
-                          child: Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20, right: 20, bottom: 20),
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    title: Text('จำนวน'),
-                                  ),
-                                  TextField(
-                                    enabled: false,
-                                    controller: cqty.text == 'null' ? cnodata : cqty,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      fillColor: Colors.grey[350], filled: true
-                                      // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                                  )
-                                ],
-                              ))),
-                      Flexible(
-                          child: Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20, right: 20, bottom: 20),
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    title: Text('ชั้นสินค้า'),
-                                  ),
-                                  TextField(
-                                    enabled: false,
-                                    controller: cshelf.text == 'null' ? cnodata : cshelf,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      fillColor: Colors.grey[350], filled: true
-                                      // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                                  )
-                                ],
-                              ))),
-                      Flexible(
-                          child: Container(
-                              margin: const EdgeInsets.only(
-                                  left: 20, right: 20, bottom: 20),
-                              child: Column(
-                                children: [
-                                  ListTile(
-                                    title: Text('กลุ่มสินค้า'),
-                                  ),
-                                  TextField(
-                                    enabled: false,
-                                    controller: cgroupName.text == 'null' ? cnodata : cgroupName,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      fillColor: Colors.grey[350], filled: true
-                                      // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                                  )
-                                ],
-                              ))),
-                      Flexible(
-                          child: Column(
+          body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                image: AssetImage(
+                    "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: Container(
+                width: 375,
+                color: Colors.white,
+                margin: const EdgeInsets.only(
+                    left: 20, right: 20, top: 20, bottom: 20),
+                // child: Text(productName),
+                child: FutureBuilder<dynamic>(
+                  future: futureAlbum,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      print((snapshot.data as Album).id);
+                      print((snapshot.data as Album).name);
+                      print((snapshot.data as Album).sku);
+                      return ListView(
                         children: [
-                          Container(
-                            margin: const EdgeInsets.only(
-                                left: 20, right: 20, bottom: 20),
-                            child: SizedBox(
-                              width: 375,
-                              height: 60,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Colors.green
-                                ),
-                                child: Text('นับสต็อก'),
-                                onPressed: () => showDialog<String>(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('ยืนยันการนับสต็อก'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'ไม่ยืนยัน'),
-                                        child: const Text('ไม่ยืนยัน'),
+                          Flexible(
+                              child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 20, right: 20, bottom: 20),
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text('ชื่อสินค้า'),
                                       ),
-                                      TextButton(
-                                        onPressed: () async {
-                                          final response = await http.post(
-                                              Uri.parse(
-                                                  'http://119.63.90.135:9090/product'),
-                                              headers: <String, String>{
-                                                'Content-Type':
-                                                    'application/json; charset=UTF-8',
-                                              },
-                                              body: convert
-                                                  .jsonEncode(<String, String>{
-                                                'operation':
-                                                    'update_product_stock',
-                                                'productId':
-                                                    (snapshot.data as Album).id,
-                                                'productName':
-                                                    (snapshot.data as Album)
-                                                        .name,
-                                                "sku": (snapshot.data as Album)
-                                                    .sku,
-                                                "descrition":
-                                                    (snapshot.data as Album)
-                                                        .name,
-                                                "groupId":
-                                                    (snapshot.data as Album)
-                                                        .groupId,
-                                                "godown":
-                                                    (snapshot.data as Album)
-                                                        .godown,
-                                                "shelf":
-                                                    (snapshot.data as Album)
-                                                        .shelf,
-                                                "price": 500.toString(),
-                                                "qty": (snapshot.data as Album)
-                                                    .qty
-                                                    .toString()
-                                              }));
-                                          if (response.statusCode == 200) {
-                                            // If the server did return a 200 OK response,
-                                            // then parse the JSON.
-                                            print((snapshot.data as Album).id);
-                                            print(
-                                                (snapshot.data as Album).name);
-                                            print(jsonDecode(response.body));
-                                            print('update done');
-                                            Navigator.of(context)
-                                                .push(MaterialPageRoute(
-                                              builder: (context) =>
-                                                  QRViewExample(),
-                                            ));
-                                          } else {
-                                            // If the server did not return a 200 OK response,
-                                            // then throw an exception.
-                                            throw Exception(
-                                                'Failed to load album');
-                                          }
+                                      TextField(
+                                        enabled: false,
+                                        controller: cproductName.text == 'null'
+                                            ? cnodata
+                                            : cproductName,
+                                        onChanged: (Search) {
+                                          print('$Search');
                                         },
-                                        child: const Text('ยืนยัน'),
-                                      ),
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            fillColor: Colors.grey[350],
+                                            filled: true
+                                            // hintText: 'ชื่อสินค้า: ' + productName,
+                                            ),
+                                      )
                                     ],
+                                  ))),
+                          Flexible(
+                              child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 20, right: 20, bottom: 20),
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text('รหัสสินค้า'),
+                                      ),
+                                      TextField(
+                                        enabled: false,
+                                        controller: csku.text == 'null'
+                                            ? cnodata
+                                            : csku,
+                                        onChanged: (Search) {
+                                          print('$Search');
+                                        },
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            fillColor: Colors.grey[350],
+                                            filled: true
+                                            // hintText: 'ชื่อสินค้า: ' + productName,
+                                            ),
+                                      )
+                                    ],
+                                  ))),
+                          Flexible(
+                              child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 20, right: 20, bottom: 20),
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text('จำนวน'),
+                                      ),
+                                      TextField(
+                                        enabled: false,
+                                        controller: cqty.text == 'null'
+                                            ? cnodata
+                                            : cqty,
+                                        onChanged: (Search) {
+                                          print('$Search');
+                                        },
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            fillColor: Colors.grey[350],
+                                            filled: true
+                                            // hintText: 'ชื่อสินค้า: ' + productName,
+                                            ),
+                                      )
+                                    ],
+                                  ))),
+                          Flexible(
+                              child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 20, right: 20, bottom: 20),
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text('ชั้นสินค้า'),
+                                      ),
+                                      TextField(
+                                        enabled: false,
+                                        controller: cshelf.text == 'null'
+                                            ? cnodata
+                                            : cshelf,
+                                        onChanged: (Search) {
+                                          print('$Search');
+                                        },
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            fillColor: Colors.grey[350],
+                                            filled: true
+                                            // hintText: 'ชื่อสินค้า: ' + productName,
+                                            ),
+                                      )
+                                    ],
+                                  ))),
+                          Flexible(
+                              child: Container(
+                                  margin: const EdgeInsets.only(
+                                      left: 20, right: 20, bottom: 20),
+                                  child: Column(
+                                    children: [
+                                      ListTile(
+                                        title: Text('กลุ่มสินค้า'),
+                                      ),
+                                      TextField(
+                                        enabled: false,
+                                        controller: cgroupName.text == 'null'
+                                            ? cnodata
+                                            : cgroupName,
+                                        onChanged: (Search) {
+                                          print('$Search');
+                                        },
+                                        decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            fillColor: Colors.grey[350],
+                                            filled: true
+                                            // hintText: 'ชื่อสินค้า: ' + productName,
+                                            ),
+                                      )
+                                    ],
+                                  ))),
+                          Flexible(
+                              child: Column(
+                            children: [
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    left: 20, right: 20, bottom: 20),
+                                child: SizedBox(
+                                  width: 375,
+                                  height: 60,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.green),
+                                    child: Text('นับสต็อก'),
+                                    onPressed: () => showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: const Text('ยืนยันการนับสต็อก'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                context, 'ไม่ยืนยัน'),
+                                            child: const Text('ไม่ยืนยัน'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () async {
+                                              final response = await http.post(
+                                                  Uri.parse(
+                                                      'http://119.63.90.135:9090/product'),
+                                                  headers: <String, String>{
+                                                    'Content-Type':
+                                                        'application/json; charset=UTF-8',
+                                                  },
+                                                  body: convert.jsonEncode(<
+                                                      String, String>{
+                                                    'operation':
+                                                        'update_product_stock',
+                                                    'productId':
+                                                        (snapshot.data as Album)
+                                                            .id,
+                                                    'productName':
+                                                        (snapshot.data as Album)
+                                                            .name,
+                                                    "sku":
+                                                        (snapshot.data as Album)
+                                                            .sku,
+                                                    "descrition":
+                                                        (snapshot.data as Album)
+                                                            .name,
+                                                    "groupId":
+                                                        (snapshot.data as Album)
+                                                            .groupId,
+                                                    "godown":
+                                                        (snapshot.data as Album)
+                                                            .godown,
+                                                    "shelf":
+                                                        (snapshot.data as Album)
+                                                            .shelf,
+                                                    "price": 500.toString(),
+                                                    "qty":
+                                                        (snapshot.data as Album)
+                                                            .qty
+                                                            .toString()
+                                                  }));
+                                              if (response.statusCode == 200) {
+                                                // If the server did return a 200 OK response,
+                                                // then parse the JSON.
+                                                print(
+                                                    jsonDecode(response.body));
+                                                print('update done');
+                                                Navigator.of(context)
+                                                    .push(MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      QRViewExample(),
+                                                ));
+                                              } else {
+                                                // If the server did not return a 200 OK response,
+                                                // then throw an exception.
+                                                throw Exception(
+                                                    'Failed to load album');
+                                              }
+                                            },
+                                            child: const Text('ยืนยัน'),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+
+                                    //   () async {
+                                    //   final response = await http.post(
+                                    //       Uri.parse('http://119.63.90.135:9090/product'),
+                                    //       headers: <String, String>{
+                                    //         'Content-Type': 'application/json; charset=UTF-8',
+                                    //       },
+                                    //       body: convert.jsonEncode(<String, String>{'operation': 'update_product_stock', 'productId': (snapshot.data as Album).id, 'productName': (snapshot.data as Album).name, "sku" : (snapshot.data as Album).sku,"descrition" : (snapshot.data as Album).name,"groupId": (snapshot.data as Album).groupId,"godown" : (snapshot.data as Album).godown,"shelf": (snapshot.data as Album).shelf,"price" : 500.toString(),"qty" : (snapshot.data as Album).qty.toString()}));
+                                    //   if (response.statusCode == 200) {
+                                    //     // If the server did return a 200 OK response,
+                                    //     // then parse the JSON.
+                                    //     print((snapshot.data as Album).id);
+                                    //     print((snapshot.data as Album).name);
+                                    //     print(jsonDecode(response.body));
+                                    //     print('update done');
+                                    //     Navigator.of(context).push(MaterialPageRoute(
+                                    //         builder: (context) => QRViewExample(),
+                                    //       ));
+                                    //   } else {
+                                    //     // If the server did not return a 200 OK response,
+                                    //     // then throw an exception.
+                                    //     throw Exception('Failed to load album');
+                                    //   }
+                                    // }
                                   ),
                                 ),
-
-                                //   () async {
-                                //   final response = await http.post(
-                                //       Uri.parse('http://119.63.90.135:9090/product'),
-                                //       headers: <String, String>{
-                                //         'Content-Type': 'application/json; charset=UTF-8',
-                                //       },
-                                //       body: convert.jsonEncode(<String, String>{'operation': 'update_product_stock', 'productId': (snapshot.data as Album).id, 'productName': (snapshot.data as Album).name, "sku" : (snapshot.data as Album).sku,"descrition" : (snapshot.data as Album).name,"groupId": (snapshot.data as Album).groupId,"godown" : (snapshot.data as Album).godown,"shelf": (snapshot.data as Album).shelf,"price" : 500.toString(),"qty" : (snapshot.data as Album).qty.toString()}));
-                                //   if (response.statusCode == 200) {
-                                //     // If the server did return a 200 OK response,
-                                //     // then parse the JSON.
-                                //     print((snapshot.data as Album).id);
-                                //     print((snapshot.data as Album).name);
-                                //     print(jsonDecode(response.body));
-                                //     print('update done');
-                                //     Navigator.of(context).push(MaterialPageRoute(
-                                //         builder: (context) => QRViewExample(),
-                                //       ));
-                                //   } else {
-                                //     // If the server did not return a 200 OK response,
-                                //     // then throw an exception.
-                                //     throw Exception('Failed to load album');
-                                //   }
-                                // }
                               ),
-                            ),
-                          ),
+                            ],
+                          )),
                         ],
-                      )),
-                    ],
-                  );
-                } else if (snapshot.hasError) {
-                  return Text('${snapshot.error}');
-                }
-                // By default, show a loading spinner.
-                return const CircularProgressIndicator();
-              },
+                      );
+                    } else if (snapshot.hasError) {
+                      return Text('${snapshot.error}');
+                    }
+                    // By default, show a loading spinner.
+                    return const CircularProgressIndicator();
+                  },
+                ),
+              ),
             ),
           ),
         ),
-      ),
-    );
+        onWillPop: () async {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => QRViewExample(),
+          ));
+        });
   }
 }
 

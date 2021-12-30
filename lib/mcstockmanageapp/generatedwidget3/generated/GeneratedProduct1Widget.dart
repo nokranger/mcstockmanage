@@ -158,34 +158,32 @@ class _GeneratedProduct1WidgetState extends State<GeneratedProduct1Widget> {
                                         Navigator.push(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => Products(
-                                                  // productName:
-                                                  //     (snapshot.data[index] as Album)
-                                                  //         .productName
-                                                  //         .toString(),
-                                                  // sku: (snapshot.data[index] as Album)
-                                                  //     .sku
-                                                  //     .toString(),
-                                                  // qty: (snapshot.data[index] as Album)
-                                                  //     .qty
-                                                  //     .toString(),
-                                                  // price: (snapshot.data[index] as Album)
-                                                  //     .price
-                                                  //     .toString(),
-                                                  // shelf: (snapshot.data[index]
-                                                  //         as Album)
-                                                  //     .shelf
-                                                  //     .toString(),
-                                                  // groupName: (snapshot.data[index]
-                                                  //         as Album)
-                                                  //     .groupName
-                                                  //     .toString(),
-                                                  // godown: (snapshot.data[index]
-                                                  //         as Album)
-                                                  //     .godown
-                                                  //     .toString()
-                                                      )
-                                                      ),
+                                              builder: (context) => SecondRoute(
+                                                  productName:
+                                                      (snapshot.data[index] as Album)
+                                                          .productName
+                                                          .toString(),
+                                                  sku: (snapshot.data[index] as Album)
+                                                      .sku
+                                                      .toString(),
+                                                  qty: (snapshot.data[index] as Album)
+                                                      .qty
+                                                      .toString(),
+                                                  price: (snapshot.data[index] as Album)
+                                                      .price
+                                                      .toString(),
+                                                  shelf: (snapshot.data[index]
+                                                          as Album)
+                                                      .shelf
+                                                      .toString(),
+                                                  groupName: (snapshot.data[index]
+                                                          as Album)
+                                                      .groupName
+                                                      .toString(),
+                                                  godown: (snapshot.data[index]
+                                                          as Album)
+                                                      .godown
+                                                      .toString())),
                                         );
                                       },
                                       shape: RoundedRectangleBorder(
@@ -348,46 +346,198 @@ class _SecondRouteState extends State<SecondRoute> {
   }
 
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'รายละเอียดสินค้า',
-            style: TextStyle(color: Colors.black),
-          ),
-          backgroundColor: const Color(0xffC2B280),
-          iconTheme: IconThemeData(color: Colors.black),
-        ),
-        body: Container(
-          // color: Colors.black,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
-              image: AssetImage(
-                  "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png"),
-              fit: BoxFit.cover,
+    return WillPopScope(
+        child: Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                'รายละเอียดสินค้า',
+                style: TextStyle(color: Colors.black),
+              ),
+              backgroundColor: const Color(0xffC2B280),
+              iconTheme: IconThemeData(color: Colors.black),
             ),
-          ),
-          child: Center(
-            child: Container(
-              width: 375,
-              margin: const EdgeInsets.only(
-                  left: 20, right: 20, top: 20, bottom: 20),
-              color: Colors.white,
-              child: ListView(
-                children: [
-                  Flexible(
-                      child: Container(
+            body: Container(
+              // color: Colors.black,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                  image: AssetImage(
+                      "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: Center(
+                child: Container(
+                  width: 375,
+                  margin: const EdgeInsets.only(
+                      left: 20, right: 20, top: 20, bottom: 20),
+                  color: Colors.white,
+                  child: ListView(
+                    children: [
+                      Flexible(
+                          child: Container(
+                              margin: const EdgeInsets.only(
+                                  left: 20, right: 20, bottom: 20),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Text('ชื่อสินค้า'),
+                                  ),
+                                  TextField(
+                                    enabled: false,
+                                    controller: productName == 'null'
+                                        ? cnodata
+                                        : cproductName,
+                                    onChanged: (Search) {
+                                      print('$Search');
+                                    },
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        fillColor: Colors.grey[350],
+                                        filled: true
+                                        // hintText: 'ชื่อสินค้า: ' + productName,
+                                        ),
+                                  )
+                                ],
+                              ))),
+                      Flexible(
+                          child: Container(
+                              margin: const EdgeInsets.only(
+                                  left: 20, right: 20, bottom: 20),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Text('รหัสสินค้า'),
+                                  ),
+                                  TextField(
+                                    enabled: false,
+                                    controller: sku == 'null' ? cnodata : csku,
+                                    onChanged: (Search) {
+                                      print('$Search');
+                                    },
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        fillColor: Colors.grey[350],
+                                        filled: true
+                                        // hintText: 'ชื่อสินค้า: ' + productName,
+                                        ),
+                                  )
+                                ],
+                              ))),
+                      Flexible(
+                          child: Container(
+                              margin: const EdgeInsets.only(
+                                  left: 20, right: 20, bottom: 20),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Text('จำนวน'),
+                                  ),
+                                  TextField(
+                                    enabled: false,
+                                    controller: qty == 'null' ? cnodata : cqty,
+                                    onChanged: (Search) {
+                                      print('$Search');
+                                    },
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        fillColor: Colors.grey[350],
+                                        filled: true
+                                        // hintText: 'ชื่อสินค้า: ' + productName,
+                                        ),
+                                  )
+                                ],
+                              ))),
+                      Flexible(
+                          child: Container(
+                              margin: const EdgeInsets.only(
+                                  left: 20, right: 20, bottom: 20),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Text('ราคา(บาท)'),
+                                  ),
+                                  TextField(
+                                    enabled: false,
+                                    controller:
+                                        price == 'null' ? cnodata : cprice,
+                                    onChanged: (Search) {
+                                      print('$Search');
+                                    },
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        fillColor: Colors.grey[350],
+                                        filled: true
+                                        // hintText: 'ชื่อสินค้า: ' + productName,
+                                        ),
+                                  )
+                                ],
+                              ))),
+                      Flexible(
+                          child: Container(
+                              margin: const EdgeInsets.only(
+                                  left: 20, right: 20, bottom: 20),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Text('ชั้นสินค้า'),
+                                  ),
+                                  TextField(
+                                    enabled: false,
+                                    controller:
+                                        shelf == 'null' ? cnodata : cshelf,
+                                    onChanged: (Search) {
+                                      print('$Search');
+                                    },
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        fillColor: Colors.grey[350],
+                                        filled: true
+                                        // hintText: 'ชื่อสินค้า: ' + productName,
+                                        ),
+                                  )
+                                ],
+                              ))),
+                      Flexible(
+                          child: Container(
+                              margin: const EdgeInsets.only(
+                                  left: 20, right: 20, bottom: 20),
+                              child: Column(
+                                children: [
+                                  ListTile(
+                                    title: Text('กลุ่มสินค้า'),
+                                  ),
+                                  TextField(
+                                    enabled: false,
+                                    controller: groupName == 'null'
+                                        ? cnodata
+                                        : cgroupName,
+                                    onChanged: (Search) {
+                                      print('$Search');
+                                    },
+                                    decoration: InputDecoration(
+                                        border: OutlineInputBorder(),
+                                        fillColor: Colors.grey[350],
+                                        filled: true
+                                        // hintText: 'ชื่อสินค้า: ' + productName,
+                                        ),
+                                  )
+                                ],
+                              ))),
+                      Flexible(
+                        child: Container(
                           margin: const EdgeInsets.only(
                               left: 20, right: 20, bottom: 20),
                           child: Column(
                             children: [
                               ListTile(
-                                title: Text('ชื่อสินค้า'),
+                                title: Text('โกดัง'),
                               ),
                               TextField(
                                 enabled: false,
                                 controller:
-                                    productName == 'null' ? cnodata : cproductName,
+                                    godown == 'null' ? cnodata : cgodown,
                                 onChanged: (Search) {
                                   print('$Search');
                                 },
@@ -397,181 +547,42 @@ class _SecondRouteState extends State<SecondRoute> {
                                     filled: true
                                     // hintText: 'ชื่อสินค้า: ' + productName,
                                     ),
-                              )
-                            ],
-                          ))),
-                  Flexible(
-                      child: Container(
-                          margin: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20),
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text('รหัสสินค้า'),
                               ),
-                              TextField(
-                                enabled: false,
-                                controller: sku == 'null' ? cnodata : csku,
-                                onChanged: (Search) {
-                                  print('$Search');
-                                },
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    fillColor: Colors.grey[350],
-                                    filled: true
-                                    // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                              )
                             ],
-                          ))),
-                  Flexible(
-                      child: Container(
-                          margin: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20),
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text('จำนวน'),
-                              ),
-                              TextField(
-                                enabled: false,
-                                controller: qty == 'null' ? cnodata : cqty,
-                                onChanged: (Search) {
-                                  print('$Search');
-                                },
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    fillColor: Colors.grey[350],
-                                    filled: true
-                                    // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                              )
-                            ],
-                          ))),
-                  Flexible(
-                      child: Container(
-                          margin: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20),
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text('ราคา(บาท)'),
-                              ),
-                              TextField(
-                                enabled: false,
-                                controller: price == 'null' ? cnodata : cprice,
-                                onChanged: (Search) {
-                                  print('$Search');
-                                },
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    fillColor: Colors.grey[350],
-                                    filled: true
-                                    // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                              )
-                            ],
-                          ))),
-                  Flexible(
-                      child: Container(
-                          margin: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20),
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text('ชั้นสินค้า'),
-                              ),
-                              TextField(
-                                enabled: false,
-                                controller: shelf == 'null' ? cnodata : cshelf,
-                                onChanged: (Search) {
-                                  print('$Search');
-                                },
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    fillColor: Colors.grey[350],
-                                    filled: true
-                                    // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                              )
-                            ],
-                          ))),
-                  Flexible(
-                      child: Container(
-                          margin: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20),
-                          child: Column(
-                            children: [
-                              ListTile(
-                                title: Text('กลุ่มสินค้า'),
-                              ),
-                              TextField(
-                                enabled: false,
-                                controller: groupName == 'null' ? cnodata : cgroupName,
-                                onChanged: (Search) {
-                                  print('$Search');
-                                },
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    fillColor: Colors.grey[350],
-                                    filled: true
-                                    // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                              )
-                            ],
-                          ))),
-                  Flexible(
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                          left: 20, right: 20, bottom: 20),
-                      child: Column(
-                        children: [
-                          ListTile(
-                            title: Text('โกดัง'),
                           ),
-                          TextField(
-                            enabled: false,
-                            controller: godown == 'null' ? cnodata : cgodown,
-                            onChanged: (Search) {
-                              print('$Search');
-                            },
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                fillColor: Colors.grey[350],
-                                filled: true
-                                // hintText: 'ชื่อสินค้า: ' + productName,
-                                ),
+                        ),
+                      ),
+                      Flexible(
+                          child: Column(
+                        children: [
+                          Container(
+                            margin: const EdgeInsets.only(
+                                left: 20, right: 20, bottom: 20),
+                            child: SizedBox(
+                                width: 375,
+                                height: 60,
+                                child: ElevatedButton(
+                                  child: Text('กลับ'),
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .push(MaterialPageRoute(
+                                      builder: (context) => GeneratedWidget3(),
+                                    ));
+                                  },
+                                )),
                           ),
                         ],
-                      ),
-                    ),
-                  ),
-                  Flexible(
-                      child: Column(
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(
-                            left: 20, right: 20, bottom: 20),
-                        child: SizedBox(
-                            width: 375,
-                            height: 60,
-                            child: ElevatedButton(
-                              child: Text('กลับ'),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (context) => GeneratedWidget3(),
-                                ));
-                              },
-                            )),
-                      ),
+                      )),
                     ],
-                  )
                   ),
-                ],
+                ),
               ),
-            ),
-          ),
-        ));
+            )),
+        onWillPop: () async {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => GeneratedWidget3(),
+          ));
+        });
   }
 
   @override

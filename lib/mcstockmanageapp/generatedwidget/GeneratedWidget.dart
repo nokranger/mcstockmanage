@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget/generated/GeneratedWidget2.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget/generated/GeneratedRectangle1Widget.dart';
@@ -16,115 +18,119 @@ import 'package:flutterapp/mcstockmanageapp/generatedwidget/generated/GeneratedM
 class GeneratedWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Material(
-        child: ClipRRect(
-      borderRadius: BorderRadius.zero,
-      child: Container(
-        width: 411.0,
-        height: 731.0,
-        child: Stack(
-            fit: StackFit.expand,
-            alignment: Alignment.center,
-            overflow: Overflow.visible,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.zero,
-                child: Container(
-                  color: Color.fromARGB(255, 255, 255, 255),
-                ),
-              ),
-              Positioned(
-                left: 0.0,
-                top: 0.0,
-                right: null,
-                bottom: null,
-                width: 411.0,
-                height: 731.0,
-                child: GeneratedHomepageWidget(),
-              ),
-              Positioned(
-                left: 0.0,
-                top: 0.0,
-                right: null,
-                bottom: null,
-                width: 411.0,
-                height: 731.0,
-                child: Generated162111Widget(),
-              ),
-              Positioned(
-                left: 0.0,
-                top: 0.0,
-                right: null,
-                bottom: null,
-                width: 411.0,
-                height: 98.0,
-                child: GeneratedRectangle1Widget(),
-              ),
-              Positioned(
-                left: 20.0,
-                top: 14.0,
-                right: null,
-                bottom: null,
-                width: 85.0,
-                height: 69.0,
-                child: GeneratedRectangle2Widget(),
-              ),
-              Positioned(
-                left: 110.0,
-                top: 28.0,
-                right: null,
-                bottom: null,
-                width: 273.0,
-                height: 42.0,
-                child: GeneratedMCStockManagementWidget(),
-              ),
-              Positioned(
-                left: 19.0,
-                top: 4.0,
-                right: null,
-                bottom: null,
-                width: 87.0,
-                height: 88.0,
-                child: GeneratedLogoMCSuperbike011Widget(),
-              ),
-              Positioned(
-                left: 65.0,
-                top: 228.0,
-                right: null,
-                bottom: null,
-                width: 119.0,
-                height: 44.0,
-                child: GeneratedWidget1(),
-              ),
-              Positioned(
-                left: 269.0,
-                top: 228.0,
-                right: null,
-                bottom: null,
-                width: 71.0,
-                height: 25.0,
-                child: GeneratedWidget2(),
-              ),
-              Positioned(
-                left: 70,
-                top: 134.80209350585938,
-                right: null,
-                bottom: null,
-                width: 87.68000030517578,
-                height: 87.67616271972656,
-                child: GeneratedGroup1Widget(),
-              ),
-              Positioned(
-                left: 257.55999755859375,
-                top: 134.80209350585938,
-                right: null,
-                bottom: null,
-                width: 87.68000030517578,
-                height: 87.67616271972656,
-                child: GeneratedGroup2Widget(),
-              )
-            ]),
-      ),
-    ));
+    return WillPopScope(
+        child: Material(
+            child: ClipRRect(
+          borderRadius: BorderRadius.zero,
+          child: Container(
+            width: 411.0,
+            height: 731.0,
+            child: Stack(
+                fit: StackFit.expand,
+                alignment: Alignment.center,
+                overflow: Overflow.visible,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.zero,
+                    child: Container(
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
+                  ),
+                  Positioned(
+                    left: 0.0,
+                    top: 0.0,
+                    right: null,
+                    bottom: null,
+                    width: 411.0,
+                    height: 731.0,
+                    child: GeneratedHomepageWidget(),
+                  ),
+                  Positioned(
+                    left: 0.0,
+                    top: 0.0,
+                    right: null,
+                    bottom: null,
+                    width: 411.0,
+                    height: 731.0,
+                    child: Generated162111Widget(),
+                  ),
+                  Positioned(
+                    left: 0.0,
+                    top: 0.0,
+                    right: null,
+                    bottom: null,
+                    width: 411.0,
+                    height: 98.0,
+                    child: GeneratedRectangle1Widget(),
+                  ),
+                  Positioned(
+                    left: 20.0,
+                    top: 14.0,
+                    right: null,
+                    bottom: null,
+                    width: 85.0,
+                    height: 69.0,
+                    child: GeneratedRectangle2Widget(),
+                  ),
+                  Positioned(
+                    left: 110.0,
+                    top: 28.0,
+                    right: null,
+                    bottom: null,
+                    width: 273.0,
+                    height: 42.0,
+                    child: GeneratedMCStockManagementWidget(),
+                  ),
+                  Positioned(
+                    left: 19.0,
+                    top: 4.0,
+                    right: null,
+                    bottom: null,
+                    width: 87.0,
+                    height: 88.0,
+                    child: GeneratedLogoMCSuperbike011Widget(),
+                  ),
+                  Positioned(
+                    left: 65.0,
+                    top: 228.0,
+                    right: null,
+                    bottom: null,
+                    width: 119.0,
+                    height: 44.0,
+                    child: GeneratedWidget1(),
+                  ),
+                  Positioned(
+                    left: 269.0,
+                    top: 228.0,
+                    right: null,
+                    bottom: null,
+                    width: 71.0,
+                    height: 25.0,
+                    child: GeneratedWidget2(),
+                  ),
+                  Positioned(
+                    left: 70,
+                    top: 134.80209350585938,
+                    right: null,
+                    bottom: null,
+                    width: 87.68000030517578,
+                    height: 87.67616271972656,
+                    child: GeneratedGroup1Widget(),
+                  ),
+                  Positioned(
+                    left: 257.55999755859375,
+                    top: 134.80209350585938,
+                    right: null,
+                    bottom: null,
+                    width: 87.68000030517578,
+                    height: 87.67616271972656,
+                    child: GeneratedGroup2Widget(),
+                  )
+                ]),
+          ),
+        )),
+        onWillPop: () async {
+          exit(0);
+        });
   }
 }
