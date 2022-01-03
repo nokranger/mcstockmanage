@@ -1,22 +1,17 @@
+import 'package:flutter/material.dart';
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget/GeneratedWidget.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/GeneratedWidget3.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/GeneratedSearchWidget.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget61/generated/GeneratedScanQRCodeWidget.dart';
 import 'dart:async';
 import 'dart:convert' as convert;
-
-import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/GeneratedRectangle5Widget.dart';
-import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/GeneratedPUDWidget.dart';
-import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/GeneratedRectangle4Widget.dart';
-import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/Generated06160MKK305Widget.dart';
-import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/GeneratedAssignmentWidget.dart';
-import 'package:flutterapp/helpers/transform/transform.dart';
-import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/GeneratedLine2Widget.dart';
-import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/product.dart';
-
 import 'package:http/http.dart' as http;
 
-Future<dynamic> fetchAlbum() async {
+Future<dynamic> fetchAlbum(search) async {
   final response = await http.post(
       Uri.parse('http://119.63.90.135:9090/product'),
       headers: <String, String>{
@@ -30,10 +25,10 @@ Future<dynamic> fetchAlbum() async {
     // print(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
     // return Album.fromJson(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
     // return Album.fromJson(Map<String, dynamic>.from(jsonDecode(response.body)['data']));
-    return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
-      Album review = new Album.fromJson(Map<String, dynamic>.from(e));
-      return review;
-    }).toList();
+    // return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
+    //   Album review = new Album.fromJson(Map<String, dynamic>.from(e));
+    //   return review;
+    // }).toList();
     // List<Album> albums = [];
     // List<dynamic> albumsJson = convert.jsonDecode(response.body);
     //     albumsJson.forEach(
@@ -42,26 +37,52 @@ Future<dynamic> fetchAlbum() async {
     //     albums.add(album);
     //   },
     // );
+                              final response = await http.post(
+                              Uri.parse('http://119.63.90.135:9090/product'),
+                              headers: <String, String>{
+                                'Content-Type':
+                                    'application/json; charset=UTF-8',
+                              },
+                              body: convert.jsonEncode(<String, dynamic>{
+                                'operation': 'get_products',
+                                "keyword" : search,
+                                "productId" : null,
+                                "sku": null,
+                                "productName" : null,
+                                "groupId" : null,
+                                "groupName" : null,
+                                "price" : null,
+                                "qty" : null,
+                                "isActive" : true,
+                                "isDelete" : false
+                              }));
+                          if (response.statusCode == 200) {
+                            // If the server did return a 200 OK response,
+                            // then parse the JSON.
+                            print(jsonDecode(response.body)['data']);
+                            if (jsonDecode(response.body)['data'] == '' ||
+                                jsonDecode(response.body)['data'] == null ||
+                                jsonDecode(response.body)['data'] == 'null') {
+                              print('sssss');
+                              // Navigator.push(context, MaterialPageRoute());
+                            } else {
+                              print('scan done');
+                              return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
+                                Album review = new Album.fromJson(Map<String, dynamic>.from(e));
+                                return review;
+                              }).toList();
+                            }
+                          } else {
+                            // If the server did not return a 200 OK response,
+                            // then throw an exception.
+                            throw Exception('Failed to load album');
+                          }
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
     throw Exception('Failed to load album');
   }
 }
-
-// class Album {
-//   final Data datas;
-
-//   Album({
-//     this.datas
-//   });
-
-//   factory Album.fromJson(Map<String, dynamic> parsedJson) {
-//     return Album(
-//       datas: Data.fromJson(parsedJson['data']),
-//     );
-//   }
-// }
 
 class Album {
   final String productId;
@@ -108,157 +129,236 @@ class Album {
   }
 }
 
-class GeneratedProduct1Widget extends StatefulWidget {
-  final albums;
-  const GeneratedProduct1Widget({Key key, this.albums}) : super(key: key);
+class ProductDetail extends StatefulWidget {
+  const ProductDetail({Key key}) : super(key: key);
 
   @override
-  _GeneratedProduct1WidgetState createState() =>
-      _GeneratedProduct1WidgetState();
+  _ProductDetailState createState() => _ProductDetailState();
 }
 
-class _GeneratedProduct1WidgetState extends State<GeneratedProduct1Widget> {
+class _ProductDetailState extends State<ProductDetail> {
   Future<dynamic> futureAlbum;
 
   @override
   void initState() {
     super.initState();
-    futureAlbum = fetchAlbum();
+    futureAlbum = fetchAlbum(null);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        width: 200,
-        height: 100,
-        // color: Colors.white,
-        child: FutureBuilder<dynamic>(
-          future: futureAlbum,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              print((snapshot.data as List<Album>).length);
-              // return Text('Id: ' + (snapshot.data[0] as Album).productId);
-              return Container(
-                  child: ListView.builder(
-                      // physics:  NeverScrollableScrollPhysics(),
-                      itemCount: (snapshot.data as List<Album>).length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return GestureDetector(
-                          child: Card(
-                            // 1
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(15.0)),
-                            // 2
-                            color: Colors.white,
-                            elevation: 10,
-                            child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  RaisedButton(
-                                      onPressed: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => SecondRoute(
-                                                  productName:
-                                                      (snapshot.data[index] as Album)
-                                                          .productName
-                                                          .toString(),
-                                                  sku: (snapshot.data[index] as Album)
-                                                      .sku
-                                                      .toString(),
-                                                  qty: (snapshot.data[index] as Album)
-                                                      .qty
-                                                      .toString(),
-                                                  price: (snapshot.data[index] as Album)
-                                                      .price
-                                                      .toString(),
-                                                  shelf: (snapshot.data[index]
-                                                          as Album)
-                                                      .shelf
-                                                      .toString(),
-                                                  groupName: (snapshot.data[index]
-                                                          as Album)
-                                                      .groupName
-                                                      .toString(),
-                                                  godown: (snapshot.data[index]
-                                                          as Album)
-                                                      .godown
-                                                      .toString())),
-                                        );
-                                      },
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15.0)),
-                                      color: Colors.white,
-                                      child: Column(
-                                        children: <Widget>[
-                                          ListTile(
-                                              contentPadding:
-                                                  EdgeInsets.all(10.0),
-                                              leading: Icon(
-                                                Icons.assignment,
-                                                size: 30,
-                                                color: Colors.blueAccent,
-                                              ),
-                                              title: Text(
-                                                (snapshot.data[index] as Album)
-                                                    .sku
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    letterSpacing: 3.0,
-                                                    color: Colors.blue[900]),
-                                              ),
-                                              subtitle: Text(
-                                                (snapshot.data[index] as Album)
-                                                    .productName
-                                                    .toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black),
-                                              )),
-                                        ],
-                                      ))
-                                ]),
-                          ),
-                        );
-                      }));
-            } else if (snapshot.hasError) {
-              // return Text('${snapshot.error}');
-            }
-            // By default, show a loading spinner.
-            return const CircularProgressIndicator();
-          },
-        ));
-  }
-
-  Widget test() {
-    print('testtt');
-  }
-
-  Widget getRow(int index) {
-    return GestureDetector(
-        child: Card(
-      // 1
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-      // 2
-      color: Colors.orange[index * 100],
-      elevation: 10,
-      child: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-        ListTile(
-          contentPadding: EdgeInsets.all(10.0),
-          leading: Icon(
-            Icons.refresh,
-            size: 70,
-            color: Colors.orange[900],
+    return WillPopScope(
+        child: Scaffold(
+          appBar: AppBar(
+            title: const Text(
+              'ตรวจสอบรายละเอียดสินค้า',
+              style: TextStyle(color: Colors.black),
+            ),
+            backgroundColor: const Color(0xffC2B280),
+            iconTheme: IconThemeData(color: Colors.black),
           ),
-          title: Text(
-            "testddd",
-            style: TextStyle(letterSpacing: 3.0),
-          ),
-          subtitle: Text("test"),
+          body: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                  image: AssetImage(
+                      "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: ListView(
+                children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                        left: 20, right: 20, bottom: 20, top: 20),
+                    color: Colors.white,
+                    child: TextField(
+                        onChanged: (search) async {
+                          fetchAlbum(search);
+                        },
+                        decoration: InputDecoration(
+                          suffixIcon: Icon(Icons.search),
+                          hintText: 'ค้นหา',
+                          border: OutlineInputBorder(),
+                        )),
+                  ),
+                  Container(
+                    width: 200,
+                    height: 600,
+                    child: FutureBuilder<dynamic>(
+                      future: futureAlbum,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          print((snapshot.data as List<Album>).length);
+                          // return Text('Id: ' + (snapshot.data[0] as Album).productId);
+                          return Container(
+                              child: ListView.builder(
+                                  // physics:  NeverScrollableScrollPhysics(),
+                                  itemCount:
+                                      (snapshot.data as List<Album>).length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return GestureDetector(
+                                      child: Card(
+                                        // 1
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(15.0)),
+                                        // 2
+                                        color: Colors.white,
+                                        elevation: 10,
+                                        child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: <Widget>[
+                                              RaisedButton(
+                                                  onPressed: () {
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) => SecondRoute(
+                                                              productName: (snapshot.data[index] as Album)
+                                                                  .productName
+                                                                  .toString(),
+                                                              sku: (snapshot.data[index] as Album)
+                                                                  .sku
+                                                                  .toString(),
+                                                              qty: (snapshot.data[index] as Album)
+                                                                  .qty
+                                                                  .toString(),
+                                                              price: (snapshot.data[index] as Album)
+                                                                  .price
+                                                                  .toString(),
+                                                              shelf: (snapshot.data[index]
+                                                                      as Album)
+                                                                  .shelf
+                                                                  .toString(),
+                                                              groupName:
+                                                                  (snapshot.data[index] as Album)
+                                                                      .groupName
+                                                                      .toString(),
+                                                              godown: (snapshot.data[index]
+                                                                      as Album)
+                                                                  .godown
+                                                                  .toString())),
+                                                    );
+                                                  },
+                                                  shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              15.0)),
+                                                  color: Colors.white,
+                                                  child: Column(
+                                                    children: <Widget>[
+                                                      ListTile(
+                                                          contentPadding:
+                                                              EdgeInsets.all(
+                                                                  10.0),
+                                                          leading: Icon(
+                                                            Icons.assignment,
+                                                            size: 30,
+                                                            color: Colors
+                                                                .blueAccent,
+                                                          ),
+                                                          title: Text(
+                                                            (snapshot.data[
+                                                                        index]
+                                                                    as Album)
+                                                                .sku
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                letterSpacing:
+                                                                    3.0,
+                                                                color: Colors
+                                                                    .blue[900],
+                                                                fontSize: 20),
+                                                          ),
+                                                          subtitle: Text(
+                                                            (snapshot.data[
+                                                                        index]
+                                                                    as Album)
+                                                                .productName
+                                                                .toString(),
+                                                            style: TextStyle(
+                                                                color: Colors
+                                                                    .black,
+                                                                fontSize: 20),
+                                                          )),
+                                                    ],
+                                                  ))
+                                            ]),
+                                      ),
+                                    );
+                                  }));
+                        } else if (snapshot.hasError) {
+                          // return Text('${snapshot.error}');
+                        }
+                        // By default, show a loading spinner.
+                        return const CircularProgressIndicator();
+                      },
+                    ),
+                  ),
+                  // Center(
+                  //   child: Container(
+                  //       width: 375,
+                  //       height: 200,
+                  //       margin: const EdgeInsets.only(
+                  //           left: 20, right: 20, top: 20, bottom: 20),
+                  //       color: Colors.white,
+                  //       child: ListView(
+                  //         children: [
+                  //           Center(
+                  //             child: Container(
+                  //               child: ListTile(
+                  //                   title: Center(
+                  //                     child: const Text(
+                  //                       'ไม่พบสินค้า',
+                  //                       style: TextStyle(
+                  //                           color: Colors.black, fontSize: 30),
+                  //                     ),
+                  //                   ),
+                  //                   subtitle: Center(
+                  //                     child: Text(
+                  //                       '(Product id)',
+                  //                       style: TextStyle(
+                  //                           color: Colors.black, fontSize: 30),
+                  //                     ),
+                  //                   )),
+                  //             ),
+                  //           ),
+                  //           Center(
+                  //               child: Column(
+                  //             children: [
+                  //               Container(
+                  //                 margin: const EdgeInsets.only(
+                  //                     left: 20, right: 20, top: 20, bottom: 20),
+                  //                 child: SizedBox(
+                  //                     width: 375,
+                  //                     height: 60,
+                  //                     child: ElevatedButton(
+                  //                       child: Text('กลับ'),
+                  //                       onPressed: () {
+                  //                         Navigator.of(context)
+                  //                             .push(MaterialPageRoute(
+                  //                           builder: (context) =>
+                  //                               GeneratedWidget(),
+                  //                         ));
+                  //                       },
+                  //                     )),
+                  //               ),
+                  //             ],
+                  //           ))
+                  //         ],
+                  //       )),
+                  // ),
+                ],
+              )),
         ),
-      ]),
-    ));
+        onWillPop: () async {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => GeneratedWidget(),
+          ));
+        });
   }
 }
 
@@ -368,7 +468,7 @@ class _SecondRouteState extends State<SecondRoute> {
                   fit: BoxFit.cover,
                 ),
               ),
-              child: Center(
+              child: Container(
                 child: Container(
                   width: 375,
                   margin: const EdgeInsets.only(
@@ -567,7 +667,7 @@ class _SecondRouteState extends State<SecondRoute> {
                                   onPressed: () {
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(
-                                      builder: (context) => GeneratedWidget3(),
+                                      builder: (context) => ProductDetail(),
                                     ));
                                   },
                                 )),
@@ -581,7 +681,7 @@ class _SecondRouteState extends State<SecondRoute> {
             )),
         onWillPop: () async {
           Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => GeneratedWidget3(),
+            builder: (context) => ProductDetail(),
           ));
         });
   }
