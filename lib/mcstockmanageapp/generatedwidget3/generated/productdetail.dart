@@ -37,46 +37,45 @@ Future<dynamic> fetchAlbum(search) async {
     //     albums.add(album);
     //   },
     // );
-                              final response = await http.post(
-                              Uri.parse('http://119.63.90.135:9090/product'),
-                              headers: <String, String>{
-                                'Content-Type':
-                                    'application/json; charset=UTF-8',
-                              },
-                              body: convert.jsonEncode(<String, dynamic>{
-                                'operation': 'get_products',
-                                "keyword" : search,
-                                "productId" : null,
-                                "sku": null,
-                                "productName" : null,
-                                "groupId" : null,
-                                "groupName" : null,
-                                "price" : null,
-                                "qty" : null,
-                                "isActive" : true,
-                                "isDelete" : false
-                              }));
-                          if (response.statusCode == 200) {
-                            // If the server did return a 200 OK response,
-                            // then parse the JSON.
-                            print(jsonDecode(response.body)['data']);
-                            if (jsonDecode(response.body)['data'] == '' ||
-                                jsonDecode(response.body)['data'] == null ||
-                                jsonDecode(response.body)['data'] == 'null') {
-                              print('sssss');
-                              // Navigator.push(context, MaterialPageRoute());
-                            } else {
-                              print('scan done');
-                              return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
-                                Album review = new Album.fromJson(Map<String, dynamic>.from(e));
-                                return review;
-                              }).toList();
-                            }
-                          } else {
-                            // If the server did not return a 200 OK response,
-                            // then throw an exception.
-                            throw Exception('Failed to load album');
-                          }
+    final response =
+        await http.post(Uri.parse('http://119.63.90.135:9090/product'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: convert.jsonEncode(<String, dynamic>{
+              'operation': 'get_products',
+              "keyword": search,
+              "productId": null,
+              "sku": null,
+              "productName": null,
+              "groupId": null,
+              "groupName": null,
+              "price": null,
+              "qty": null,
+              "isActive": true,
+              "isDelete": false
+            }));
+    if (response.statusCode == 200) {
+      // If the server did return a 200 OK response,
+      // then parse the JSON.
+      print(jsonDecode(response.body)['data']);
+      if (jsonDecode(response.body)['data'] == '' ||
+          jsonDecode(response.body)['data'] == null ||
+          jsonDecode(response.body)['data'] == 'null') {
+        print('sssss');
+        // Navigator.push(context, MaterialPageRoute());
+      } else {
+        print('scan done');
+        return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
+          Album review = new Album.fromJson(Map<String, dynamic>.from(e));
+          return review;
+        }).toList();
+      }
+    } else {
+      // If the server did not return a 200 OK response,
+      // then throw an exception.
+      throw Exception('Failed to load album');
+    }
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -147,6 +146,18 @@ class _ProductDetailState extends State<ProductDetail> {
 
   @override
   Widget build(BuildContext context) {
+    final Color background = Colors.grey[400];
+    final Color fill = Colors.white;
+    final List<Color> gradient = [
+      background,
+      background,
+      fill,
+      fill,
+    ];
+    final double fillPercent = 50.0; // fills 56.23% for container from bottom
+    final double fillStop = (100 - fillPercent) / 100;
+    final List<double> stops = [0.0, fillStop, fillStop, 1.0];
+
     return WillPopScope(
         child: Scaffold(
           appBar: AppBar(
@@ -208,85 +219,123 @@ class _ProductDetailState extends State<ProductDetail> {
                                         // 2
                                         color: Colors.white,
                                         elevation: 10,
-                                        child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: <Widget>[
-                                              RaisedButton(
-                                                  onPressed: () {
-                                                    Navigator.push(
-                                                      context,
-                                                      MaterialPageRoute(
-                                                          builder: (context) => SecondRoute(
-                                                              productName: (snapshot.data[index] as Album)
-                                                                  .productName
-                                                                  .toString(),
-                                                              sku: (snapshot.data[index] as Album)
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                              gradient: LinearGradient(
+                                                  colors: gradient,
+                                                  stops: stops,
+                                                  end: Alignment.bottomCenter,
+                                                  begin: Alignment.topCenter)),
+                                          child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: <Widget>[
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) => SecondRoute(
+                                                                productName: (snapshot.data[index] as Album)
+                                                                    .productName
+                                                                    .toString(),
+                                                                sku: (snapshot.data[index] as Album)
+                                                                    .sku
+                                                                    .toString(),
+                                                                qty: (snapshot.data[index] as Album)
+                                                                    .qty
+                                                                    .toString(),
+                                                                price: (snapshot.data[index] as Album)
+                                                                    .price
+                                                                    .toString(),
+                                                                shelf: (snapshot.data[index]
+                                                                        as Album)
+                                                                    .shelf
+                                                                    .toString(),
+                                                                groupName:
+                                                                    (snapshot.data[index] as Album)
+                                                                        .groupName
+                                                                        .toString(),
+                                                                godown: (snapshot.data[index]
+                                                                        as Album)
+                                                                    .godown
+                                                                    .toString())),
+                                                      );
+                                                    },
+                                                    // shape: RoundedRectangleBorder(
+                                                    //     borderRadius:
+                                                    //         BorderRadius.circular(
+                                                    //             15.0)),
+                                                    // color: Colors.black.withOpacity(0),
+                                                    child: Column(
+                                                      children: <Widget>[
+                                                        Container(
+                                                          // decoration: BoxDecoration(
+                                                          //   borderRadius: BorderRadius.circular(15.0),
+                                                          //   color: Colors.grey[400],
+                                                          // ),
+                                                          width: 2000,
+                                                          height: 50,
+                                                          child: ListTile(
+                                                            // contentPadding:
+                                                            //     EdgeInsets.all(
+                                                            //         10.0),
+                                                            leading: Icon(
+                                                              Icons.assignment,
+                                                              size: 30,
+                                                              color: Colors
+                                                                  .blue[900],
+                                                            ),
+                                                            title: Text(
+                                                              (snapshot.data[
+                                                                          index]
+                                                                      as Album)
                                                                   .sku
                                                                   .toString(),
-                                                              qty: (snapshot.data[index] as Album)
-                                                                  .qty
-                                                                  .toString(),
-                                                              price: (snapshot.data[index] as Album)
-                                                                  .price
-                                                                  .toString(),
-                                                              shelf: (snapshot.data[index]
-                                                                      as Album)
-                                                                  .shelf
-                                                                  .toString(),
-                                                              groupName:
-                                                                  (snapshot.data[index] as Album)
-                                                                      .groupName
-                                                                      .toString(),
-                                                              godown: (snapshot.data[index]
-                                                                      as Album)
-                                                                  .godown
-                                                                  .toString())),
-                                                    );
-                                                  },
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15.0)),
-                                                  color: Colors.white,
-                                                  child: Column(
-                                                    children: <Widget>[
-                                                      ListTile(
-                                                          contentPadding:
-                                                              EdgeInsets.all(
-                                                                  10.0),
-                                                          leading: Icon(
-                                                            Icons.assignment,
-                                                            size: 30,
-                                                            color: Colors
-                                                                .blueAccent,
+                                                              style: TextStyle(
+                                                                  letterSpacing:
+                                                                      3.0,
+                                                                  color: Colors
+                                                                          .blue[
+                                                                      900],
+                                                                  fontSize: 20),
+                                                            ),
                                                           ),
-                                                          title: Text(
-                                                            (snapshot.data[
-                                                                        index]
-                                                                    as Album)
-                                                                .sku
-                                                                .toString(),
-                                                            style: TextStyle(
-                                                                letterSpacing:
-                                                                    3.0,
-                                                                color: Colors
-                                                                    .blue[900],
-                                                                fontSize: 20),
-                                                          ),
-                                                          subtitle: Text(
+
+                                                          // subtitle: Text(
+                                                          //   (snapshot.data[
+                                                          //               index]
+                                                          //           as Album)
+                                                          //       .productName
+                                                          //       .toString(),
+                                                          //   style: TextStyle(
+                                                          //       color: Colors
+                                                          //           .black,
+                                                          //       fontSize: 20),
+                                                          // )
+                                                        ),
+                                                        Container(
+                                                          width: 1000,
+                                                          height: 50,
+                                                          child: Text(
                                                             (snapshot.data[
                                                                         index]
                                                                     as Album)
                                                                 .productName
                                                                 .toString(),
                                                             style: TextStyle(
+                                                                letterSpacing:
+                                                                    3.0,
                                                                 color: Colors
                                                                     .black,
                                                                 fontSize: 20),
-                                                          )),
-                                                    ],
-                                                  ))
-                                            ]),
+                                                          ),
+                                                        )
+                                                      ],
+                                                    ))
+                                              ]),
+                                        ),
                                       ),
                                     );
                                   }));
