@@ -141,14 +141,7 @@ class _ProductsState extends State<Products> {
                                   style: TextStyle(
                                       color: Colors.black, fontSize: 30),
                                 ),
-                              ),
-                              subtitle: Center(
-                                child: Text(
-                                  '(Product id)',
-                                  style: TextStyle(
-                                      color: Colors.black, fontSize: 30),
-                                ),
-                              )),
+                              ),),
                         ),
                       ),
                       Center(

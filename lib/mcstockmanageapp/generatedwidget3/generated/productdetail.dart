@@ -12,75 +12,65 @@ import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
 Future<dynamic> fetchAlbum(search) async {
+  // final response = await http.post(
+  //     Uri.parse('http://119.63.90.135:9090/product'),
+  //     headers: <String, String>{
+  //       'Content-Type': 'application/json; charset=UTF-8',
+  //     },
+  //     body: convert.jsonEncode(<String, String>{'operation': 'get_products'}));
+  // if (response.statusCode == 200) {
+  // If the server did return a 200 OK response,
+  // then parse the JSON.
+  // print(jsonDecode(response.body)["data"]);
+  // print(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
+  // return Album.fromJson(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
+  // return Album.fromJson(Map<String, dynamic>.from(jsonDecode(response.body)['data']));
+  // return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
+  //   Album review = new Album.fromJson(Map<String, dynamic>.from(e));
+  //   return review;
+  // }).toList();
+  // List<Album> albums = [];
+  // List<dynamic> albumsJson = convert.jsonDecode(response.body);
+  //     albumsJson.forEach(
+  //   (oneAlbum) {
+  //     Album album = Album.fromJson(oneAlbum);
+  //     albums.add(album);
+  //   },
+  // );
+  print(search);
   final response = await http.post(
       Uri.parse('http://119.63.90.135:9090/product'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
-      body: convert.jsonEncode(<String, String>{'operation': 'get_products'}));
+      body: convert.jsonEncode(
+          <String, dynamic>{"operation": "get_products", "keyword": search}));
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    // print(jsonDecode(response.body)["data"]);
-    // print(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
-    // return Album.fromJson(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
-    // return Album.fromJson(Map<String, dynamic>.from(jsonDecode(response.body)['data']));
-    // return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
-    //   Album review = new Album.fromJson(Map<String, dynamic>.from(e));
-    //   return review;
-    // }).toList();
-    // List<Album> albums = [];
-    // List<dynamic> albumsJson = convert.jsonDecode(response.body);
-    //     albumsJson.forEach(
-    //   (oneAlbum) {
-    //     Album album = Album.fromJson(oneAlbum);
-    //     albums.add(album);
-    //   },
-    // );
-    final response =
-        await http.post(Uri.parse('http://119.63.90.135:9090/product'),
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: convert.jsonEncode(<String, dynamic>{
-              'operation': 'get_products',
-              "keyword": search,
-              "productId": null,
-              "sku": null,
-              "productName": null,
-              "groupId": null,
-              "groupName": null,
-              "price": null,
-              "qty": null,
-              "isActive": true,
-              "isDelete": false
-            }));
-    if (response.statusCode == 200) {
-      // If the server did return a 200 OK response,
-      // then parse the JSON.
-      print(jsonDecode(response.body)['data']);
-      if (jsonDecode(response.body)['data'] == '' ||
-          jsonDecode(response.body)['data'] == null ||
-          jsonDecode(response.body)['data'] == 'null') {
-        print('sssss');
-        // Navigator.push(context, MaterialPageRoute());
-      } else {
-        print('scan done');
-        return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
-          Album review = new Album.fromJson(Map<String, dynamic>.from(e));
-          return review;
-        }).toList();
-      }
+    print(jsonDecode(response.body)['data']);
+    if (jsonDecode(response.body)['data'] == '' ||
+        jsonDecode(response.body)['data'] == null ||
+        jsonDecode(response.body)['data'] == 'null') {
+      print('sssss');
+      // Navigator.push(context, MaterialPageRoute());
     } else {
-      // If the server did not return a 200 OK response,
-      // then throw an exception.
-      throw Exception('Failed to load album');
+      print('scan done');
+      return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
+        Album review = new Album.fromJson(Map<String, dynamic>.from(e));
+        return review;
+      }).toList();
     }
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
     throw Exception('Failed to load album');
   }
+  // } else {
+  //   // If the server did not return a 200 OK response,
+  //   // then throw an exception.
+  //   throw Exception('Failed to load album');
+  // }
 }
 
 class Album {
@@ -181,19 +171,25 @@ class _ProductDetailState extends State<ProductDetail> {
               child: ListView(
                 children: [
                   Container(
-                    margin: const EdgeInsets.only(
-                        left: 20, right: 20, bottom: 20, top: 20),
-                    color: Colors.white,
-                    child: TextField(
-                        onChanged: (search) async {
-                          fetchAlbum(search);
-                        },
-                        decoration: InputDecoration(
-                          suffixIcon: Icon(Icons.search),
-                          hintText: 'ค้นหา',
-                          border: OutlineInputBorder(),
-                        )),
+                    color: const Color(0xffC2B280),
+                    margin: const EdgeInsets.only(bottom: 10, top: 2),
+                    child: Container(
+                      margin: const EdgeInsets.only(
+                          left: 20, right: 20, bottom: 20, top: 20),
+                      color: Colors.white,
+                      child: TextField(
+                          onChanged: (search) async {
+                            futureAlbum = fetchAlbum(search);
+                            this.setState(() {});
+                          },
+                          decoration: InputDecoration(
+                            suffixIcon: Icon(Icons.search),
+                            hintText: 'ค้นหา',
+                            border: OutlineInputBorder(),
+                          )),
+                    ),
                   ),
+
                   Container(
                     width: 200,
                     height: 600,
@@ -318,6 +314,10 @@ class _ProductDetailState extends State<ProductDetail> {
                                                         Container(
                                                           width: 1000,
                                                           height: 50,
+                                                          margin:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 20),
                                                           child: Text(
                                                             (snapshot.data[
                                                                         index]

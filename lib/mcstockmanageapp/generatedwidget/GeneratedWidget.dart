@@ -91,7 +91,7 @@ class GeneratedWidget extends StatelessWidget {
                     child: GeneratedLogoMCSuperbike011Widget(),
                   ),
                   Positioned(
-                    left: 65.0,
+                    left: 25.0,
                     top: 228.0,
                     right: null,
                     bottom: null,
@@ -100,7 +100,7 @@ class GeneratedWidget extends StatelessWidget {
                     child: GeneratedWidget1(),
                   ),
                   Positioned(
-                    left: 269.0,
+                    left: 240.0,
                     top: 228.0,
                     right: null,
                     bottom: null,
@@ -109,7 +109,7 @@ class GeneratedWidget extends StatelessWidget {
                     child: GeneratedWidget2(),
                   ),
                   Positioned(
-                    left: 70,
+                    left: 50,
                     top: 134.80209350585938,
                     right: null,
                     bottom: null,
@@ -118,7 +118,7 @@ class GeneratedWidget extends StatelessWidget {
                     child: GeneratedGroup1Widget(),
                   ),
                   Positioned(
-                    left: 257.55999755859375,
+                    left: 230,
                     top: 134.80209350585938,
                     right: null,
                     bottom: null,
