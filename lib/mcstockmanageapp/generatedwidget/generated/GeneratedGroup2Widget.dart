@@ -10,9 +10,7 @@ class GeneratedGroup2Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const QRViewExample(),
-            )),
+      onTap: () => Navigator.pushNamed(context, '/scanqrcode'),
       child: Container(
         width: 87.68000030517578,
         height: 87.67616271972656,
