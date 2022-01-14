@@ -72,6 +72,9 @@ class _QRViewExampleState extends State<QRViewExample> {
                   autofocus: true,
                   onChanged: (search) async {
                     print(search);
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) =>
+                            ScanQR(code: search)));
                   }
                 ),
               )
@@ -382,7 +385,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.green),
-                                    child: Text('นับสต็อก'),
+                                    child: Text('นับสต็อก( ทีละชิ้น )'),
                                     onPressed: () => showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>
@@ -440,11 +443,90 @@ class _ScanQRState extends State<ScanQR> {
                                                 print(
                                                     jsonDecode(response.body));
                                                 print('update done');
-                                                Navigator.of(context)
-                                                    .push(MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      QRViewExample(),
-                                                ));
+                                                Navigator.pushNamed(context, '/scanqrcode');
+                                              } else {
+                                                // If the server did not return a 200 OK response,
+                                                // then throw an exception.
+                                                throw Exception(
+                                                    'Failed to load album');
+                                              }
+                                            },
+                                            child: const Text('ยืนยัน'),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Container(
+                                margin: const EdgeInsets.only(
+                                    left: 20, right: 20, bottom: 20),
+                                child: SizedBox(
+                                  width: 375,
+                                  height: 60,
+                                  child: ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.blue),
+                                    child: Text('นับสต็อก(หลายชิ้น)'),
+                                    onPressed: () => showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: const Text('ยืนยันการนับสต็อก'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                context, 'ไม่ยืนยัน'),
+                                            child: const Text('ไม่ยืนยัน'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () async {
+                                              final response = await http.post(
+                                                  Uri.parse(
+                                                      'http://119.63.90.135:9090/product'),
+                                                  headers: <String, String>{
+                                                    'Content-Type':
+                                                        'application/json; charset=UTF-8',
+                                                  },
+                                                  body: convert.jsonEncode(<
+                                                      String, String>{
+                                                    'operation':
+                                                        'update_product_stock',
+                                                    'productId':
+                                                        (snapshot.data as Album)
+                                                            .id,
+                                                    'productName':
+                                                        (snapshot.data as Album)
+                                                            .name,
+                                                    "sku":
+                                                        (snapshot.data as Album)
+                                                            .sku,
+                                                    "descrition":
+                                                        (snapshot.data as Album)
+                                                            .name,
+                                                    "groupId":
+                                                        (snapshot.data as Album)
+                                                            .groupId,
+                                                    "godown":
+                                                        (snapshot.data as Album)
+                                                            .godown,
+                                                    "shelf":
+                                                        (snapshot.data as Album)
+                                                            .shelf,
+                                                    "price": 500.toString(),
+                                                    "qty":
+                                                        (snapshot.data as Album)
+                                                            .qty
+                                                            .toString()
+                                                  }));
+                                              if (response.statusCode == 200) {
+                                                // If the server did return a 200 OK response,
+                                                // then parse the JSON.
+                                                print(
+                                                    jsonDecode(response.body));
+                                                print('update done');
+                                                Navigator.pushNamed(context, '/scanqrcode');
                                               } else {
                                                 // If the server did not return a 200 OK response,
                                                 // then throw an exception.
@@ -476,9 +558,7 @@ class _ScanQRState extends State<ScanQR> {
           ),
         ),
         onWillPop: () async {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => QRViewExample(),
-          ));
+          Navigator.pushNamed(context, '/scanqrcode');
         });
   }
 }

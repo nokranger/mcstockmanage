@@ -10,7 +10,7 @@ class GeneratedGroup2Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/scanqrcode'),
+      onTap: () => Navigator.pushNamed(context, '/selectbrand'),
       child: Container(
         width: 87.68000030517578,
         height: 87.67616271972656,

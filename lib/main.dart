@@ -9,6 +9,8 @@ import 'package:flutterapp/mcstockmanageapp/generatedalert3widget/GeneratedAlert
 import 'package:flutterapp/mcstockmanageapp/generatedwidget61/GeneratedWidget61.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/product.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/scanqrcode.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/selectbrand.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/stock.dart';
 
 import 'mcstockmanageapp/generatedwidget3/generated/productdetail.dart';
 
@@ -37,6 +39,8 @@ class MCStockManageApp extends StatelessWidget {
         '/noproduct': (context) => Products(),
         '/product': (context) => ProductDetail(),
         '/scanqrcode': (context) => QRViewExample(),
+        '/selectbrand': (context) => SelectBrand(),
+        '/stock': (context) => Stock(),
       },
     );
   }
