@@ -64,9 +64,7 @@ class _StockState extends State<Stock> {
           ),
         ),
         onWillPop: () async {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => GeneratedWidget(),
-          ));
+          Navigator.pushNamed(context, '/selectbrand');
         });
   }
 }

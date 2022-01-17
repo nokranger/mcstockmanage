@@ -35,22 +35,31 @@ class _SelectBrandState extends State<SelectBrand> {
             child: ListView(
               children: [
                 Container(
-                  child: RaisedButton(
-                    child: Text('Honda'),
-                    onPressed: () async {
-                      print('test');
-                      Navigator.pushNamed(context, '/stock');
-                    },
-                  ),
-                ),
+                    margin:
+                        const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+                    child: SizedBox(
+                      height: 300,
+                      child: RaisedButton(
+                        child: Image.network('https://i.imgur.com/4bdOj2c.jpg'),
+                        onPressed: () async {
+                          print('test');
+                          Navigator.pushNamed(context, '/stock');
+                        },
+                      ),
+                    )),
                 Container(
-                  child: RaisedButton(
-                    child: Text('Other'),
-                    onPressed: () async {
-                      Navigator.pushNamed(context, '/stock');
-                    },
-                  ),
-                )
+                    margin:
+                        const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+                    child: SizedBox(
+                      height: 300,
+                      child: RaisedButton(
+                        child: Text('OTHER', style: TextStyle(fontSize: 200),),
+                        onPressed: () async {
+                          print('test');
+                          Navigator.pushNamed(context, '/stock');
+                        },
+                      ),
+                    )),
               ],
             ),
           ),

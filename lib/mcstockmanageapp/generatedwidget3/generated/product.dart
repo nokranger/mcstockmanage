@@ -156,10 +156,7 @@ class _ProductsState extends State<Products> {
                                 child: ElevatedButton(
                                   child: Text('กลับ'),
                                   onPressed: () {
-                                    Navigator.of(context)
-                                        .push(MaterialPageRoute(
-                                      builder: (context) => QRViewExample(),
-                                    ));
+                                    Navigator.pushNamed(context, '/scanqrcode');
                                   },
                                 )),
                           ),
@@ -171,9 +168,7 @@ class _ProductsState extends State<Products> {
           ),
         ),
         onWillPop: () async {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => QRViewExample(),
-          ));
+          Navigator.pushNamed(context, '/scanqrcode');
         });
   }
 }
