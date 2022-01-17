@@ -7,7 +7,7 @@ class GeneratedWidget2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '''นับสต็อกสินค้า''',
+      'ประเภทสินค้า',
       overflow: TextOverflow.visible,
       textAlign: TextAlign.center,
       style: TextStyle(

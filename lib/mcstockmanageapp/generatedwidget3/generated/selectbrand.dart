@@ -35,25 +35,30 @@ class _SelectBrandState extends State<SelectBrand> {
             child: ListView(
               children: [
                 Container(
-                    margin:
-                        const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+                    margin: const EdgeInsets.only(
+                        left: 20, right: 20, top: 20, bottom: 20),
                     child: SizedBox(
-                      height: 300,
-                      child: RaisedButton(
-                        child: Image.network('https://i.imgur.com/4bdOj2c.jpg'),
-                        onPressed: () async {
-                          print('test');
-                          Navigator.pushNamed(context, '/stock');
-                        },
-                      ),
-                    )),
+                        height: 300,
+                        child: RaisedButton(
+                          child: Container(
+                            child: Image.network(
+                                'https://i.imgur.com/NSgvhpc.png'),
+                          ),
+                          onPressed: () async {
+                            print('test');
+                            Navigator.pushNamed(context, '/stock');
+                          },
+                        ))),
                 Container(
-                    margin:
-                        const EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 20),
+                    margin: const EdgeInsets.only(
+                        left: 20, right: 20, top: 20, bottom: 20),
                     child: SizedBox(
                       height: 300,
                       child: RaisedButton(
-                        child: Text('OTHER', style: TextStyle(fontSize: 90),),
+                        child: Text(
+                          'OTHER',
+                          style: TextStyle(fontSize: 90),
+                        ),
                         onPressed: () async {
                           print('test');
                           Navigator.pushNamed(context, '/stock');

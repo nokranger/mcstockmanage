@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:ffi';
 // import 'dart:html';
 import 'dart:io';
 
@@ -410,32 +411,19 @@ class _ScanQRState extends State<ScanQR> {
                                                       String, String>{
                                                     'operation':
                                                         'add_product',
-                                                    'productId':
-                                                        (snapshot.data as Album)
-                                                            .id,
+                                                    'productId': null,
                                                     'productName':
                                                         (snapshot.data as Album)
                                                             .name,
                                                     "sku":
                                                         (snapshot.data as Album)
                                                             .sku,
-                                                    "descrition":
-                                                        (snapshot.data as Album)
-                                                            .name,
-                                                    "groupId":
-                                                        (snapshot.data as Album)
-                                                            .groupId,
-                                                    "godown":
-                                                        (snapshot.data as Album)
-                                                            .godown,
-                                                    "shelf":
-                                                        (snapshot.data as Album)
-                                                            .shelf,
-                                                    "price": 500.toString(),
-                                                    "qty":
-                                                        (snapshot.data as Album)
-                                                            .qty
-                                                            .toString()
+                                                    "descrition": null,
+                                                    "groupId": 'APP',
+                                                    "godown": null,
+                                                    "shelf": null,
+                                                    "price": null,
+                                                    "qty": 1.toString()
                                                   }));
                                               if (response.statusCode == 200) {
                                                 // If the server did return a 200 OK response,

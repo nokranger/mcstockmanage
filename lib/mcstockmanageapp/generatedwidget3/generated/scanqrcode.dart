@@ -409,7 +409,7 @@ class _ScanQRState extends State<ScanQR> {
                                                   body: convert.jsonEncode(<
                                                       String, String>{
                                                     'operation':
-                                                        'update_product_stock',
+                                                        'update_product_detail',
                                                     'productId':
                                                         (snapshot.data as Album)
                                                             .id,
@@ -442,7 +442,9 @@ class _ScanQRState extends State<ScanQR> {
                                                 // then parse the JSON.
                                                 print(
                                                     jsonDecode(response.body));
-                                                print('update done');
+                                                print('update done count');
+                                                print((snapshot.data as Album)
+                                                            .id);
                                                 Navigator.pushNamed(
                                                     context, '/scanqrcode');
                                               } else {
