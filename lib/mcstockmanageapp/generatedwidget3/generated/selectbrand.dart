@@ -53,7 +53,7 @@ class _SelectBrandState extends State<SelectBrand> {
                     child: SizedBox(
                       height: 300,
                       child: RaisedButton(
-                        child: Text('OTHER', style: TextStyle(fontSize: 200),),
+                        child: Text('OTHER', style: TextStyle(fontSize: 90),),
                         onPressed: () async {
                           print('test');
                           Navigator.pushNamed(context, '/stock');

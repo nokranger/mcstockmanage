@@ -47,7 +47,7 @@ class _StockState extends State<Stock> {
                   child: RaisedButton(
                     child: Text('เพิ่มสต็อกสินค้า'),
                     onPressed: () async {
-                      Navigator.pushNamed(context, '/scanqrcode');
+                      Navigator.pushNamed(context, '/scanqrcodeadd');
                     },
                   ),
                 ),
@@ -55,7 +55,7 @@ class _StockState extends State<Stock> {
                   child: RaisedButton(
                     child: Text('ตัดสต็อกสินค้า'),
                     onPressed: () async {
-                      Navigator.pushNamed(context, '/scanqrcode');
+                      Navigator.pushNamed(context, '/scanqrcodedecrease');
                     },
                   ),
                 )

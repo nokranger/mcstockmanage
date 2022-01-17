@@ -34,14 +34,14 @@ import 'dart:convert' as convert;
 //   }
 // }
 
-class QRViewExample extends StatefulWidget {
-  const QRViewExample({Key key}) : super(key: key);
+class ScanqrcodeDecrease extends StatefulWidget {
+  const ScanqrcodeDecrease({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _QRViewExampleState();
+  State<StatefulWidget> createState() => _ScanqrcodeDecreaseState();
 }
 
-class _QRViewExampleState extends State<QRViewExample> {
+class _ScanqrcodeDecreaseState extends State<ScanqrcodeDecrease> {
   Barcode result;
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -211,7 +211,7 @@ class _ScanQRState extends State<ScanQR> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text(
-              'รายละเอียดสินค้า (นับ)',
+              'รายละเอียดสินค้า (ตัด)',
               style: TextStyle(color: Colors.black),
             ),
             backgroundColor: const Color(0xffC2B280),
@@ -384,8 +384,8 @@ class _ScanQRState extends State<ScanQR> {
                                   height: 60,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: Colors.green),
-                                    child: Text('นับสต็อก( ทีละชิ้น )'),
+                                        primary: Colors.redAccent),
+                                    child: Text('เพิ่มสต็อกสินค้า( ทีละชิ้น )'),
                                     onPressed: () => showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>
@@ -409,7 +409,7 @@ class _ScanQRState extends State<ScanQR> {
                                                   body: convert.jsonEncode(<
                                                       String, String>{
                                                     'operation':
-                                                        'update_product_stock',
+                                                        'handle_product_stock',
                                                     'productId':
                                                         (snapshot.data as Album)
                                                             .id,
@@ -444,7 +444,7 @@ class _ScanQRState extends State<ScanQR> {
                                                     jsonDecode(response.body));
                                                 print('update done');
                                                 Navigator.pushNamed(
-                                                    context, '/scanqrcode');
+                                                    context, '/scanqrcodedecrease');
                                               } else {
                                                 // If the server did not return a 200 OK response,
                                                 // then throw an exception.
@@ -468,8 +468,8 @@ class _ScanQRState extends State<ScanQR> {
                                   height: 60,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: Colors.blue),
-                                    child: Text('นับสต็อก(หลายชิ้น)'),
+                                        primary: Colors.redAccent),
+                                    child: Text('ตัดสต็อกสินค้า(หลายชิ้น)'),
                                     onPressed: () => showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) => AlertDialog(
@@ -607,7 +607,7 @@ class _ScanQRState extends State<ScanQR> {
           ),
         ),
         onWillPop: () async {
-          Navigator.pushNamed(context, '/scanqrcode');
+          Navigator.pushNamed(context, '/scanqrcodedecrease');
         });
   }
 }
