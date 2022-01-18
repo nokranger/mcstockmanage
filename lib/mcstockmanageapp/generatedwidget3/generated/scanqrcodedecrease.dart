@@ -114,7 +114,8 @@ class _ScanqrcodeDecreaseState extends State<ScanqrcodeDecrease> {
 
 class ScanQR extends StatefulWidget {
   final String code;
-  const ScanQR({Key key, this.code}) : super(key: key);
+  final int decrease;
+  const ScanQR({Key key, this.code, this.decrease}) : super(key: key);
 
   @override
   _ScanQRState createState() => _ScanQRState(code: this.code);
@@ -123,6 +124,7 @@ class ScanQR extends StatefulWidget {
 class _ScanQRState extends State<ScanQR> {
   _ScanQRState({this.code});
   String code;
+  int decrease;
   Future<dynamic> futureAlbum;
   TextEditingController cproductName,
       csku,
@@ -302,7 +304,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('จำนวน'),
+                                        title: Text('จำนวนที่มีอยู่ในสต็อก'),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -385,12 +387,12 @@ class _ScanQRState extends State<ScanQR> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.redAccent),
-                                    child: Text('เพิ่มสต็อกสินค้า( ทีละชิ้น )'),
+                                    child: Text('ตัดสต็อกสินค้า( ทีละชิ้น )'),
                                     onPressed: () => showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>
                                           AlertDialog(
-                                        title: const Text('ยืนยันการนับสต็อก'),
+                                        title: const Text('ยืนยันการตัดสต็อก'),
                                         actions: <Widget>[
                                           TextButton(
                                             onPressed: () => Navigator.pop(
@@ -406,43 +408,20 @@ class _ScanQRState extends State<ScanQR> {
                                                     'Content-Type':
                                                         'application/json; charset=UTF-8',
                                                   },
-                                                  body: convert.jsonEncode(<
-                                                      String, String>{
+                                                  body: convert.jsonEncode({
                                                     'operation':
                                                         'handle_product_stock',
-                                                    'productId':
-                                                        (snapshot.data as Album)
-                                                            .id,
-                                                    'productName':
-                                                        (snapshot.data as Album)
-                                                            .name,
-                                                    "sku":
-                                                        (snapshot.data as Album)
-                                                            .sku,
-                                                    "descrition":
-                                                        (snapshot.data as Album)
-                                                            .name,
-                                                    "groupId":
-                                                        (snapshot.data as Album)
-                                                            .groupId,
-                                                    "godown":
-                                                        (snapshot.data as Album)
-                                                            .godown,
-                                                    "shelf":
-                                                        (snapshot.data as Album)
-                                                            .shelf,
-                                                    "price": 500.toString(),
-                                                    "qty":
-                                                        (snapshot.data as Album)
-                                                            .qty
-                                                            .toString()
+                                                    'scanData': (snapshot.data as Album).sku,
+                                                    'qty': 1,
+                                                    "eventId" : 3,
+                                                    'userId': "mobile",
                                                   }));
                                               if (response.statusCode == 200) {
                                                 // If the server did return a 200 OK response,
                                                 // then parse the JSON.
                                                 print(
                                                     jsonDecode(response.body));
-                                                print('update done');
+                                                print('update done decease');
                                                 Navigator.pushNamed(
                                                     context, '/scanqrcodedecrease');
                                               } else {
@@ -563,16 +542,92 @@ class _ScanQRState extends State<ScanQR> {
                                                             bottom: 20),
                                                     child: Column(
                                                       children: [
-                                                        TextField(
-                                                          decoration: InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              fillColor:
-                                                                  Colors.white,
-                                                              filled: true
-                                                              // hintText: 'ชื่อสินค้า: ' + productName,
-                                                              ),
-                                                        )
+                                                            TextField(
+                                                              autofocus: true,
+                                                              onChanged:
+                                                                  (search) {
+                                                                this.decrease =
+                                                                    int.parse(
+                                                                        search);
+                                                                print(this
+                                                                    .decrease);
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  border:
+                                                                      OutlineInputBorder(),
+                                                                  fillColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  filled: true
+                                                                  // hintText: 'ชื่อสินค้า: ' + productName,
+                                                                  ),
+                                                            ),
+                                                                                                                        Wrap(
+                                                              direction: Axis.horizontal,
+                                                              children: <Widget>[
+                                                            TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        context,
+                                                                        'ไม่ยืนยัน'),
+                                                                child: Text(
+                                                                    'ไม่ยืนยัน')),
+                                                            TextButton(
+                                                              onPressed:
+                                                                  () async {
+                                                                final responses = await http.post(
+                                                                    Uri.parse(
+                                                                        'http://119.63.90.135:9090/product'),
+                                                                    headers: <
+                                                                        String,
+                                                                        String>{
+                                                                      'Content-Type':
+                                                                          'application/json; charset=UTF-8',
+                                                                    },
+                                                                    body:
+                                                                        jsonEncode({
+                                                                      'operation':
+                                                                          'handle_product_stock',
+                                                                      'scanData':
+                                                                          (snapshot.data as Album)
+                                                                              .sku,
+                                                                      'qty': this.decrease,
+                                                                      "eventId":
+                                                                          3,
+                                                                      'userId':
+                                                                          "mobile",
+                                                                    }));
+                                                                print(responses
+                                                                    .body);
+                                                                if (responses
+                                                                        .statusCode ==
+                                                                    200) {
+                                                                  // If the server did return a 200 OK response,
+                                                                  // then parse the JSON.
+                                                                  print(jsonDecode(
+                                                                      responses
+                                                                          .body));
+                                                                  print(
+                                                                      'update done decrease');
+                                                                  print((snapshot
+                                                                              .data
+                                                                          as Album)
+                                                                      .sku);
+                                                                  Navigator.pushNamed(
+                                                                      context,
+                                                                      '/scanqrcode');
+                                                                } else {
+                                                                  // If the server did not return a 200 OK response,
+                                                                  // then throw an exception.
+                                                                  throw Exception(
+                                                                      'Failed to load album');
+                                                                }
+                                                              },
+                                                              child: const Text(
+                                                                  'ยืนยัน'),
+                                                            ),
+                                                              ],
+                                                            ),
                                                       ],
                                                     )),
                                               ),

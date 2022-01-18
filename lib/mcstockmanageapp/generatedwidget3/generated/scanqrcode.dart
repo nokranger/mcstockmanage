@@ -114,7 +114,8 @@ class _QRViewExampleState extends State<QRViewExample> {
 
 class ScanQR extends StatefulWidget {
   final String code;
-  const ScanQR({Key key, this.code}) : super(key: key);
+  final int counts;
+  const ScanQR({Key key, this.code, this.counts}) : super(key: key);
 
   @override
   _ScanQRState createState() => _ScanQRState(code: this.code);
@@ -123,6 +124,7 @@ class ScanQR extends StatefulWidget {
 class _ScanQRState extends State<ScanQR> {
   _ScanQRState({this.code});
   String code;
+  int counts;
   Future<dynamic> futureAlbum;
   TextEditingController cproductName,
       csku,
@@ -302,7 +304,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('จำนวน'),
+                                        title: Text('จำนวนที่มีอยู่ในสต็อก'),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -399,52 +401,32 @@ class _ScanQRState extends State<ScanQR> {
                                           ),
                                           TextButton(
                                             onPressed: () async {
-                                              final response = await http.post(
+                                              final responses = await http.post(
                                                   Uri.parse(
                                                       'http://119.63.90.135:9090/product'),
                                                   headers: <String, String>{
                                                     'Content-Type':
                                                         'application/json; charset=UTF-8',
                                                   },
-                                                  body: convert.jsonEncode(<
-                                                      String, String>{
+                                                  body: jsonEncode({
                                                     'operation':
-                                                        'update_product_detail',
-                                                    'productId':
-                                                        (snapshot.data as Album)
-                                                            .id,
-                                                    'productName':
-                                                        (snapshot.data as Album)
-                                                            .name,
-                                                    "sku":
+                                                        'handle_product_stock',
+                                                    'scanData':
                                                         (snapshot.data as Album)
                                                             .sku,
-                                                    "descrition":
-                                                        (snapshot.data as Album)
-                                                            .name,
-                                                    "groupId":
-                                                        (snapshot.data as Album)
-                                                            .groupId,
-                                                    "godown":
-                                                        (snapshot.data as Album)
-                                                            .godown,
-                                                    "shelf":
-                                                        (snapshot.data as Album)
-                                                            .shelf,
-                                                    "price": 500.toString(),
-                                                    "qty":
-                                                        (snapshot.data as Album)
-                                                            .qty
-                                                            .toString()
+                                                    'qty': 1,
+                                                    "eventId": 1,
+                                                    'userId': "mobile",
                                                   }));
-                                              if (response.statusCode == 200) {
+                                              print(responses.body);
+                                              if (responses.statusCode == 200) {
                                                 // If the server did return a 200 OK response,
                                                 // then parse the JSON.
                                                 print(
-                                                    jsonDecode(response.body));
+                                                    jsonDecode(responses.body));
                                                 print('update done count');
                                                 print((snapshot.data as Album)
-                                                            .id);
+                                                    .sku);
                                                 Navigator.pushNamed(
                                                     context, '/scanqrcode');
                                               } else {
@@ -474,121 +456,197 @@ class _ScanQRState extends State<ScanQR> {
                                     child: Text('นับสต็อก(หลายชิ้น)'),
                                     onPressed: () => showDialog<String>(
                                       context: context,
-                                      builder: (BuildContext context) => AlertDialog(
-                                          scrollable: true,
-                                          content: Column(
-                                            children: [
-                                              Container(
-                                                child: Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                              scrollable: true,
+                                              content: Column(
+                                                children: [
+                                                  Container(
+                                                    child: Container(
+                                                        margin: const EdgeInsets
+                                                                .only(
                                                             left: 20,
                                                             right: 20,
                                                             bottom: 20),
-                                                    child: Column(
-                                                      children: [
-                                                        ListTile(
-                                                          title: Text(
-                                                              'ชื่อสินค้า'),
-                                                        ),
-                                                        TextField(
-                                                          enabled: false,
-                                                          controller: cproductName
-                                                                      .text ==
-                                                                  'null'
-                                                              ? cnodata
-                                                              : cproductName,
-                                                          onChanged: (Search) {
-                                                            print('$Search');
-                                                          },
-                                                          decoration: InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              fillColor: Colors
-                                                                  .grey[350],
-                                                              filled: true
-                                                              // hintText: 'ชื่อสินค้า: ' + productName,
-                                                              ),
-                                                        )
-                                                      ],
-                                                    )),
-                                              ),
-                                              Container(
-                                                child: Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            left: 20,
-                                                            right: 20,
-                                                            bottom: 20),
-                                                    child: Column(
-                                                      children: [
-                                                        ListTile(
-                                                          title: Text(
-                                                              'รหัสสินค้า'),
-                                                        ),
-                                                        TextField(
-                                                          enabled: false,
-                                                          controller:
-                                                              csku.text ==
+                                                        child: Column(
+                                                          children: [
+                                                            ListTile(
+                                                              title: Text(
+                                                                  'ชื่อสินค้า'),
+                                                            ),
+                                                            TextField(
+                                                              enabled: false,
+                                                              controller: cproductName
+                                                                          .text ==
                                                                       'null'
                                                                   ? cnodata
-                                                                  : csku,
-                                                          onChanged: (Search) {
-                                                            print('$Search');
-                                                          },
-                                                          decoration: InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              fillColor: Colors
-                                                                  .grey[350],
-                                                              filled: true
-                                                              // hintText: 'ชื่อสินค้า: ' + productName,
-                                                              ),
-                                                        )
-                                                      ],
-                                                    )),
-                                              ),
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 20,
-                                                    right: 20,
-                                                    bottom: 20),
-                                                child: Text(
-                                                    'กรุณาระบุจำนวนสินค้า'),
-                                              ),
-                                              Container(
-                                                child: Container(
+                                                                  : cproductName,
+                                                              onChanged:
+                                                                  (Search) {
+                                                                print(
+                                                                    '$Search');
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  border:
+                                                                      OutlineInputBorder(),
+                                                                  fillColor:
+                                                                      Colors.grey[
+                                                                          350],
+                                                                  filled: true
+                                                                  // hintText: 'ชื่อสินค้า: ' + productName,
+                                                                  ),
+                                                            )
+                                                          ],
+                                                        )),
+                                                  ),
+                                                  Container(
+                                                    child: Container(
+                                                        margin: const EdgeInsets
+                                                                .only(
+                                                            left: 20,
+                                                            right: 20,
+                                                            bottom: 20),
+                                                        child: Column(
+                                                          children: [
+                                                            ListTile(
+                                                              title: Text(
+                                                                  'รหัสสินค้า'),
+                                                            ),
+                                                            TextField(
+                                                              enabled: false,
+                                                              controller:
+                                                                  csku.text ==
+                                                                          'null'
+                                                                      ? cnodata
+                                                                      : csku,
+                                                              onChanged:
+                                                                  (Search) {
+                                                                print(
+                                                                    '$Search');
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  border:
+                                                                      OutlineInputBorder(),
+                                                                  fillColor:
+                                                                      Colors.grey[
+                                                                          350],
+                                                                  filled: true
+                                                                  // hintText: 'ชื่อสินค้า: ' + productName,
+                                                                  ),
+                                                            )
+                                                          ],
+                                                        )),
+                                                  ),
+                                                  Container(
                                                     margin:
                                                         const EdgeInsets.only(
                                                             left: 20,
                                                             right: 20,
                                                             bottom: 20),
-                                                    child: Column(
-                                                      children: [
-                                                        TextField(
-                                                          decoration: InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              fillColor:
-                                                                  Colors.white,
-                                                              filled: true
-                                                              // hintText: 'ชื่อสินค้า: ' + productName,
-                                                              ),
-                                                        )
-                                                      ],
-                                                    )),
-                                              ),
-                                              // Container(
-                                              //     child: SizedBox(
-                                              //   width: 375,
-                                              //   height: 60,
-                                              //   child: RaisedButton(
-                                              //     child: Text('asfsafsaf'),
-                                              //   )
-                                              // ))
-                                            ],
-                                          )
-                                          ),
+                                                    child: Text(
+                                                        'กรุณาระบุจำนวนสินค้า'),
+                                                  ),
+                                                  Container(
+                                                    child: Container(
+                                                        margin: const EdgeInsets
+                                                                .only(
+                                                            left: 20,
+                                                            right: 20,
+                                                            bottom: 20),
+                                                        child: Column(
+                                                          children: <Widget>[
+                                                            TextField(
+                                                              autofocus: true,
+                                                              onChanged:
+                                                                  (search) {
+                                                                this.counts =
+                                                                    int.parse(
+                                                                        search);
+                                                                print(this
+                                                                    .counts);
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  border:
+                                                                      OutlineInputBorder(),
+                                                                  fillColor:
+                                                                      Colors
+                                                                          .white,
+                                                                  filled: true
+                                                                  // hintText: 'ชื่อสินค้า: ' + productName,
+                                                                  ),
+                                                            ),
+                                                            Wrap(
+                                                              direction: Axis.horizontal,
+                                                              children: <Widget>[
+                                                            TextButton(
+                                                                onPressed: () =>
+                                                                    Navigator.pop(
+                                                                        context,
+                                                                        'ไม่ยืนยัน'),
+                                                                child: Text(
+                                                                    'ไม่ยืนยัน')),
+                                                            TextButton(
+                                                              onPressed:
+                                                                  () async {
+                                                                final responses = await http.post(
+                                                                    Uri.parse(
+                                                                        'http://119.63.90.135:9090/product'),
+                                                                    headers: <
+                                                                        String,
+                                                                        String>{
+                                                                      'Content-Type':
+                                                                          'application/json; charset=UTF-8',
+                                                                    },
+                                                                    body:
+                                                                        jsonEncode({
+                                                                      'operation':
+                                                                          'handle_product_stock',
+                                                                      'scanData':
+                                                                          (snapshot.data as Album)
+                                                                              .sku,
+                                                                      'qty': this.counts,
+                                                                      "eventId":
+                                                                          1,
+                                                                      'userId':
+                                                                          "mobile",
+                                                                    }));
+                                                                print(responses
+                                                                    .body);
+                                                                if (responses
+                                                                        .statusCode ==
+                                                                    200) {
+                                                                  // If the server did return a 200 OK response,
+                                                                  // then parse the JSON.
+                                                                  print(jsonDecode(
+                                                                      responses
+                                                                          .body));
+                                                                  print(
+                                                                      'update done count');
+                                                                  print((snapshot
+                                                                              .data
+                                                                          as Album)
+                                                                      .sku);
+                                                                  Navigator.pushNamed(
+                                                                      context,
+                                                                      '/scanqrcode');
+                                                                } else {
+                                                                  // If the server did not return a 200 OK response,
+                                                                  // then throw an exception.
+                                                                  throw Exception(
+                                                                      'Failed to load album');
+                                                                }
+                                                              },
+                                                              child: const Text(
+                                                                  'ยืนยัน'),
+                                                            ),
+                                                              ],
+                                                            ),
+
+                                                          ],
+                                                        )),
+                                                  ),
+                                                ],
+                                              )),
                                     ),
                                   ),
                                 ),
