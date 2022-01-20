@@ -76,9 +76,22 @@ class _QRViewExampleState extends State<QRViewExample> {
                     autofocus: true,
                     onChanged: (search) async {
                       print(search);
+                      var sc = search.split('.');
+                      print(sc[0]);
+                      print(sc.length);
+                      if (sc.length > 1) {
+                        print('over1');
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ScanQR(code: sc[0])));
+                      } else {
+                        print('lower2');
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ScanQR(code: search)));
-                    }),
+                      }
+                    //   Navigator.of(context).push(MaterialPageRoute(
+                    //       builder: (context) => ScanQR(code: search)));
+                    // }),
+                    })
               )
               // // Expanded(flex: 4, child: _buildQrView(context)),
               // Expanded(
@@ -159,7 +172,8 @@ class _ScanQRState extends State<ScanQR> {
         },
         body: convert.jsonEncode(<String, String>{
           'operation': 'get_product_detail',
-          'productId': code
+          // 'productId': code,
+          'sku': code
         }));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,

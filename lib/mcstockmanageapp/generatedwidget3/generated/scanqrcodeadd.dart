@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:developer';
-import 'dart:ffi';
 // import 'dart:html';
 import 'dart:io';
 
@@ -77,8 +76,18 @@ class _ScanqrcodeAddState extends State<ScanqrcodeAdd> {
                     autofocus: true,
                     onChanged: (search) async {
                       print(search);
+                      var sc = search.split('.');
+                      print(sc[0]);
+                      print(sc.length);
+                      if (sc.length > 1) {
+                        print('over1');
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => ScanQR(code: sc[0])));
+                      } else {
+                        print('lower2');
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ScanQR(code: search)));
+                      }
                     }),
               )
               // // Expanded(flex: 4, child: _buildQrView(context)),
@@ -176,7 +185,7 @@ class _ScanQRState extends State<ScanQR> {
           jsonDecode(response.body)['data'] == null ||
           jsonDecode(response.body)['data'] == 'null') {
         print('sssss');
-        Navigator.pushNamed(context, '/noproduct');
+        Navigator.pushNamed(context, '/noproductadd');
       } else {
         print('scan done');
         final albums = Album.fromJson(
@@ -204,7 +213,7 @@ class _ScanQRState extends State<ScanQR> {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      Navigator.pushNamed(context, '/noproduct');
+      Navigator.pushNamed(context, '/noproductadd');
     }
   }
 
