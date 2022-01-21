@@ -169,7 +169,7 @@ class _ScanQRState extends State<ScanQR> {
         },
         body: convert.jsonEncode(<String, String>{
           'operation': 'get_product_detail',
-          'productId': code
+          'sku': code
         }));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
