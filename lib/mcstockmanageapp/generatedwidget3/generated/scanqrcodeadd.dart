@@ -224,7 +224,7 @@ class _ScanQRState extends State<ScanQR> {
           appBar: AppBar(
             title: const Text(
               'รายละเอียดสินค้า (เพิ่ม)',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.black, fontFamily: 'Kanit', fontSize: 18.0),
             ),
             backgroundColor: const Color(0xffC2B280),
             iconTheme: IconThemeData(color: Colors.black),
@@ -262,7 +262,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('ชื่อสินค้า'),
+                                        title: Text('ชื่อสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -277,7 +277,7 @@ class _ScanQRState extends State<ScanQR> {
                                             fillColor: Colors.grey[350],
                                             filled: true
                                             // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ),
+                                            ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
                                       )
                                     ],
                                   ))),
@@ -288,7 +288,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('รหัสสินค้า'),
+                                        title: Text('รหัสสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -303,7 +303,7 @@ class _ScanQRState extends State<ScanQR> {
                                             fillColor: Colors.grey[350],
                                             filled: true
                                             // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ),
+                                            ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
                                       )
                                     ],
                                   ))),
@@ -314,7 +314,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('จำนวนที่มีอยู่ในสต็อก'),
+                                        title: Text('จำนวนที่มีอยู่ในสต็อก', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -329,7 +329,7 @@ class _ScanQRState extends State<ScanQR> {
                                             fillColor: Colors.grey[350],
                                             filled: true
                                             // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ),
+                                            ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
                                       )
                                     ],
                                   ))),
@@ -340,7 +340,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('ชั้นสินค้า'),
+                                        title: Text('ชั้นสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -355,7 +355,7 @@ class _ScanQRState extends State<ScanQR> {
                                             fillColor: Colors.grey[350],
                                             filled: true
                                             // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ),
+                                            ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
                                       )
                                     ],
                                   ))),
@@ -366,7 +366,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('กลุ่มสินค้า'),
+                                        title: Text('กลุ่มสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -381,7 +381,7 @@ class _ScanQRState extends State<ScanQR> {
                                             fillColor: Colors.grey[350],
                                             filled: true
                                             // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ),
+                                            ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
                                       )
                                     ],
                                   ))),
@@ -397,7 +397,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.green),
-                                    child: Text('เพิ่มสต็อกสินค้า( ทีละชิ้น )'),
+                                    child: Text('เพิ่มสต็อกสินค้า( ทีละชิ้น )', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                     onPressed: () => showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>
@@ -461,7 +461,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.blue),
-                                    child: Text('เพิ่มสต็อกสินค้า(หลายชิ้น)'),
+                                    child: Text('เพิ่มสต็อกสินค้า(หลายชิ้น)', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                     onPressed: () => showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>
@@ -480,7 +480,7 @@ class _ScanQRState extends State<ScanQR> {
                                                           children: [
                                                             ListTile(
                                                               title: Text(
-                                                                  'ชื่อสินค้า'),
+                                                                  'ชื่อสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                                             ),
                                                             TextField(
                                                               enabled: false,
@@ -502,7 +502,7 @@ class _ScanQRState extends State<ScanQR> {
                                                                           350],
                                                                   filled: true
                                                                   // hintText: 'ชื่อสินค้า: ' + productName,
-                                                                  ),
+                                                                  ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
                                                             )
                                                           ],
                                                         )),
@@ -518,7 +518,7 @@ class _ScanQRState extends State<ScanQR> {
                                                           children: [
                                                             ListTile(
                                                               title: Text(
-                                                                  'รหัสสินค้า'),
+                                                                  'รหัสสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                                             ),
                                                             TextField(
                                                               enabled: false,
@@ -540,7 +540,7 @@ class _ScanQRState extends State<ScanQR> {
                                                                           350],
                                                                   filled: true
                                                                   // hintText: 'ชื่อสินค้า: ' + productName,
-                                                                  ),
+                                                                  ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
                                                             )
                                                           ],
                                                         )),
@@ -552,7 +552,7 @@ class _ScanQRState extends State<ScanQR> {
                                                             right: 20,
                                                             bottom: 20),
                                                     child: Text(
-                                                        'กรุณาระบุจำนวนสินค้า'),
+                                                        'กรุณาระบุจำนวนสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                                   ),
                                                   Container(
                                                     child: Container(
@@ -580,7 +580,7 @@ class _ScanQRState extends State<ScanQR> {
                                                                           .white,
                                                                   filled: true
                                                                   // hintText: 'ชื่อสินค้า: ' + productName,
-                                                                  ),
+                                                                  ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
                                                             ),
                                                             Wrap(
                                                               direction: Axis
@@ -593,7 +593,7 @@ class _ScanQRState extends State<ScanQR> {
                                                                             context,
                                                                             'ไม่ยืนยัน'),
                                                                     child: Text(
-                                                                        'ไม่ยืนยัน')),
+                                                                        'ไม่ยืนยัน', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0))),
                                                                 TextButton(
                                                                   onPressed:
                                                                       () async {
@@ -645,7 +645,7 @@ class _ScanQRState extends State<ScanQR> {
                                                                     }
                                                                   },
                                                                   child: const Text(
-                                                                      'ยืนยัน'),
+                                                                      'ยืนยัน', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                                                 ),
                                                               ],
                                                             ),

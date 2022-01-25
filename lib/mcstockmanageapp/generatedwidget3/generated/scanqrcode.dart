@@ -64,7 +64,8 @@ class _QRViewExampleState extends State<QRViewExample> {
           appBar: AppBar(
             title: Text(
               'SCAN CODE',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                  color: Colors.black, fontFamily: 'Kanit', fontSize: 18.0),
             ),
             backgroundColor: const Color(0xffC2B280),
             iconTheme: IconThemeData(color: Colors.black),
@@ -72,27 +73,26 @@ class _QRViewExampleState extends State<QRViewExample> {
           body: Column(
             children: <Widget>[
               Container(
-                child: TextField(
-                    autofocus: true,
-                    onChanged: (search) async {
-                      print(search);
-                      var sc = search.split('.');
-                      print(sc[0]);
-                      print(sc.length);
-                      if (sc.length > 1) {
-                        print('over1');
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ScanQR(code: sc[0])));
-                      } else {
-                        print('lower2');
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => ScanQR(code: search)));
-                      }
-                    //   Navigator.of(context).push(MaterialPageRoute(
-                    //       builder: (context) => ScanQR(code: search)));
-                    // }),
-                    })
-              )
+                  child: TextField(
+                      autofocus: true,
+                      onChanged: (search) async {
+                        print(search);
+                        var sc = search.split('.');
+                        print(sc[0]);
+                        print(sc.length);
+                        if (sc.length > 1) {
+                          print('over1');
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ScanQR(code: sc[0])));
+                        } else {
+                          print('lower2');
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => ScanQR(code: search)));
+                        }
+                        //   Navigator.of(context).push(MaterialPageRoute(
+                        //       builder: (context) => ScanQR(code: search)));
+                        // }),
+                      }))
               // // Expanded(flex: 4, child: _buildQrView(context)),
               // Expanded(
               //   flex: 1,
@@ -165,16 +165,16 @@ class _ScanQRState extends State<ScanQR> {
   }
 
   Future<dynamic> fetchAlbum() async {
-    final response = await http.post(
-        Uri.parse('http://119.63.90.135:9090/product'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: convert.jsonEncode(<String, String>{
-          'operation': 'get_product_detail',
-          // 'productId': code,
-          'sku': code
-        }));
+    final response =
+        await http.post(Uri.parse('http://119.63.90.135:9090/product'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+            body: convert.jsonEncode(<String, String>{
+              'operation': 'get_product_detail',
+              // 'productId': code,
+              'sku': code
+            }));
     if (response.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
@@ -228,7 +228,8 @@ class _ScanQRState extends State<ScanQR> {
           appBar: AppBar(
             title: const Text(
               'รายละเอียดสินค้า (นับ)',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                  color: Colors.black, fontFamily: 'Kanit', fontSize: 18.0),
             ),
             backgroundColor: const Color(0xffC2B280),
             iconTheme: IconThemeData(color: Colors.black),
@@ -266,23 +267,31 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('ชื่อสินค้า'),
+                                        title: Text(
+                                          'ชื่อสินค้า',
+                                          style: TextStyle(
+                                              fontFamily: 'Kanit',
+                                              fontSize: 18.0),
+                                        ),
                                       ),
                                       TextField(
-                                        enabled: false,
-                                        controller: cproductName.text == 'null'
-                                            ? cnodata
-                                            : cproductName,
-                                        onChanged: (Search) {
-                                          print('$Search');
-                                        },
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            fillColor: Colors.grey[350],
-                                            filled: true
-                                            // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ),
-                                      )
+                                          enabled: false,
+                                          controller:
+                                              cproductName.text == 'null'
+                                                  ? cnodata
+                                                  : cproductName,
+                                          onChanged: (Search) {
+                                            print('$Search');
+                                          },
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              fillColor: Colors.grey[350],
+                                              filled: true
+                                              // hintText: 'ชื่อสินค้า: ' + productName,
+                                              ),
+                                          style: TextStyle(
+                                              fontFamily: 'Kanit',
+                                              fontSize: 18.0))
                                     ],
                                   ))),
                           Flexible(
@@ -292,23 +301,28 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('รหัสสินค้า'),
+                                        title: Text('รหัสสินค้า',
+                                            style: TextStyle(
+                                                fontFamily: 'Kanit',
+                                                fontSize: 18.0)),
                                       ),
                                       TextField(
-                                        enabled: false,
-                                        controller: csku.text == 'null'
-                                            ? cnodata
-                                            : csku,
-                                        onChanged: (Search) {
-                                          print('$Search');
-                                        },
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            fillColor: Colors.grey[350],
-                                            filled: true
-                                            // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ),
-                                      )
+                                          enabled: false,
+                                          controller: csku.text == 'null'
+                                              ? cnodata
+                                              : csku,
+                                          onChanged: (Search) {
+                                            print('$Search');
+                                          },
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              fillColor: Colors.grey[350],
+                                              filled: true
+                                              // hintText: 'ชื่อสินค้า: ' + productName,
+                                              ),
+                                          style: TextStyle(
+                                              fontFamily: 'Kanit',
+                                              fontSize: 18.0))
                                     ],
                                   ))),
                           Flexible(
@@ -318,23 +332,28 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('จำนวนที่มีอยู่ในสต็อก'),
+                                        title: Text('จำนวนที่มีอยู่ในสต็อก',
+                                            style: TextStyle(
+                                                fontFamily: 'Kanit',
+                                                fontSize: 18.0)),
                                       ),
                                       TextField(
-                                        enabled: false,
-                                        controller: cqty.text == 'null'
-                                            ? cnodata
-                                            : cqty,
-                                        onChanged: (Search) {
-                                          print('$Search');
-                                        },
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            fillColor: Colors.grey[350],
-                                            filled: true
-                                            // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ),
-                                      )
+                                          enabled: false,
+                                          controller: cqty.text == 'null'
+                                              ? cnodata
+                                              : cqty,
+                                          onChanged: (Search) {
+                                            print('$Search');
+                                          },
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              fillColor: Colors.grey[350],
+                                              filled: true
+                                              // hintText: 'ชื่อสินค้า: ' + productName,
+                                              ),
+                                          style: TextStyle(
+                                              fontFamily: 'Kanit',
+                                              fontSize: 18.0))
                                     ],
                                   ))),
                           Flexible(
@@ -344,23 +363,28 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('ชั้นสินค้า'),
+                                        title: Text('ชั้นสินค้า',
+                                            style: TextStyle(
+                                                fontFamily: 'Kanit',
+                                                fontSize: 18.0)),
                                       ),
                                       TextField(
-                                        enabled: false,
-                                        controller: cshelf.text == 'null'
-                                            ? cnodata
-                                            : cshelf,
-                                        onChanged: (Search) {
-                                          print('$Search');
-                                        },
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            fillColor: Colors.grey[350],
-                                            filled: true
-                                            // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ),
-                                      )
+                                          enabled: false,
+                                          controller: cshelf.text == 'null'
+                                              ? cnodata
+                                              : cshelf,
+                                          onChanged: (Search) {
+                                            print('$Search');
+                                          },
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              fillColor: Colors.grey[350],
+                                              filled: true
+                                              // hintText: 'ชื่อสินค้า: ' + productName,
+                                              ),
+                                          style: TextStyle(
+                                              fontFamily: 'Kanit',
+                                              fontSize: 18.0))
                                     ],
                                   ))),
                           Flexible(
@@ -370,23 +394,28 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('กลุ่มสินค้า'),
+                                        title: Text('กลุ่มสินค้า',
+                                            style: TextStyle(
+                                                fontFamily: 'Kanit',
+                                                fontSize: 18.0)),
                                       ),
                                       TextField(
-                                        enabled: false,
-                                        controller: cgroupName.text == 'null'
-                                            ? cnodata
-                                            : cgroupName,
-                                        onChanged: (Search) {
-                                          print('$Search');
-                                        },
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(),
-                                            fillColor: Colors.grey[350],
-                                            filled: true
-                                            // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ),
-                                      )
+                                          enabled: false,
+                                          controller: cgroupName.text == 'null'
+                                              ? cnodata
+                                              : cgroupName,
+                                          onChanged: (Search) {
+                                            print('$Search');
+                                          },
+                                          decoration: InputDecoration(
+                                              border: OutlineInputBorder(),
+                                              fillColor: Colors.grey[350],
+                                              filled: true
+                                              // hintText: 'ชื่อสินค้า: ' + productName,
+                                              ),
+                                          style: TextStyle(
+                                              fontFamily: 'Kanit',
+                                              fontSize: 18.0))
                                     ],
                                   ))),
                           Flexible(
@@ -401,7 +430,10 @@ class _ScanQRState extends State<ScanQR> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.green),
-                                    child: Text('นับสต็อก( ทีละชิ้น )'),
+                                    child: Text('นับสต็อก( ทีละชิ้น )',
+                                        style: TextStyle(
+                                            fontFamily: 'Kanit',
+                                            fontSize: 18.0)),
                                     onPressed: () => showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>
@@ -467,7 +499,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
                                         primary: Colors.blue),
-                                    child: Text('นับสต็อก(หลายชิ้น)'),
+                                    child: Text('นับสต็อก(หลายชิ้น)', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
                                     onPressed: () => showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>
@@ -486,30 +518,40 @@ class _ScanQRState extends State<ScanQR> {
                                                           children: [
                                                             ListTile(
                                                               title: Text(
-                                                                  'ชื่อสินค้า'),
+                                                                  'ชื่อสินค้า',
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'Kanit',
+                                                                      fontSize:
+                                                                          18.0)),
                                                             ),
                                                             TextField(
-                                                              enabled: false,
-                                                              controller: cproductName
-                                                                          .text ==
-                                                                      'null'
-                                                                  ? cnodata
-                                                                  : cproductName,
-                                                              onChanged:
-                                                                  (Search) {
-                                                                print(
-                                                                    '$Search');
-                                                              },
-                                                              decoration: InputDecoration(
-                                                                  border:
-                                                                      OutlineInputBorder(),
-                                                                  fillColor:
-                                                                      Colors.grey[
-                                                                          350],
-                                                                  filled: true
-                                                                  // hintText: 'ชื่อสินค้า: ' + productName,
-                                                                  ),
-                                                            )
+                                                                enabled: false,
+                                                                controller:
+                                                                    cproductName
+                                                                                .text ==
+                                                                            'null'
+                                                                        ? cnodata
+                                                                        : cproductName,
+                                                                onChanged:
+                                                                    (Search) {
+                                                                  print(
+                                                                      '$Search');
+                                                                },
+                                                                decoration: InputDecoration(
+                                                                    border:
+                                                                        OutlineInputBorder(),
+                                                                    fillColor:
+                                                                        Colors.grey[
+                                                                            350],
+                                                                    filled: true
+                                                                    // hintText: 'ชื่อสินค้า: ' + productName,
+                                                                    ),
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'Kanit',
+                                                                    fontSize:
+                                                                        18.0))
                                                           ],
                                                         )),
                                                   ),
@@ -524,30 +566,38 @@ class _ScanQRState extends State<ScanQR> {
                                                           children: [
                                                             ListTile(
                                                               title: Text(
-                                                                  'รหัสสินค้า'),
+                                                                  'รหัสสินค้า',
+                                                                  style: TextStyle(
+                                                                      fontFamily:
+                                                                          'Kanit',
+                                                                      fontSize:
+                                                                          18.0)),
                                                             ),
                                                             TextField(
-                                                              enabled: false,
-                                                              controller:
-                                                                  csku.text ==
-                                                                          'null'
-                                                                      ? cnodata
-                                                                      : csku,
-                                                              onChanged:
-                                                                  (Search) {
-                                                                print(
-                                                                    '$Search');
-                                                              },
-                                                              decoration: InputDecoration(
-                                                                  border:
-                                                                      OutlineInputBorder(),
-                                                                  fillColor:
-                                                                      Colors.grey[
-                                                                          350],
-                                                                  filled: true
-                                                                  // hintText: 'ชื่อสินค้า: ' + productName,
-                                                                  ),
-                                                            )
+                                                                enabled: false,
+                                                                controller:
+                                                                    csku.text == 'null'
+                                                                        ? cnodata
+                                                                        : csku,
+                                                                onChanged:
+                                                                    (Search) {
+                                                                  print(
+                                                                      '$Search');
+                                                                },
+                                                                decoration: InputDecoration(
+                                                                    border:
+                                                                        OutlineInputBorder(),
+                                                                    fillColor:
+                                                                        Colors.grey[
+                                                                            350],
+                                                                    filled: true
+                                                                    // hintText: 'ชื่อสินค้า: ' + productName,
+                                                                    ),
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'Kanit',
+                                                                    fontSize:
+                                                                        18.0))
                                                           ],
                                                         )),
                                                   ),
@@ -558,7 +608,10 @@ class _ScanQRState extends State<ScanQR> {
                                                             right: 20,
                                                             bottom: 20),
                                                     child: Text(
-                                                        'กรุณาระบุจำนวนสินค้า'),
+                                                        'กรุณาระบุจำนวนสินค้า',
+                                                        style: TextStyle(
+                                                            fontFamily: 'Kanit',
+                                                            fontSize: 18.0)),
                                                   ),
                                                   Container(
                                                     child: Container(
@@ -570,92 +623,96 @@ class _ScanQRState extends State<ScanQR> {
                                                         child: Column(
                                                           children: <Widget>[
                                                             TextField(
-                                                              autofocus: true,
-                                                              onChanged:
-                                                                  (search) {
-                                                                this.counts =
-                                                                    int.parse(
-                                                                        search);
-                                                                print(this
-                                                                    .counts);
-                                                              },
-                                                              decoration: InputDecoration(
-                                                                  border:
-                                                                      OutlineInputBorder(),
-                                                                  fillColor:
-                                                                      Colors
-                                                                          .white,
-                                                                  filled: true
-                                                                  // hintText: 'ชื่อสินค้า: ' + productName,
-                                                                  ),
-                                                            ),
+                                                                autofocus: true,
+                                                                onChanged:
+                                                                    (search) {
+                                                                  this.counts =
+                                                                      int.parse(
+                                                                          search);
+                                                                  print(this
+                                                                      .counts);
+                                                                },
+                                                                decoration: InputDecoration(
+                                                                    border:
+                                                                        OutlineInputBorder(),
+                                                                    fillColor:
+                                                                        Colors
+                                                                            .white,
+                                                                    filled: true
+                                                                    // hintText: 'ชื่อสินค้า: ' + productName,
+                                                                    ),
+                                                                style: TextStyle(
+                                                                    fontFamily:
+                                                                        'Kanit',
+                                                                    fontSize:
+                                                                        18.0)),
                                                             Wrap(
-                                                              direction: Axis.horizontal,
-                                                              children: <Widget>[
-                                                            TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        context,
-                                                                        'ไม่ยืนยัน'),
-                                                                child: Text(
-                                                                    'ไม่ยืนยัน')),
-                                                            TextButton(
-                                                              onPressed:
-                                                                  () async {
-                                                                final responses = await http.post(
-                                                                    Uri.parse(
-                                                                        'http://119.63.90.135:9090/product'),
-                                                                    headers: <
-                                                                        String,
-                                                                        String>{
-                                                                      'Content-Type':
-                                                                          'application/json; charset=UTF-8',
-                                                                    },
-                                                                    body:
-                                                                        jsonEncode({
-                                                                      'operation':
-                                                                          'handle_product_stock',
-                                                                      'scanData':
-                                                                          (snapshot.data as Album)
-                                                                              .sku,
-                                                                      'qty': this.counts,
-                                                                      "eventId":
-                                                                          1,
-                                                                      'userId':
-                                                                          "mobile",
-                                                                    }));
-                                                                print(responses
-                                                                    .body);
-                                                                if (responses
-                                                                        .statusCode ==
-                                                                    200) {
-                                                                  // If the server did return a 200 OK response,
-                                                                  // then parse the JSON.
-                                                                  print(jsonDecode(
-                                                                      responses
-                                                                          .body));
-                                                                  print(
-                                                                      'update done count');
-                                                                  print((snapshot
-                                                                              .data
-                                                                          as Album)
-                                                                      .sku);
-                                                                  Navigator.pushNamed(
-                                                                      context,
-                                                                      '/scanqrcode');
-                                                                } else {
-                                                                  // If the server did not return a 200 OK response,
-                                                                  // then throw an exception.
-                                                                  throw Exception(
-                                                                      'Failed to load album');
-                                                                }
-                                                              },
-                                                              child: const Text(
-                                                                  'ยืนยัน'),
-                                                            ),
+                                                              direction: Axis
+                                                                  .horizontal,
+                                                              children: <
+                                                                  Widget>[
+                                                                TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
+                                                                            context,
+                                                                            'ไม่ยืนยัน'),
+                                                                    child: Text(
+                                                                        'ไม่ยืนยัน', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0))),
+                                                                TextButton(
+                                                                  onPressed:
+                                                                      () async {
+                                                                    final responses = await http.post(
+                                                                        Uri.parse(
+                                                                            'http://119.63.90.135:9090/product'),
+                                                                        headers: <
+                                                                            String,
+                                                                            String>{
+                                                                          'Content-Type':
+                                                                              'application/json; charset=UTF-8',
+                                                                        },
+                                                                        body:
+                                                                            jsonEncode({
+                                                                          'operation':
+                                                                              'handle_product_stock',
+                                                                          'scanData':
+                                                                              (snapshot.data as Album).sku,
+                                                                          'qty':
+                                                                              this.counts,
+                                                                          "eventId":
+                                                                              1,
+                                                                          'userId':
+                                                                              "mobile",
+                                                                        }));
+                                                                    print(responses
+                                                                        .body);
+                                                                    if (responses
+                                                                            .statusCode ==
+                                                                        200) {
+                                                                      // If the server did return a 200 OK response,
+                                                                      // then parse the JSON.
+                                                                      print(jsonDecode(
+                                                                          responses
+                                                                              .body));
+                                                                      print(
+                                                                          'update done count');
+                                                                      print((snapshot.data
+                                                                              as Album)
+                                                                          .sku);
+                                                                      Navigator.pushNamed(
+                                                                          context,
+                                                                          '/scanqrcode');
+                                                                    } else {
+                                                                      // If the server did not return a 200 OK response,
+                                                                      // then throw an exception.
+                                                                      throw Exception(
+                                                                          'Failed to load album');
+                                                                    }
+                                                                  },
+                                                                  child: const Text(
+                                                                      'ยืนยัน', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
+                                                                ),
                                                               ],
                                                             ),
-
                                                           ],
                                                         )),
                                                   ),

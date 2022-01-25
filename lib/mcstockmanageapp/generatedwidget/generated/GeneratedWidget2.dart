@@ -12,7 +12,7 @@ class GeneratedWidget2 extends StatelessWidget {
       textAlign: TextAlign.center,
       style: TextStyle(
         height: 1.171875,
-        fontSize: 12.0,
+        fontSize: 18.0,
         fontFamily: 'Kanit',
         fontWeight: FontWeight.w400,
         color: Color.fromARGB(255, 0, 0, 0),

@@ -153,7 +153,8 @@ class _ProductDetailState extends State<ProductDetail> {
           appBar: AppBar(
             title: const Text(
               'ตรวจสอบรายละเอียดสินค้า',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.black, fontSize: 18.0,
+                      fontFamily: 'Kanit'),
             ),
             backgroundColor: const Color(0xffC2B280),
             iconTheme: IconThemeData(color: Colors.black),
@@ -295,7 +296,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                                                   color: Colors
                                                                           .blue[
                                                                       900],
-                                                                  fontSize: 20),
+                                                                  fontSize: 18, fontFamily: 'Kanit'),
                                                             ),
                                                           ),
 
@@ -329,7 +330,7 @@ class _ProductDetailState extends State<ProductDetail> {
                                                                     3.0,
                                                                 color: Colors
                                                                     .black,
-                                                                fontSize: 20),
+                                                                fontSize: 18, fontFamily: 'Kanit'),
                                                           ),
                                                         )
                                                       ],
@@ -501,7 +502,9 @@ class _SecondRouteState extends State<SecondRoute> {
             appBar: AppBar(
               title: const Text(
                 'รายละเอียดสินค้า',
-                style: TextStyle(color: Colors.black),
+                style: TextStyle(color: Colors.black, 
+                      fontSize: 18.0,
+                      fontFamily: 'Kanit'),
               ),
               backgroundColor: const Color(0xffC2B280),
               iconTheme: IconThemeData(color: Colors.black),
@@ -532,7 +535,10 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('ชื่อสินค้า'),
+                                    title: Text('ชื่อสินค้า', style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'Kanit'
+                    )),
                                   ),
                                   TextField(
                                     enabled: false,
@@ -545,9 +551,13 @@ class _SecondRouteState extends State<SecondRoute> {
                                     decoration: InputDecoration(
                                         border: OutlineInputBorder(),
                                         fillColor: Colors.grey[350],
-                                        filled: true
+                                        filled: true,
                                         // hintText: 'ชื่อสินค้า: ' + productName,
                                         ),
+                                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'Kanit'
+                    )
                                   )
                                 ],
                               ))),
@@ -558,7 +568,10 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('รหัสสินค้า'),
+                                    title: Text('รหัสสินค้า', style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'Kanit'
+                    )),
                                   ),
                                   TextField(
                                     enabled: false,
@@ -572,6 +585,10 @@ class _SecondRouteState extends State<SecondRoute> {
                                         filled: true
                                         // hintText: 'ชื่อสินค้า: ' + productName,
                                         ),
+                                        style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'Kanit'
+                    )
                                   )
                                 ],
                               ))),
@@ -582,7 +599,10 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('จำนวน'),
+                                    title: Text('จำนวน', style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'Kanit'
+                    )),
                                   ),
                                   TextField(
                                     enabled: false,
@@ -596,6 +616,10 @@ class _SecondRouteState extends State<SecondRoute> {
                                         filled: true
                                         // hintText: 'ชื่อสินค้า: ' + productName,
                                         ),
+                                        style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'Kanit'
+                    )
                                   )
                                 ],
                               ))),
@@ -606,7 +630,10 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('ราคา(บาท)'),
+                                    title: Text('ราคา(บาท)', style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'Kanit'
+                    )),
                                   ),
                                   TextField(
                                     enabled: false,
@@ -621,6 +648,10 @@ class _SecondRouteState extends State<SecondRoute> {
                                         filled: true
                                         // hintText: 'ชื่อสินค้า: ' + productName,
                                         ),
+                                        style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'Kanit'
+                    )
                                   )
                                 ],
                               ))),
@@ -631,7 +662,10 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('ชั้นสินค้า'),
+                                    title: Text('ชั้นสินค้า', style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'Kanit'
+                    )),
                                   ),
                                   TextField(
                                     enabled: false,
@@ -646,6 +680,10 @@ class _SecondRouteState extends State<SecondRoute> {
                                         filled: true
                                         // hintText: 'ชื่อสินค้า: ' + productName,
                                         ),
+                                        style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'Kanit'
+                    )
                                   )
                                 ],
                               ))),
@@ -656,7 +694,10 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('กลุ่มสินค้า'),
+                                    title: Text('กลุ่มสินค้า', style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'Kanit'
+                    )),
                                   ),
                                   TextField(
                                     enabled: false,
@@ -672,6 +713,10 @@ class _SecondRouteState extends State<SecondRoute> {
                                         filled: true
                                         // hintText: 'ชื่อสินค้า: ' + productName,
                                         ),
+                                        style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'Kanit'
+                    )
                                   )
                                 ],
                               ))),
@@ -682,7 +727,10 @@ class _SecondRouteState extends State<SecondRoute> {
                           child: Column(
                             children: [
                               ListTile(
-                                title: Text('โกดัง'),
+                                title: Text('โกดัง', style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'Kanit'
+                    )),
                               ),
                               TextField(
                                 enabled: false,
@@ -697,6 +745,10 @@ class _SecondRouteState extends State<SecondRoute> {
                                     filled: true
                                     // hintText: 'ชื่อสินค้า: ' + productName,
                                     ),
+                                    style: TextStyle(
+                      fontSize: 16.0,
+                      fontFamily: 'Kanit'
+                    )
                               ),
                             ],
                           ),
@@ -712,7 +764,10 @@ class _SecondRouteState extends State<SecondRoute> {
                                 width: 375,
                                 height: 60,
                                 child: ElevatedButton(
-                                  child: Text('กลับ'),
+                                  child: Text('กลับ', style: TextStyle(
+                      fontSize: 18.0,
+                      fontFamily: 'Kanit'
+                    )),
                                   onPressed: () {
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(

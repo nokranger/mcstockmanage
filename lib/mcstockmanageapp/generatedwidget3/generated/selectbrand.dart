@@ -26,7 +26,9 @@ class _SelectBrandState extends State<SelectBrand> {
           appBar: AppBar(
             title: const Text(
               'เลือกประเภทอุปกรณ์',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(color: Colors.black, 
+                      fontSize: 18.0,
+                      fontFamily: 'Kanit'),
             ),
             backgroundColor: const Color(0xffC2B280),
             iconTheme: IconThemeData(color: Colors.black),
@@ -57,7 +59,7 @@ class _SelectBrandState extends State<SelectBrand> {
                       child: RaisedButton(
                         child: Text(
                           'OTHER',
-                          style: TextStyle(fontSize: 90),
+                          style: TextStyle(fontSize: 90, fontFamily: 'Kanit'),
                         ),
                         onPressed: () async {
                           print('test');

@@ -34,14 +34,14 @@ import 'dart:convert' as convert;
 //   }
 // }
 
-class ScanqrcodeDecrease extends StatefulWidget {
-  const ScanqrcodeDecrease({Key key}) : super(key: key);
+class QRViewExample extends StatefulWidget {
+  const QRViewExample({Key key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _ScanqrcodeDecreaseState();
+  State<StatefulWidget> createState() => _QRViewExampleState();
 }
 
-class _ScanqrcodeDecreaseState extends State<ScanqrcodeDecrease> {
+class _QRViewExampleState extends State<QRViewExample> {
   Barcode result;
   QRViewController controller;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -64,7 +64,7 @@ class _ScanqrcodeDecreaseState extends State<ScanqrcodeDecrease> {
           appBar: AppBar(
             title: Text(
               'SCAN CODE',
-              style: TextStyle(color: Colors.black, fontFamily: 'Kanit', fontSize: 18.0),
+              style: TextStyle(color: Colors.black),
             ),
             backgroundColor: const Color(0xffC2B280),
             iconTheme: IconThemeData(color: Colors.black),
@@ -88,7 +88,10 @@ class _ScanqrcodeDecreaseState extends State<ScanqrcodeDecrease> {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (context) => ScanQR(code: search)));
                       }
-                    }),
+                    //   Navigator.of(context).push(MaterialPageRoute(
+                    //       builder: (context) => ScanQR(code: search)));
+                    // }),
+                    })
               )
               // // Expanded(flex: 4, child: _buildQrView(context)),
               // Expanded(
@@ -124,8 +127,8 @@ class _ScanqrcodeDecreaseState extends State<ScanqrcodeDecrease> {
 
 class ScanQR extends StatefulWidget {
   final String code;
-  final int decrease;
-  const ScanQR({Key key, this.code, this.decrease}) : super(key: key);
+  final int counts;
+  const ScanQR({Key key, this.code, this.counts}) : super(key: key);
 
   @override
   _ScanQRState createState() => _ScanQRState(code: this.code);
@@ -134,7 +137,7 @@ class ScanQR extends StatefulWidget {
 class _ScanQRState extends State<ScanQR> {
   _ScanQRState({this.code});
   String code;
-  int decrease;
+  int counts;
   Future<dynamic> futureAlbum;
   TextEditingController cproductName,
       csku,
@@ -169,6 +172,7 @@ class _ScanQRState extends State<ScanQR> {
         },
         body: convert.jsonEncode(<String, String>{
           'operation': 'get_product_detail',
+          // 'productId': code,
           'sku': code
         }));
     if (response.statusCode == 200) {
@@ -185,7 +189,7 @@ class _ScanQRState extends State<ScanQR> {
           jsonDecode(response.body)['data'] == null ||
           jsonDecode(response.body)['data'] == 'null') {
         print('sssss');
-        Navigator.pushNamed(context, '/noproductdecrease');
+        Navigator.pushNamed(context, '/noproduct');
       } else {
         print('scan done');
         final albums = Album.fromJson(
@@ -213,7 +217,7 @@ class _ScanQRState extends State<ScanQR> {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      Navigator.pushNamed(context, '/noproductdecrease');
+      Navigator.pushNamed(context, '/noproduct');
     }
   }
 
@@ -223,8 +227,8 @@ class _ScanQRState extends State<ScanQR> {
         child: Scaffold(
           appBar: AppBar(
             title: const Text(
-              'รายละเอียดสินค้า (ตัด)',
-              style: TextStyle(color: Colors.black, fontFamily: 'Kanit', fontSize: 18.0),
+              'รายละเอียดสินค้า (นับ)',
+              style: TextStyle(color: Colors.black),
             ),
             backgroundColor: const Color(0xffC2B280),
             iconTheme: IconThemeData(color: Colors.black),
@@ -262,7 +266,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('ชื่อสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
+                                        title: Text('ชื่อสินค้า'),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -277,7 +281,7 @@ class _ScanQRState extends State<ScanQR> {
                                             fillColor: Colors.grey[350],
                                             filled: true
                                             // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
+                                            ),
                                       )
                                     ],
                                   ))),
@@ -288,7 +292,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('รหัสสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
+                                        title: Text('รหัสสินค้า'),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -303,7 +307,7 @@ class _ScanQRState extends State<ScanQR> {
                                             fillColor: Colors.grey[350],
                                             filled: true
                                             // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
+                                            ),
                                       )
                                     ],
                                   ))),
@@ -314,7 +318,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('จำนวนที่มีอยู่ในสต็อก', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
+                                        title: Text('จำนวนที่มีอยู่ในสต็อก'),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -329,7 +333,7 @@ class _ScanQRState extends State<ScanQR> {
                                             fillColor: Colors.grey[350],
                                             filled: true
                                             // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
+                                            ),
                                       )
                                     ],
                                   ))),
@@ -340,7 +344,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('ชั้นสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
+                                        title: Text('ชั้นสินค้า'),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -355,7 +359,7 @@ class _ScanQRState extends State<ScanQR> {
                                             fillColor: Colors.grey[350],
                                             filled: true
                                             // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
+                                            ),
                                       )
                                     ],
                                   ))),
@@ -366,7 +370,7 @@ class _ScanQRState extends State<ScanQR> {
                                   child: Column(
                                     children: [
                                       ListTile(
-                                        title: Text('กลุ่มสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
+                                        title: Text('กลุ่มสินค้า'),
                                       ),
                                       TextField(
                                         enabled: false,
@@ -381,7 +385,7 @@ class _ScanQRState extends State<ScanQR> {
                                             fillColor: Colors.grey[350],
                                             filled: true
                                             // hintText: 'ชื่อสินค้า: ' + productName,
-                                            ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
+                                            ),
                                       )
                                     ],
                                   ))),
@@ -396,13 +400,13 @@ class _ScanQRState extends State<ScanQR> {
                                   height: 60,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: Colors.redAccent),
-                                    child: Text('ตัดสต็อกสินค้า( ทีละชิ้น )', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
+                                        primary: Colors.green),
+                                    child: Text('นับสต็อก( ทีละชิ้น )'),
                                     onPressed: () => showDialog<String>(
                                       context: context,
                                       builder: (BuildContext context) =>
                                           AlertDialog(
-                                        title: const Text('ยืนยันการตัดสต็อก'),
+                                        title: const Text('ยืนยันการนับสต็อก'),
                                         actions: <Widget>[
                                           TextButton(
                                             onPressed: () => Navigator.pop(
@@ -411,29 +415,34 @@ class _ScanQRState extends State<ScanQR> {
                                           ),
                                           TextButton(
                                             onPressed: () async {
-                                              final response = await http.post(
+                                              final responses = await http.post(
                                                   Uri.parse(
                                                       'http://119.63.90.135:9090/product'),
                                                   headers: <String, String>{
                                                     'Content-Type':
                                                         'application/json; charset=UTF-8',
                                                   },
-                                                  body: convert.jsonEncode({
+                                                  body: jsonEncode({
                                                     'operation':
                                                         'handle_product_stock',
-                                                    'scanData': (snapshot.data as Album).sku,
+                                                    'scanData':
+                                                        (snapshot.data as Album)
+                                                            .sku,
                                                     'qty': 1,
-                                                    "eventId" : 3,
+                                                    "eventId": 1,
                                                     'userId': "mobile",
                                                   }));
-                                              if (response.statusCode == 200) {
+                                              print(responses.body);
+                                              if (responses.statusCode == 200) {
                                                 // If the server did return a 200 OK response,
                                                 // then parse the JSON.
                                                 print(
-                                                    jsonDecode(response.body));
-                                                print('update done decease');
+                                                    jsonDecode(responses.body));
+                                                print('update done count');
+                                                print((snapshot.data as Album)
+                                                    .sku);
                                                 Navigator.pushNamed(
-                                                    context, '/scanqrcodedecrease');
+                                                    context, '/scanqrcode');
                                               } else {
                                                 // If the server did not return a 200 OK response,
                                                 // then throw an exception.
@@ -457,110 +466,118 @@ class _ScanQRState extends State<ScanQR> {
                                   height: 60,
                                   child: ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                        primary: Colors.redAccent),
-                                    child: Text('ตัดสต็อกสินค้า(หลายชิ้น)', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
+                                        primary: Colors.blue),
+                                    child: Text('นับสต็อก(หลายชิ้น)'),
                                     onPressed: () => showDialog<String>(
                                       context: context,
-                                      builder: (BuildContext context) => AlertDialog(
-                                          scrollable: true,
-                                          content: Column(
-                                            children: [
-                                              Container(
-                                                child: Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                              scrollable: true,
+                                              content: Column(
+                                                children: [
+                                                  Container(
+                                                    child: Container(
+                                                        margin: const EdgeInsets
+                                                                .only(
                                                             left: 20,
                                                             right: 20,
                                                             bottom: 20),
-                                                    child: Column(
-                                                      children: [
-                                                        ListTile(
-                                                          title: Text(
-                                                              'ชื่อสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
-                                                        ),
-                                                        TextField(
-                                                          enabled: false,
-                                                          controller: cproductName
-                                                                      .text ==
-                                                                  'null'
-                                                              ? cnodata
-                                                              : cproductName,
-                                                          onChanged: (Search) {
-                                                            print('$Search');
-                                                          },
-                                                          decoration: InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              fillColor: Colors
-                                                                  .grey[350],
-                                                              filled: true
-                                                              // hintText: 'ชื่อสินค้า: ' + productName,
-                                                              ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
-                                                        )
-                                                      ],
-                                                    )),
-                                              ),
-                                              Container(
-                                                child: Container(
-                                                    margin:
-                                                        const EdgeInsets.only(
-                                                            left: 20,
-                                                            right: 20,
-                                                            bottom: 20),
-                                                    child: Column(
-                                                      children: [
-                                                        ListTile(
-                                                          title: Text(
-                                                              'รหัสสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
-                                                        ),
-                                                        TextField(
-                                                          enabled: false,
-                                                          controller:
-                                                              csku.text ==
+                                                        child: Column(
+                                                          children: [
+                                                            ListTile(
+                                                              title: Text(
+                                                                  'ชื่อสินค้า'),
+                                                            ),
+                                                            TextField(
+                                                              enabled: false,
+                                                              controller: cproductName
+                                                                          .text ==
                                                                       'null'
                                                                   ? cnodata
-                                                                  : csku,
-                                                          onChanged: (Search) {
-                                                            print('$Search');
-                                                          },
-                                                          decoration: InputDecoration(
-                                                              border:
-                                                                  OutlineInputBorder(),
-                                                              fillColor: Colors
-                                                                  .grey[350],
-                                                              filled: true
-                                                              // hintText: 'ชื่อสินค้า: ' + productName,
-                                                              ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
-                                                        )
-                                                      ],
-                                                    )),
-                                              ),
-                                              Container(
-                                                margin: const EdgeInsets.only(
-                                                    left: 20,
-                                                    right: 20,
-                                                    bottom: 20),
-                                                child: Text(
-                                                    'กรุณาระบุจำนวนสินค้า', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
-                                              ),
-                                              Container(
-                                                child: Container(
+                                                                  : cproductName,
+                                                              onChanged:
+                                                                  (Search) {
+                                                                print(
+                                                                    '$Search');
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  border:
+                                                                      OutlineInputBorder(),
+                                                                  fillColor:
+                                                                      Colors.grey[
+                                                                          350],
+                                                                  filled: true
+                                                                  // hintText: 'ชื่อสินค้า: ' + productName,
+                                                                  ),
+                                                            )
+                                                          ],
+                                                        )),
+                                                  ),
+                                                  Container(
+                                                    child: Container(
+                                                        margin: const EdgeInsets
+                                                                .only(
+                                                            left: 20,
+                                                            right: 20,
+                                                            bottom: 20),
+                                                        child: Column(
+                                                          children: [
+                                                            ListTile(
+                                                              title: Text(
+                                                                  'รหัสสินค้า'),
+                                                            ),
+                                                            TextField(
+                                                              enabled: false,
+                                                              controller:
+                                                                  csku.text ==
+                                                                          'null'
+                                                                      ? cnodata
+                                                                      : csku,
+                                                              onChanged:
+                                                                  (Search) {
+                                                                print(
+                                                                    '$Search');
+                                                              },
+                                                              decoration: InputDecoration(
+                                                                  border:
+                                                                      OutlineInputBorder(),
+                                                                  fillColor:
+                                                                      Colors.grey[
+                                                                          350],
+                                                                  filled: true
+                                                                  // hintText: 'ชื่อสินค้า: ' + productName,
+                                                                  ),
+                                                            )
+                                                          ],
+                                                        )),
+                                                  ),
+                                                  Container(
                                                     margin:
                                                         const EdgeInsets.only(
                                                             left: 20,
                                                             right: 20,
                                                             bottom: 20),
-                                                    child: Column(
-                                                      children: [
+                                                    child: Text(
+                                                        'กรุณาระบุจำนวนสินค้า'),
+                                                  ),
+                                                  Container(
+                                                    child: Container(
+                                                        margin: const EdgeInsets
+                                                                .only(
+                                                            left: 20,
+                                                            right: 20,
+                                                            bottom: 20),
+                                                        child: Column(
+                                                          children: <Widget>[
                                                             TextField(
                                                               autofocus: true,
                                                               onChanged:
                                                                   (search) {
-                                                                this.decrease =
+                                                                this.counts =
                                                                     int.parse(
                                                                         search);
                                                                 print(this
-                                                                    .decrease);
+                                                                    .counts);
                                                               },
                                                               decoration: InputDecoration(
                                                                   border:
@@ -570,9 +587,9 @@ class _ScanQRState extends State<ScanQR> {
                                                                           .white,
                                                                   filled: true
                                                                   // hintText: 'ชื่อสินค้า: ' + productName,
-                                                                  ), style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)
+                                                                  ),
                                                             ),
-                                                                                                                        Wrap(
+                                                            Wrap(
                                                               direction: Axis.horizontal,
                                                               children: <Widget>[
                                                             TextButton(
@@ -581,7 +598,7 @@ class _ScanQRState extends State<ScanQR> {
                                                                         context,
                                                                         'ไม่ยืนยัน'),
                                                                 child: Text(
-                                                                    'ไม่ยืนยัน', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0))),
+                                                                    'ไม่ยืนยัน')),
                                                             TextButton(
                                                               onPressed:
                                                                   () async {
@@ -601,9 +618,9 @@ class _ScanQRState extends State<ScanQR> {
                                                                       'scanData':
                                                                           (snapshot.data as Album)
                                                                               .sku,
-                                                                      'qty': this.decrease,
+                                                                      'qty': this.counts,
                                                                       "eventId":
-                                                                          3,
+                                                                          1,
                                                                       'userId':
                                                                           "mobile",
                                                                     }));
@@ -618,7 +635,7 @@ class _ScanQRState extends State<ScanQR> {
                                                                       responses
                                                                           .body));
                                                                   print(
-                                                                      'update done decrease');
+                                                                      'update done count');
                                                                   print((snapshot
                                                                               .data
                                                                           as Album)
@@ -634,24 +651,16 @@ class _ScanQRState extends State<ScanQR> {
                                                                 }
                                                               },
                                                               child: const Text(
-                                                                  'ยืนยัน', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0)),
+                                                                  'ยืนยัน'),
                                                             ),
                                                               ],
                                                             ),
-                                                      ],
-                                                    )),
-                                              ),
-                                              // Container(
-                                              //     child: SizedBox(
-                                              //   width: 375,
-                                              //   height: 60,
-                                              //   child: RaisedButton(
-                                              //     child: Text('asfsafsaf'),
-                                              //   )
-                                              // ))
-                                            ],
-                                          )
-                                          ),
+
+                                                          ],
+                                                        )),
+                                                  ),
+                                                ],
+                                              )),
                                     ),
                                   ),
                                 ),
@@ -672,7 +681,7 @@ class _ScanQRState extends State<ScanQR> {
           ),
         ),
         onWillPop: () async {
-          Navigator.pushNamed(context, '/scanqrcodedecrease');
+          Navigator.pushNamed(context, '/scanqrcode');
         });
   }
 }

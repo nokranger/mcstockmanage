@@ -26,7 +26,7 @@ class _StockState extends State<Stock> {
           appBar: AppBar(
             title: const Text(
               'นับสต็อก',
-              style: TextStyle(color: Colors.black, fontSize: 18.0, fontFamily: 'Kanit'),
+              style: TextStyle(color: Colors.black),
             ),
             backgroundColor: const Color(0xffC2B280),
             iconTheme: IconThemeData(color: Colors.black),
