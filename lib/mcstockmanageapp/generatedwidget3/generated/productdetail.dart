@@ -153,8 +153,8 @@ class _ProductDetailState extends State<ProductDetail> {
           appBar: AppBar(
             title: const Text(
               'ตรวจสอบรายละเอียดสินค้า',
-              style: TextStyle(color: Colors.black, fontSize: 18.0,
-                      fontFamily: 'Kanit'),
+              style: TextStyle(
+                  color: Colors.black, fontSize: 18.0, fontFamily: 'Kanit'),
             ),
             backgroundColor: const Color(0xffC2B280),
             iconTheme: IconThemeData(color: Colors.black),
@@ -180,8 +180,19 @@ class _ProductDetailState extends State<ProductDetail> {
                       color: Colors.white,
                       child: TextField(
                           onChanged: (search) async {
-                            futureAlbum = fetchAlbum(search);
-                            this.setState(() {});
+                            print(search);
+                            var s = search.split('.');
+                            print(s[0]);
+                            print(s.length);
+                            if (s.length > 1) {
+                              print('over1');
+                              futureAlbum = fetchAlbum(s[0]);
+                              this.setState(() {});
+                            } else {
+                              print('lower2');
+                              futureAlbum = fetchAlbum(search);
+                              this.setState(() {});
+                            }
                           },
                           decoration: InputDecoration(
                             suffixIcon: Icon(Icons.search),
@@ -260,24 +271,12 @@ class _ProductDetailState extends State<ProductDetail> {
                                                                     .toString())),
                                                       );
                                                     },
-                                                    // shape: RoundedRectangleBorder(
-                                                    //     borderRadius:
-                                                    //         BorderRadius.circular(
-                                                    //             15.0)),
-                                                    // color: Colors.black.withOpacity(0),
                                                     child: Column(
                                                       children: <Widget>[
                                                         Container(
-                                                          // decoration: BoxDecoration(
-                                                          //   borderRadius: BorderRadius.circular(15.0),
-                                                          //   color: Colors.grey[400],
-                                                          // ),
                                                           width: 2000,
                                                           height: 50,
                                                           child: ListTile(
-                                                            // contentPadding:
-                                                            //     EdgeInsets.all(
-                                                            //         10.0),
                                                             leading: Icon(
                                                               Icons.assignment,
                                                               size: 30,
@@ -296,21 +295,11 @@ class _ProductDetailState extends State<ProductDetail> {
                                                                   color: Colors
                                                                           .blue[
                                                                       900],
-                                                                  fontSize: 18, fontFamily: 'Kanit'),
+                                                                  fontSize: 18,
+                                                                  fontFamily:
+                                                                      'Kanit'),
                                                             ),
                                                           ),
-
-                                                          // subtitle: Text(
-                                                          //   (snapshot.data[
-                                                          //               index]
-                                                          //           as Album)
-                                                          //       .productName
-                                                          //       .toString(),
-                                                          //   style: TextStyle(
-                                                          //       color: Colors
-                                                          //           .black,
-                                                          //       fontSize: 20),
-                                                          // )
                                                         ),
                                                         Container(
                                                           width: 1000,
@@ -330,7 +319,9 @@ class _ProductDetailState extends State<ProductDetail> {
                                                                     3.0,
                                                                 color: Colors
                                                                     .black,
-                                                                fontSize: 18, fontFamily: 'Kanit'),
+                                                                fontSize: 18,
+                                                                fontFamily:
+                                                                    'Kanit'),
                                                           ),
                                                         )
                                                       ],
@@ -348,59 +339,6 @@ class _ProductDetailState extends State<ProductDetail> {
                       },
                     ),
                   ),
-                  // Center(
-                  //   child: Container(
-                  //       width: 375,
-                  //       height: 200,
-                  //       margin: const EdgeInsets.only(
-                  //           left: 20, right: 20, top: 20, bottom: 20),
-                  //       color: Colors.white,
-                  //       child: ListView(
-                  //         children: [
-                  //           Center(
-                  //             child: Container(
-                  //               child: ListTile(
-                  //                   title: Center(
-                  //                     child: const Text(
-                  //                       'ไม่พบสินค้า',
-                  //                       style: TextStyle(
-                  //                           color: Colors.black, fontSize: 30),
-                  //                     ),
-                  //                   ),
-                  //                   subtitle: Center(
-                  //                     child: Text(
-                  //                       '(Product id)',
-                  //                       style: TextStyle(
-                  //                           color: Colors.black, fontSize: 30),
-                  //                     ),
-                  //                   )),
-                  //             ),
-                  //           ),
-                  //           Center(
-                  //               child: Column(
-                  //             children: [
-                  //               Container(
-                  //                 margin: const EdgeInsets.only(
-                  //                     left: 20, right: 20, top: 20, bottom: 20),
-                  //                 child: SizedBox(
-                  //                     width: 375,
-                  //                     height: 60,
-                  //                     child: ElevatedButton(
-                  //                       child: Text('กลับ'),
-                  //                       onPressed: () {
-                  //                         Navigator.of(context)
-                  //                             .push(MaterialPageRoute(
-                  //                           builder: (context) =>
-                  //                               GeneratedWidget(),
-                  //                         ));
-                  //                       },
-                  //                     )),
-                  //               ),
-                  //             ],
-                  //           ))
-                  //         ],
-                  //       )),
-                  // ),
                 ],
               )),
         ),
@@ -502,9 +440,8 @@ class _SecondRouteState extends State<SecondRoute> {
             appBar: AppBar(
               title: const Text(
                 'รายละเอียดสินค้า',
-                style: TextStyle(color: Colors.black, 
-                      fontSize: 18.0,
-                      fontFamily: 'Kanit'),
+                style: TextStyle(
+                    color: Colors.black, fontSize: 18.0, fontFamily: 'Kanit'),
               ),
               backgroundColor: const Color(0xffC2B280),
               iconTheme: IconThemeData(color: Colors.black),
@@ -535,30 +472,27 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('ชื่อสินค้า', style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'Kanit'
-                    )),
+                                    title: Text('ชื่อสินค้า',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: 'Kanit')),
                                   ),
                                   TextField(
-                                    enabled: false,
-                                    controller: productName == 'null'
-                                        ? cnodata
-                                        : cproductName,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
+                                      enabled: false,
+                                      controller: productName == 'null'
+                                          ? cnodata
+                                          : cproductName,
+                                      onChanged: (Search) {
+                                        print('$Search');
+                                      },
+                                      decoration: InputDecoration(
                                         border: OutlineInputBorder(),
                                         fillColor: Colors.grey[350],
                                         filled: true,
                                         // hintText: 'ชื่อสินค้า: ' + productName,
-                                        ),
-                                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'Kanit'
-                    )
-                                  )
+                                      ),
+                                      style: TextStyle(
+                                          fontSize: 16.0, fontFamily: 'Kanit'))
                                 ],
                               ))),
                       Flexible(
@@ -568,28 +502,26 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('รหัสสินค้า', style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'Kanit'
-                    )),
+                                    title: Text('รหัสสินค้า',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: 'Kanit')),
                                   ),
                                   TextField(
-                                    enabled: false,
-                                    controller: sku == 'null' ? cnodata : csku,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        fillColor: Colors.grey[350],
-                                        filled: true
-                                        // hintText: 'ชื่อสินค้า: ' + productName,
-                                        ),
-                                        style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'Kanit'
-                    )
-                                  )
+                                      enabled: false,
+                                      controller:
+                                          sku == 'null' ? cnodata : csku,
+                                      onChanged: (Search) {
+                                        print('$Search');
+                                      },
+                                      decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          fillColor: Colors.grey[350],
+                                          filled: true
+                                          // hintText: 'ชื่อสินค้า: ' + productName,
+                                          ),
+                                      style: TextStyle(
+                                          fontSize: 16.0, fontFamily: 'Kanit'))
                                 ],
                               ))),
                       Flexible(
@@ -599,28 +531,26 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('จำนวน', style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'Kanit'
-                    )),
+                                    title: Text('จำนวน',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: 'Kanit')),
                                   ),
                                   TextField(
-                                    enabled: false,
-                                    controller: qty == 'null' ? cnodata : cqty,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        fillColor: Colors.grey[350],
-                                        filled: true
-                                        // hintText: 'ชื่อสินค้า: ' + productName,
-                                        ),
-                                        style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'Kanit'
-                    )
-                                  )
+                                      enabled: false,
+                                      controller:
+                                          qty == 'null' ? cnodata : cqty,
+                                      onChanged: (Search) {
+                                        print('$Search');
+                                      },
+                                      decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          fillColor: Colors.grey[350],
+                                          filled: true
+                                          // hintText: 'ชื่อสินค้า: ' + productName,
+                                          ),
+                                      style: TextStyle(
+                                          fontSize: 16.0, fontFamily: 'Kanit'))
                                 ],
                               ))),
                       Flexible(
@@ -630,29 +560,26 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('ราคา(บาท)', style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'Kanit'
-                    )),
+                                    title: Text('ราคา(บาท)',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: 'Kanit')),
                                   ),
                                   TextField(
-                                    enabled: false,
-                                    controller:
-                                        price == 'null' ? cnodata : cprice,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        fillColor: Colors.grey[350],
-                                        filled: true
-                                        // hintText: 'ชื่อสินค้า: ' + productName,
-                                        ),
-                                        style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'Kanit'
-                    )
-                                  )
+                                      enabled: false,
+                                      controller:
+                                          price == 'null' ? cnodata : cprice,
+                                      onChanged: (Search) {
+                                        print('$Search');
+                                      },
+                                      decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          fillColor: Colors.grey[350],
+                                          filled: true
+                                          // hintText: 'ชื่อสินค้า: ' + productName,
+                                          ),
+                                      style: TextStyle(
+                                          fontSize: 16.0, fontFamily: 'Kanit'))
                                 ],
                               ))),
                       Flexible(
@@ -662,29 +589,26 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('ชั้นสินค้า', style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'Kanit'
-                    )),
+                                    title: Text('ชั้นสินค้า',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: 'Kanit')),
                                   ),
                                   TextField(
-                                    enabled: false,
-                                    controller:
-                                        shelf == 'null' ? cnodata : cshelf,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        fillColor: Colors.grey[350],
-                                        filled: true
-                                        // hintText: 'ชื่อสินค้า: ' + productName,
-                                        ),
-                                        style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'Kanit'
-                    )
-                                  )
+                                      enabled: false,
+                                      controller:
+                                          shelf == 'null' ? cnodata : cshelf,
+                                      onChanged: (Search) {
+                                        print('$Search');
+                                      },
+                                      decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          fillColor: Colors.grey[350],
+                                          filled: true
+                                          // hintText: 'ชื่อสินค้า: ' + productName,
+                                          ),
+                                      style: TextStyle(
+                                          fontSize: 16.0, fontFamily: 'Kanit'))
                                 ],
                               ))),
                       Flexible(
@@ -694,30 +618,27 @@ class _SecondRouteState extends State<SecondRoute> {
                               child: Column(
                                 children: [
                                   ListTile(
-                                    title: Text('กลุ่มสินค้า', style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'Kanit'
-                    )),
+                                    title: Text('กลุ่มสินค้า',
+                                        style: TextStyle(
+                                            fontSize: 18.0,
+                                            fontFamily: 'Kanit')),
                                   ),
                                   TextField(
-                                    enabled: false,
-                                    controller: groupName == 'null'
-                                        ? cnodata
-                                        : cgroupName,
-                                    onChanged: (Search) {
-                                      print('$Search');
-                                    },
-                                    decoration: InputDecoration(
-                                        border: OutlineInputBorder(),
-                                        fillColor: Colors.grey[350],
-                                        filled: true
-                                        // hintText: 'ชื่อสินค้า: ' + productName,
-                                        ),
-                                        style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'Kanit'
-                    )
-                                  )
+                                      enabled: false,
+                                      controller: groupName == 'null'
+                                          ? cnodata
+                                          : cgroupName,
+                                      onChanged: (Search) {
+                                        print('$Search');
+                                      },
+                                      decoration: InputDecoration(
+                                          border: OutlineInputBorder(),
+                                          fillColor: Colors.grey[350],
+                                          filled: true
+                                          // hintText: 'ชื่อสินค้า: ' + productName,
+                                          ),
+                                      style: TextStyle(
+                                          fontSize: 16.0, fontFamily: 'Kanit'))
                                 ],
                               ))),
                       Flexible(
@@ -727,29 +648,25 @@ class _SecondRouteState extends State<SecondRoute> {
                           child: Column(
                             children: [
                               ListTile(
-                                title: Text('โกดัง', style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'Kanit'
-                    )),
+                                title: Text('โกดัง',
+                                    style: TextStyle(
+                                        fontSize: 18.0, fontFamily: 'Kanit')),
                               ),
                               TextField(
-                                enabled: false,
-                                controller:
-                                    godown == 'null' ? cnodata : cgodown,
-                                onChanged: (Search) {
-                                  print('$Search');
-                                },
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(),
-                                    fillColor: Colors.grey[350],
-                                    filled: true
-                                    // hintText: 'ชื่อสินค้า: ' + productName,
-                                    ),
-                                    style: TextStyle(
-                      fontSize: 16.0,
-                      fontFamily: 'Kanit'
-                    )
-                              ),
+                                  enabled: false,
+                                  controller:
+                                      godown == 'null' ? cnodata : cgodown,
+                                  onChanged: (Search) {
+                                    print('$Search');
+                                  },
+                                  decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      fillColor: Colors.grey[350],
+                                      filled: true
+                                      // hintText: 'ชื่อสินค้า: ' + productName,
+                                      ),
+                                  style: TextStyle(
+                                      fontSize: 16.0, fontFamily: 'Kanit')),
                             ],
                           ),
                         ),
@@ -764,10 +681,9 @@ class _SecondRouteState extends State<SecondRoute> {
                                 width: 375,
                                 height: 60,
                                 child: ElevatedButton(
-                                  child: Text('กลับ', style: TextStyle(
-                      fontSize: 18.0,
-                      fontFamily: 'Kanit'
-                    )),
+                                  child: Text('กลับ',
+                                      style: TextStyle(
+                                          fontSize: 18.0, fontFamily: 'Kanit')),
                                   onPressed: () {
                                     Navigator.of(context)
                                         .push(MaterialPageRoute(

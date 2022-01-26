@@ -90,29 +90,6 @@ class _ScanqrcodeAddState extends State<ScanqrcodeAdd> {
                       }
                     }),
               )
-              // // Expanded(flex: 4, child: _buildQrView(context)),
-              // Expanded(
-              //   flex: 1,
-              //   child: FittedBox(
-              //     fit: BoxFit.contain,
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       children: <Widget>[
-              //         if (result != null)
-              //           ElevatedButton(
-              //             child: Text('Scan QR'),
-              //             onPressed: () {
-              //               Navigator.of(context).push(MaterialPageRoute(
-              //                   builder: (context) =>
-              //                       ScanQR(code: result.code)));
-              //             },
-              //           )
-              //         else
-              //           const Text('Scan a code'),
-              //       ],
-              //     ),
-              //   ),
-              // )
             ],
           ),
         ),
@@ -652,14 +629,6 @@ class _ScanQRState extends State<ScanQR> {
                                                           ],
                                                         )),
                                                   ),
-                                                  // Container(
-                                                  //     child: SizedBox(
-                                                  //   width: 375,
-                                                  //   height: 60,
-                                                  //   child: RaisedButton(
-                                                  //     child: Text('asfsafsaf'),
-                                                  //   )
-                                                  // ))
                                                 ],
                                               )),
                                     ),

@@ -12,7 +12,7 @@ class Generated162111Widget extends StatelessWidget {
       child: ClipRRect(
         borderRadius: BorderRadius.zero,
         child: Opacity(
-          opacity: 0.5,
+          opacity: 0.1,
           child:         Image.asset(
           "assets/images/f2f8bce97262e01a7a2b6a3ec1383331cfa13e7f.png",
           color: null,

@@ -43,8 +43,8 @@ class _SelectBrandState extends State<SelectBrand> {
                         height: 300,
                         child: RaisedButton(
                           child: Container(
-                            child: Image.network(
-                                'https://i.imgur.com/NSgvhpc.png'),
+                            child: Image.asset(
+                                'assets/images/NSgvhpc.png'),
                           ),
                           onPressed: () async {
                             print('test');
