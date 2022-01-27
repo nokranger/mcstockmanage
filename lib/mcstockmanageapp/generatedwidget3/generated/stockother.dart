@@ -6,14 +6,14 @@ import 'dart:async';
 import 'dart:convert' as convert;
 import 'package:http/http.dart' as http;
 
-class Stock extends StatefulWidget {
-  const Stock({Key key}) : super(key: key);
+class Stockother extends StatefulWidget {
+  const Stockother({Key key}) : super(key: key);
 
   @override
-  _StockState createState() => _StockState();
+  _StockotherState createState() => _StockotherState();
 }
 
-class _StockState extends State<Stock> {
+class _StockotherState extends State<Stockother> {
   @override
   void initState() {
     super.initState();
@@ -42,7 +42,7 @@ class _StockState extends State<Stock> {
                     ),),
                     onPressed: () async {
                       print('test');
-                      Navigator.pushNamed(context, '/scanqrcode');
+                      Navigator.pushNamed(context, '/scanqrcodeother');
                     },
                   ),
                 ),
@@ -53,7 +53,7 @@ class _StockState extends State<Stock> {
                       fontFamily: 'Kanit'
                     )),
                     onPressed: () async {
-                      Navigator.pushNamed(context, '/scanqrcodeadd');
+                      Navigator.pushNamed(context, '/scanqrcodeaddother');
                     },
                   ),
                 ),
@@ -64,7 +64,7 @@ class _StockState extends State<Stock> {
                       fontFamily: 'Kanit'
                     )),
                     onPressed: () async {
-                      Navigator.pushNamed(context, '/scanqrcodedecrease');
+                      Navigator.pushNamed(context, '/scanqrcodedecreaseother');
                     },
                   ),
                 )

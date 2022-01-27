@@ -11,10 +11,12 @@ import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/product.d
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/productadd.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/productdecrease.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/scanqrcode.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/scanqrcodeother.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/scanqrcodeadd.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/scanqrcodedecrease.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/selectbrand.dart';
 import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/stock.dart';
+import 'package:flutterapp/mcstockmanageapp/generatedwidget3/generated/stockother.dart';
 
 import 'mcstockmanageapp/generatedwidget3/generated/productdetail.dart';
 
@@ -30,6 +32,7 @@ class MCStockManageApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      debugShowCheckedModeBanner: false,
       initialRoute: '/GeneratedWidget',
       routes: {
         '/GeneratedWidget': (context) => GeneratedWidget(),
@@ -45,10 +48,12 @@ class MCStockManageApp extends StatelessWidget {
         '/noproductdecrease': (context) => ProductsDecrease(),
         '/product': (context) => ProductDetail(),
         '/scanqrcode': (context) => QRViewExample(),
+        '/scanqrcodeother': (context) => ScancodeOther(),
         '/scanqrcodeadd': (context) => ScanqrcodeAdd(),
         '/scanqrcodedecrease': (context) => ScanqrcodeDecrease(),
         '/selectbrand': (context) => SelectBrand(),
         '/stock': (context) => Stock(),
+        '/stockother': (context) => Stockother(),
       },
     );
   }

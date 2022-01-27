@@ -90,29 +90,6 @@ class _ScanqrcodeDecreaseState extends State<ScanqrcodeDecrease> {
                       }
                     }),
               )
-              // // Expanded(flex: 4, child: _buildQrView(context)),
-              // Expanded(
-              //   flex: 1,
-              //   child: FittedBox(
-              //     fit: BoxFit.contain,
-              //     child: Column(
-              //       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              //       children: <Widget>[
-              //         if (result != null)
-              //           ElevatedButton(
-              //             child: Text('Scan QR'),
-              //             onPressed: () {
-              //               Navigator.of(context).push(MaterialPageRoute(
-              //                   builder: (context) =>
-              //                       ScanQR(code: result.code)));
-              //             },
-              //           )
-              //         else
-              //           const Text('Scan a code'),
-              //       ],
-              //     ),
-              //   ),
-              // )
             ],
           ),
         ),
@@ -625,7 +602,7 @@ class _ScanQRState extends State<ScanQR> {
                                                                       .sku);
                                                                   Navigator.pushNamed(
                                                                       context,
-                                                                      '/scanqrcode');
+                                                                      '/scanqrcodedecrease');
                                                                 } else {
                                                                   // If the server did not return a 200 OK response,
                                                                   // then throw an exception.

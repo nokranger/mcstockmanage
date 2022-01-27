@@ -88,14 +88,14 @@ class Album {
   }
 }
 
-class ProductsDecrease extends StatefulWidget {
-  const ProductsDecrease({Key key}) : super(key: key);
+class ProductsDecreaseother extends StatefulWidget {
+  const ProductsDecreaseother({Key key}) : super(key: key);
 
   @override
-  _ProductsDecreaseState createState() => _ProductsDecreaseState();
+  _ProductsDecreaseotherState createState() => _ProductsDecreaseotherState();
 }
 
-class _ProductsDecreaseState extends State<ProductsDecrease> {
+class _ProductsDecreaseotherState extends State<ProductsDecreaseother> {
   @override
   void initState() {
     super.initState();
@@ -156,7 +156,7 @@ class _ProductsDecreaseState extends State<ProductsDecrease> {
                                 child: ElevatedButton(
                                   child: Text('กลับ', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0),),
                                   onPressed: () {
-                                    Navigator.pushNamed(context, '/scanqrcodedecrease');
+                                    Navigator.pushNamed(context, '/scanqrcodedecreaseother');
                                   },
                                 )),
                           ),
@@ -168,7 +168,7 @@ class _ProductsDecreaseState extends State<ProductsDecrease> {
           ),
         ),
         onWillPop: () async {
-          Navigator.pushNamed(context, '/scanqrcodedecrease');
+          Navigator.pushNamed(context, '/scanqrcodedecreaseother');
         });
   }
 }

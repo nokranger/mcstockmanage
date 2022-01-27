@@ -20,22 +20,10 @@ Future<dynamic> fetchAlbum() async {
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
     // then parse the JSON.
-    // print(jsonDecode(response.body)["data"]);
-    // print(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
-    // return Album.fromJson(Map<String, dynamic>.from(convert.jsonDecode(response.body)));
-    // return Album.fromJson(Map<String, dynamic>.from(jsonDecode(response.body)['data']));
     return (jsonDecode(response.body)['data'] as List<dynamic>).map((e) {
       Album review = new Album.fromJson(Map<String, dynamic>.from(e));
       return review;
     }).toList();
-    // List<Album> albums = [];
-    // List<dynamic> albumsJson = convert.jsonDecode(response.body);
-    //     albumsJson.forEach(
-    //   (oneAlbum) {
-    //     Album album = Album.fromJson(oneAlbum);
-    //     albums.add(album);
-    //   },
-    // );
   } else {
     // If the server did not return a 200 OK response,
     // then throw an exception.
@@ -88,14 +76,14 @@ class Album {
   }
 }
 
-class Products extends StatefulWidget {
-  const Products({Key key}) : super(key: key);
+class ProductsAddother extends StatefulWidget {
+  const ProductsAddother({Key key}) : super(key: key);
 
   @override
-  _ProductsState createState() => _ProductsState();
+  _ProductsAddotherState createState() => _ProductsAddotherState();
 }
 
-class _ProductsState extends State<Products> {
+class _ProductsAddotherState extends State<ProductsAddother> {
   @override
   void initState() {
     super.initState();
@@ -139,7 +127,7 @@ class _ProductsState extends State<Products> {
                                 child: const Text(
                                   'ไม่พบสินค้า',
                                   style: TextStyle(
-                                      color: Colors.black, fontSize: 30, fontFamily: 'Kanit'),
+                                      color: Colors.black, fontFamily: 'Kanit', fontSize: 35.0),
                                 ),
                               ),),
                         ),
@@ -154,9 +142,11 @@ class _ProductsState extends State<Products> {
                                 width: 375,
                                 height: 60,
                                 child: ElevatedButton(
-                                  child: Text('กลับ', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0),),
+                                  child: Text('กลับ', style: TextStyle(
+                                    fontSize: 18.0, fontFamily: 'Kanit'
+                                  ),),
                                   onPressed: () {
-                                    Navigator.pushNamed(context, '/scanqrcode');
+                                    Navigator.pushNamed(context, '/scanqrcodeaddother');
                                   },
                                 )),
                           ),
@@ -168,7 +158,7 @@ class _ProductsState extends State<Products> {
           ),
         ),
         onWillPop: () async {
-          Navigator.pushNamed(context, '/scanqrcode');
+          Navigator.pushNamed(context, '/scanqrcodeaddother');
         });
   }
 }

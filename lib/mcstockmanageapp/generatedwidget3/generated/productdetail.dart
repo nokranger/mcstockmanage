@@ -179,6 +179,7 @@ class _ProductDetailState extends State<ProductDetail> {
                           left: 20, right: 20, bottom: 20, top: 20),
                       color: Colors.white,
                       child: TextField(
+                        autofocus: true,
                           onChanged: (search) async {
                             print(search);
                             var s = search.split('.');

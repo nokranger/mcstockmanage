@@ -88,14 +88,14 @@ class Album {
   }
 }
 
-class ProductsAdd extends StatefulWidget {
-  const ProductsAdd({Key key}) : super(key: key);
+class Productsother extends StatefulWidget {
+  const Productsother({Key key}) : super(key: key);
 
   @override
-  _ProductsAddState createState() => _ProductsAddState();
+  _ProductsotherState createState() => _ProductsotherState();
 }
 
-class _ProductsAddState extends State<ProductsAdd> {
+class _ProductsotherState extends State<Productsother> {
   @override
   void initState() {
     super.initState();
@@ -139,7 +139,7 @@ class _ProductsAddState extends State<ProductsAdd> {
                                 child: const Text(
                                   'ไม่พบสินค้า',
                                   style: TextStyle(
-                                      color: Colors.black, fontFamily: 'Kanit', fontSize: 35.0),
+                                      color: Colors.black, fontSize: 30, fontFamily: 'Kanit'),
                                 ),
                               ),),
                         ),
@@ -154,11 +154,9 @@ class _ProductsAddState extends State<ProductsAdd> {
                                 width: 375,
                                 height: 60,
                                 child: ElevatedButton(
-                                  child: Text('กลับ', style: TextStyle(
-                                    fontSize: 18.0, fontFamily: 'Kanit'
-                                  ),),
+                                  child: Text('กลับ', style: TextStyle(fontFamily: 'Kanit', fontSize: 18.0),),
                                   onPressed: () {
-                                    Navigator.pushNamed(context, '/scanqrcodeadd');
+                                    Navigator.pushNamed(context, '/scanqrcodeother');
                                   },
                                 )),
                           ),
@@ -170,7 +168,7 @@ class _ProductsAddState extends State<ProductsAdd> {
           ),
         ),
         onWillPop: () async {
-          Navigator.pushNamed(context, '/scanqrcodeadd');
+          Navigator.pushNamed(context, '/scanqrcodeother');
         });
   }
 }
